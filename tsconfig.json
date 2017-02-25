@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+      "alwaysStrict":true,
+      "target":"es5",
+      "lib":["es2015", "dom"],
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "noImplicitAny": true,
+      "preserveConstEnums": true,
+      "suppressImplicitAnyIndexErrors":true,
+      "experimentalDecorators": true,
+      "sourceMap": true,
+      "types": [
+        "node"
+      ],
+      "typeRoots": [
+        "node_modules/@types"
+      ]
+    },
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "node_modules",
+      "**/*.spec.ts"
+    ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "qrdinger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development webpack-dev-server --progress --port 8090",
+    "build": "rm -rf dist/* && NODE_ENV=production webpack -p --colors"
+  },
+  "author": "Lenseg",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^7.0.5",
+    "awesome-typescript-loader": "^3.0.7",
+    "html-webpack-plugin": "^2.28.0",
+    "typescript": "^2.2.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  },
+  "dependencies": {
+    "@angular/common": "^2.4.8",
+    "@angular/compiler": "^2.4.8",
+    "@angular/core": "^2.4.8",
+    "@angular/platform-browser": "^2.4.8",
+    "@angular/platform-browser-dynamic": "^2.4.8",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.2.0",
+    "zone.js": "^0.7.7"
+  }
+}
