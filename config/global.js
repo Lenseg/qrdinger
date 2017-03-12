@@ -6,6 +6,7 @@ var webpack       = require('webpack');
 
 module.exports = function(_path){
   return {
+    devtool: 'source-map',
     entry: {
       polyfills:_path + '/src/polyfills.ts',
       vendors:_path + '/src/vendor.ts',
@@ -20,18 +21,34 @@ module.exports = function(_path){
       chunkFilename: '[id].bundle.[chunkhash].js',
       publicPath: '/'
     },
-    module:{
-      loaders:[
-        { test: /\.tsx?$/, loader: 'awesome-typescript-loader'},
-        { test: /\.(pug|jade)$/, loader: 'pug-loader' }
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          loaders: [
+            {
+              loader: 'awesome-typescript-loader'
+            },
+            'angular2-template-loader'
+          ]
+        },
+        {
+          test: /\.pug$/,
+          loader: 'pug-html-loader'
+        }
       ]
     },
     plugins: [
       new HtmlPlugin({template: 'src/index.pug'}),
-
+      new webpack.optimize.OccurrenceOrderPlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        compressor: {
+          warnings: false
+        }
+      }),
       new webpack.optimize.CommonsChunkPlugin({
-      name: ['app', 'vendor', 'polyfills']
-    })
+        name: ['app', 'vendor', 'polyfills']
+      })
     ]
   }
 }
