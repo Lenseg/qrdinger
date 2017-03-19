@@ -1,0 +1,6 @@
+display-code([codeOptions]="codeOptions")
+form
+  select
+    option Url
+  input(type="text", [(ngModel)]="codeOptions.value", name='value')
+  span {{codeOptions.value}}

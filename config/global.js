@@ -8,6 +8,8 @@ module.exports = function(_path){
   return {
     devtool: 'source-map',
     entry: {
+      bootstrap:_path+'/node_modules/bootstrap-less/bootstrap/bootstrap.less',
+      styles:_path + '/styles/main.less',
       polyfills:_path + '/src/polyfills.ts',
       vendors:_path + '/src/vendor.ts',
       app: _path + '/src/app.ts'
@@ -34,7 +36,28 @@ module.exports = function(_path){
         },
         {
           test: /\.pug$/,
-          loader: 'pug-html-loader'
+          loader: 'pug-html-loader',
+          query: {
+            doctype:'html'
+          }
+        },
+        {
+          test: /\.less$/,
+          loaders:[
+            {
+              loader:'style-loader'
+            },
+            {
+              loader:'css-loader'
+            },
+            {
+              loader:'less-loader'
+            }
+          ]
+        },
+        {
+          test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+          loader: 'url-loader'
         }
       ]
     },

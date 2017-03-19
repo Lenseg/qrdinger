@@ -1,19 +1,12 @@
 import { Component } from '@angular/core';
 
-import { Code } from './code'
+// import { Code } from './code'
 
 @Component({
-  selector:'add-code',
-  templateUrl:'./add-code.component.pug'
+  selector:'home',
+  templateUrl:'./home.component.pug'
 })
 
-export class AddCodeComponent {
+export class HomeComponent {
 
-  model = new Code(0, 'no url', 'kek.jpg', 'table');
-
-  submited = false;
-
-  onSubmitt () {
-    this.submited = true;
-  }
 }
