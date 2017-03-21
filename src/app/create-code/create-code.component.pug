@@ -1,6 +1,7 @@
 display-code([codeOptions]="codeOptions")
+a.navbar_link(uiSref='createCode.url') Codes
 form
   select
     option Url
   input(type="text", [(ngModel)]="codeOptions.value", name='value')
-  span {{codeOptions.value}}
+ui-view

@@ -12,6 +12,7 @@ import { AppComponent }  from './app.component';
 import { HomeComponent }  from './home.component';
 import { CreateCodeComponent }  from './create-code/create-code.component';
 import { DisplayCodeComponent }  from './display-code/display-code.component';
+import { UrlFormComponent }  from './url-form/url-form.component';
 
 @NgModule({
   imports:[
@@ -23,7 +24,14 @@ import { DisplayCodeComponent }  from './display-code/display-code.component';
     BrowserModule,
     FormsModule,
     HttpModule ],
-  declarations: [ AppComponent, HomeComponent, CreateCodeComponent, CollapseDirective, DisplayCodeComponent ],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    CreateCodeComponent,
+    CollapseDirective,
+    DisplayCodeComponent,
+    UrlFormComponent
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

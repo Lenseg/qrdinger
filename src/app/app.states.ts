@@ -1,6 +1,9 @@
+import {Transition} from "ui-router-ng2";
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home.component';
 import { CreateCodeComponent } from './create-code/create-code.component';
+import { UrlFormComponent } from './url-form/url-form.component';
 
 const homeState = {
   name: 'home',
@@ -13,5 +16,9 @@ const createCode = {
   url: '/create',
   component: CreateCodeComponent
 }
-
-export const APP_STATES = [homeState, createCode]
+const urlForm = {
+  name:'createCode.url',
+  url:'/url',
+  component:UrlFormComponent
+}
+export const APP_STATES = [homeState, createCode, urlForm]

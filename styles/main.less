@@ -10,11 +10,13 @@
   transition: all 120ms ease-in;
 };
 
+
 body {
   padding-top: 50px;
   background-color: @background;
   color: @text;
 }
+
 .navbar{
   background-color: @main;
   &-collapse{
@@ -50,5 +52,11 @@ body {
     span:nth-child(4){
       transform: rotate(-45deg) translate(3px,-4px);
     }
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-collapse {
+      height: auto !important;
   }
 }
