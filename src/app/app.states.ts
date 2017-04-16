@@ -4,6 +4,9 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home.component';
 import { CreateCodeComponent } from './create-code/create-code.component';
 import { UrlFormComponent } from './url-form/url-form.component';
+import { StringFormComponent } from './string-form/string-form.component';
+import { SmsFormComponent } from './sms-form/sms-form.component';
+import { BusinessCardFormComponent } from './business-card-form/business-card-form.component';
 
 const homeState = {
   name: 'home',
@@ -21,4 +24,19 @@ const urlForm = {
   url:'/url',
   component:UrlFormComponent
 }
-export const APP_STATES = [homeState, createCode, urlForm]
+const stringForm = {
+  name:'createCode.string',
+  url:'/string',
+  component:StringFormComponent
+}
+const smsForm = {
+  name:'createCode.sms',
+  url:'/sms',
+  component:SmsFormComponent
+}
+const businessCardForm = {
+  name:'createCode.buisnessCard',
+  url:'/buisnessCard',
+  component:BusinessCardFormComponent
+}
+export const APP_STATES = [homeState, createCode, urlForm, stringForm, smsForm, businessCardForm]

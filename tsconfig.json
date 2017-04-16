@@ -9,6 +9,7 @@
       "preserveConstEnums": true,
       "suppressImplicitAnyIndexErrors":true,
       "experimentalDecorators": true,
+      "emitDecoratorMetadata" : true,
       "sourceMap": true,
       "allowJs": true,
       "types": [

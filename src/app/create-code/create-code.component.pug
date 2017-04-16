@@ -1,7 +1,5 @@
 display-code([codeOptions]="codeOptions")
-a.navbar_link(uiSref='createCode.url') Codes
 form
-  select
-    option Url
-  input(type="text", [(ngModel)]="codeOptions.value", name='value')
+  select((change)="selectForm($event)")
+    option(*ngFor='let type of codeTypes' value='{{type}}') {{type}}
 ui-view

@@ -13,6 +13,11 @@ import { HomeComponent }  from './home.component';
 import { CreateCodeComponent }  from './create-code/create-code.component';
 import { DisplayCodeComponent }  from './display-code/display-code.component';
 import { UrlFormComponent }  from './url-form/url-form.component';
+import { StringFormComponent }  from './string-form/string-form.component';
+import { SmsFormComponent }  from './sms-form/sms-form.component';
+import { BusinessCardFormComponent }  from './business-card-form/business-card-form.component';
+
+import { CreateCodeService }  from './create-code/create-code.service';
 
 @NgModule({
   imports:[
@@ -23,14 +28,18 @@ import { UrlFormComponent }  from './url-form/url-form.component';
     }),
     BrowserModule,
     FormsModule,
-    HttpModule ],
+    HttpModule
+  ],
   declarations: [
     AppComponent,
     HomeComponent,
     CreateCodeComponent,
     CollapseDirective,
     DisplayCodeComponent,
-    UrlFormComponent
+    UrlFormComponent,
+    StringFormComponent,
+    SmsFormComponent,
+    BusinessCardFormComponent
   ],
   bootstrap: [ AppComponent ]
 })

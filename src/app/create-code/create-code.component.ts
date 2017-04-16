@@ -1,18 +1,45 @@
-import { Component, Input } from '@angular/core';
-import { CodeOptions } from '../codeOptions';
+import { Component, Input, Inject } from '@angular/core';
+import { CodeOptions } from '../code-options-model';
+import { CreateCodeService }  from './create-code.service';
+
+import { SelectModule } from 'ng2-select';
+
+import { StateService } from 'ui-router-ng2';
 
 @Component({
   selector: 'create-code',
-  templateUrl: './create-code.component.pug'
+  templateUrl: './create-code.component.pug',
+  providers: [ CreateCodeService ]
 })
-
 export class CreateCodeComponent {
   @Input()
   public codeOptions: CodeOptions = {
     value:''
   };
-  constructor () {
+  private codeTypes:string[];
+
+  constructor (public stateService:StateService, public createCodeService:CreateCodeService) {
+    this.getCodeTypes();
+    console.log(this.createCodeService)
+    this.createCodeService.codeValueUdpaveEvent.subscribe((data:string) => {
+      this.codeOptions.value = data;
+    });
   }
-  public generateCode(): void {
+
+  private getCodeTypes(): void {
+    this.codeTypes = [];
+    var states = this.stateService.get();
+    for (let state in states){
+      if(~states[state].name.indexOf('createCode.')){
+        let stateName = states[state].name.replace('createCode.','')
+        this.codeTypes.push(stateName);
+      }
+    }
   };
+
+  public selectForm($event:Event) : void {
+    this.stateService.go('createCode.' + (<HTMLSelectElement>$event.target).value);
+  };
+
+
 }

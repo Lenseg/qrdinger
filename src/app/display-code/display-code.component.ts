@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as QRious from 'qrious';
-import { CodeOptions } from '../codeOptions';
+import { CodeOptions } from '../code-options-model';
 
 @Component({
   selector: 'display-code',
@@ -28,7 +28,10 @@ export class DisplayCodeComponent {
   //     // some logic here to react to the change
   //     this.previousInputSettings = this.inputSettings;
   //  }
- }
+  }
+  ngOnChanges(){
+    this.updateCode()
+  }
   private initCode(): void {
   }
   public updateCode(): void {

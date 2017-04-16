@@ -8,6 +8,3 @@ export class CodeOptions {
   size?: number;
   value: string;
 }
-// export class CanvasOptions extends CodeOptions{
-//   element:HTMLElement;
-// }
