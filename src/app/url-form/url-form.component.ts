@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { CreateCodeService }  from '../create-code/create-code.service';
 
 @Component({
@@ -12,6 +12,6 @@ export class UrlFormComponent {
 
   }
   sendModel():void{
-    this.createCodeService.codeValueUpdate(this.url);
+    this.createCodeService.codeValueUpdate('url:' + this.url);
   }
 }

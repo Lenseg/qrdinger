@@ -4,7 +4,6 @@ export class CodeOptions {
   foreground?: string;
   foregroundAlpha?: number;
   level?: string;
-  padding?: number;
-  size?: number;
-  value: string;
+  value?: string;
+  size?: string;
 }

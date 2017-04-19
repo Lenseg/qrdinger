@@ -16,7 +16,7 @@ import { UrlFormComponent }  from './url-form/url-form.component';
 import { StringFormComponent }  from './string-form/string-form.component';
 import { SmsFormComponent }  from './sms-form/sms-form.component';
 import { BusinessCardFormComponent }  from './business-card-form/business-card-form.component';
-
+import { CodeOptionsComponent } from './code-options/code-options.component';
 import { CreateCodeService }  from './create-code/create-code.service';
 
 @NgModule({
@@ -39,7 +39,8 @@ import { CreateCodeService }  from './create-code/create-code.service';
     UrlFormComponent,
     StringFormComponent,
     SmsFormComponent,
-    BusinessCardFormComponent
+    BusinessCardFormComponent,
+    CodeOptionsComponent
   ],
   bootstrap: [ AppComponent ]
 })

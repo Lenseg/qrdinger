@@ -20,7 +20,6 @@ export class CreateCodeComponent {
 
   constructor (public stateService:StateService, public createCodeService:CreateCodeService) {
     this.getCodeTypes();
-    console.log(this.createCodeService)
     this.createCodeService.codeValueUdpaveEvent.subscribe((data:string) => {
       this.codeOptions.value = data;
     });
@@ -36,7 +35,9 @@ export class CreateCodeComponent {
       }
     }
   };
-
+  onOptionsUpdate(options:CodeOptions){
+    Object.assign(this.codeOptions, options);
+  }
   public selectForm($event:Event) : void {
     this.stateService.go('createCode.' + (<HTMLSelectElement>$event.target).value);
   };

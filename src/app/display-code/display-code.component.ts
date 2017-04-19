@@ -4,40 +4,48 @@ import { CodeOptions } from '../code-options-model';
 
 @Component({
   selector: 'display-code',
-  templateUrl: './display-code.component.pug'
+  templateUrl: './display-code.component.pug',
+  // styleUrls: ['./display-code.component.less']
+  host:{
+    '(window:resize)':'onResize()'
+  }
 })
 
 export class DisplayCodeComponent {
 
-  private code : any;
+  private code : any = {};
   @Input('codeOptions') codeOptions : CodeOptions;
-  @ViewChild('canvas') el:ElementRef;
+  @ViewChild('canvas') canvas:ElementRef;
+  @ViewChild('canvasContainer') canvasContainer:ElementRef;
   constructor () {
 
   }
-  ngAfterViewInit() {
+  ngOnChanges(){
+    console.log('changes')
     this.updateCode();
   }
-  ngDoCheck() {
-   for(let option in this.codeOptions){
-     if(this.codeOptions[option] && this.codeOptions[option] !== this.code[option])
-      this.code[option] = this.codeOptions[option]
-   }
-  //  if(!this.inputSettings.equals(this.previousInputSettings)) {
-  //     // inputSettings changed
-  //     // some logic here to react to the change
-  //     this.previousInputSettings = this.inputSettings;
-  //  }
-  }
-  ngOnChanges(){
-    this.updateCode()
-  }
-  private initCode(): void {
-  }
-  public updateCode(): void {
-    this.code = new QRious({
-      element:this.el.nativeElement,
-      value:this.codeOptions.value
+  ngOnInit(){
+    Object.assign(this.codeOptions, {
+        element:this.canvas.nativeElement
     });
+    this.updateSize();
+    this.createCode();
+  }
+  onResize(){
+    this.updateSize();
+    this.updateCode();
+  }
+  createCode(): void {
+      this.code = new QRious(
+        this.codeOptions
+      );
+  }
+  updateSize(): void {
+    this.codeOptions.size = this.canvasContainer.nativeElement.offsetWidth;
+  }
+  updateCode() : void {
+    for(var option in this.codeOptions){
+      this.code[option] = this.codeOptions[option];
+    }
   }
 }

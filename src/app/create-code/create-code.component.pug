@@ -1,5 +1,10 @@
-display-code([codeOptions]="codeOptions")
-form
-  select((change)="selectForm($event)")
-    option(*ngFor='let type of codeTypes' value='{{type}}') {{type}}
-ui-view
+.row
+  .col-xs-12.col-sm-6.col-md-3
+    display-code([codeOptions]="codeOptions")
+    form
+        select((change)="selectForm($event)")
+          option(*ngFor='let type of codeTypes' value='{{type}}') {{type}}
+  .col-xs-12.col-sm-6.col-md-3
+    code-options((onOptionsUpdate)="onOptionsUpdate($event)")
+  .col-xs-12.col-sm-6.col-md-3   
+    ui-view
