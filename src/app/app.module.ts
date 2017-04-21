@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { UIRouterModule  } from 'ui-router-ng2';
@@ -27,6 +27,7 @@ import { CreateCodeService }  from './create-code/create-code.service';
       otherwise: { state: 'home' }
     }),
     BrowserModule,
+    ReactiveFormsModule,
     FormsModule,
     HttpModule,
     BsDropdownModule.forRoot()

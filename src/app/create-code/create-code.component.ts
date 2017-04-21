@@ -42,6 +42,4 @@ export class CreateCodeComponent {
     this.activeType = type;
     this.stateService.go('createCode.' + type);
   };
-
-
 }
