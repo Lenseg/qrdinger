@@ -1,2 +1,4 @@
 form
-  input(type="text", name="url", [(ngModel)]="url", (ngModelChange)="sendModel()")
+  div.form-group
+    label Link
+    input.form-control(type="text", name="url", [(ngModel)]="url", (ngModelChange)="sendModel()" plaseholder="http://qrdinger.com")

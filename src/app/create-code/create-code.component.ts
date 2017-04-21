@@ -2,7 +2,7 @@ import { Component, Input, Inject } from '@angular/core';
 import { CodeOptions } from '../code-options-model';
 import { CreateCodeService }  from './create-code.service';
 
-import { SelectModule } from 'ng2-select';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { StateService } from 'ui-router-ng2';
 
@@ -17,7 +17,7 @@ export class CreateCodeComponent {
     value:''
   };
   private codeTypes:string[];
-
+  public activeType:string;
   constructor (public stateService:StateService, public createCodeService:CreateCodeService) {
     this.getCodeTypes();
     this.createCodeService.codeValueUdpaveEvent.subscribe((data:string) => {
@@ -38,8 +38,9 @@ export class CreateCodeComponent {
   onOptionsUpdate(options:CodeOptions){
     Object.assign(this.codeOptions, options);
   }
-  public selectForm($event:Event) : void {
-    this.stateService.go('createCode.' + (<HTMLSelectElement>$event.target).value);
+  public selectForm(type:string) : void {
+    this.activeType = type;
+    this.stateService.go('createCode.' + type);
   };
 
 

@@ -1,4 +1,10 @@
 form
-  input(type="range", name="level", min="0", max="4", [(ngModel)]="level", (ngModelChange)="updateOptions()")
-  input(type="color", name="foreground", [(ngModel)]="options.foreground", (ngModelChange)="updateOptions()")
-  input(type="color", name="background", [(ngModel)]="options.background", (ngModelChange)="updateOptions()")
+  div.form-group
+    label Error correction level - {{'L' || options.level}}
+    input.form-control(type="range", name="level", min="0", max="4", [(ngModel)]="level", (ngModelChange)="updateOptions()")
+  div.form-group
+    label Foreground color
+    input.form-control(type="color", name="foreground", [(ngModel)]="options.foreground", (ngModelChange)="updateOptions()")
+  div.form-group
+    label Background color
+    input.form-control(type="color", name="background", [(ngModel)]="options.background", (ngModelChange)="updateOptions()")

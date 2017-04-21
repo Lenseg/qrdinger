@@ -28,7 +28,6 @@ export class CodeOptionsComponent {
         break;
     }
     this.options.level = level;
-    console.log(this.options)
     this.onOptionsUpdate.emit(this.options);
   }
 }

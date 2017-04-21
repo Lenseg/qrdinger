@@ -1,10 +1,13 @@
 .row
   .col-xs-12.col-sm-6.col-md-3
     display-code([codeOptions]="codeOptions")
-    form
-        select((change)="selectForm($event)")
-          option(*ngFor='let type of codeTypes' value='{{type}}') {{type}}
   .col-xs-12.col-sm-6.col-md-3
+    form
+      div.btn-group.form-group( dropdown )
+        button.btn.btn-primary.dropdown-toggle.form-control( dropdownToggle type="button" ) {{activeType || 'Select code type'}}
+           span.caret
+        ul.dropdown-menu( *dropdownMenu role="menu" )
+          li(*ngFor="let type of codeTypes", role="menuitem")
+            a.dropdown-item((click)="selectForm(type)", kek) {{type}}
     code-options((onOptionsUpdate)="onOptionsUpdate($event)")
-  .col-xs-12.col-sm-6.col-md-3   
     ui-view

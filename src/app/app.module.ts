@@ -4,7 +4,7 @@ import { FormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { UIRouterModule  } from 'ui-router-ng2';
-import { CollapseDirective } from 'ng2-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { APP_STATES } from './app.states';
 
@@ -28,13 +28,13 @@ import { CreateCodeService }  from './create-code/create-code.service';
     }),
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    BsDropdownModule.forRoot()
   ],
   declarations: [
     AppComponent,
     HomeComponent,
     CreateCodeComponent,
-    CollapseDirective,
     DisplayCodeComponent,
     UrlFormComponent,
     StringFormComponent,

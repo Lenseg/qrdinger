@@ -31,6 +31,12 @@ export class DisplayCodeComponent {
     this.updateSize();
     this.createCode();
   }
+  ngDoCheck() {
+   for(let option in this.codeOptions){
+     if(this.codeOptions[option] && this.codeOptions[option] !== this.code[option])
+      this.code[option] = this.codeOptions[option]
+   }
+  }
   onResize(){
     this.updateSize();
     this.updateCode();
