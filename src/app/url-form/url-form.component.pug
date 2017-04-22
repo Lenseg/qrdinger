@@ -1,4 +1,6 @@
 form
   div.form-group
     label Link
-    input.form-control(type="text", name="url", [(ngModel)]="url", (ngModelChange)="sendModel()" plaseholder="http://qrdinger.com")
+    input.form-control(type="text", name="url", [formControl]="url" novalidate placeholder="http://qrdinger.com")
+    ul.errors
+      li( *ngFor="let err of urlErrors") {{err.message}}

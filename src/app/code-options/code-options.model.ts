@@ -1,5 +1,5 @@
 export class Options {
-  level = "L";
+  level:string|number = "L";
   name = '';
   foreground = '#000000';
   background = '#ffffff';

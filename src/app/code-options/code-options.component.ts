@@ -9,14 +9,14 @@ import { Options, Levels } from './code-options.model';
 export class CodeOptionsComponent {
   commonOptionsForm : FormGroup;
 
-  @Output() onOptionsUpdate = new EventEmitter<CodeOptions>();
+  @Output() onOptionsUpdate = new EventEmitter<Options>();
   constructor(private fb: FormBuilder){
     this.createCommonOptionsForm();
     this.bindChangeEvents();
   }
   createCommonOptionsForm(){
     this.commonOptionsForm = this.fb.group({
-      level: '1',
+      level: '0',
       foreground: '#000000',
       background: '#ffffff'
     });
