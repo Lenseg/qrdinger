@@ -1,27 +1,34 @@
 import { Component } from '@angular/core';
-import { CreateCodeService }  from '../create-code/create-code.service';
 import { FormControl, Validators }            from '@angular/forms';
-
+import { CreateCodeService }  from '../create-code/create-code.service';
+import { patternWarningWalidator } from '../global/directives';
 @Component({
   selector: 'url-form',
   templateUrl: './url-form.component.pug'
 })
 export class UrlFormComponent {
-  urlRegexp = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})/;
-
+  urlRegexp = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+  protocolRegexp = /^(http:|ftp:|https:)/;
   url = new FormControl('',[
     Validators.required,
-    Validators.pattern(this.urlRegexp)
+    Validators.pattern(this.urlRegexp),
+    patternWarningWalidator(this.protocolRegexp)
   ]);
 
   urlErrors : errorMessage[] = [];
+  urlWarns : errorMessage[] = [];
 
   constructor(public createCodeService:CreateCodeService){
     this.url.valueChanges.forEach((value:string) => {
       this.urlErrors = [];
-      if(!this.url.valid){
-        for(let err in this.url.errors){
-          this.urlErrors.push(errors[err])
+      this.urlWarns = [];
+      if (!this.url.valid){
+        for (let err in this.url.errors){
+          if (errors[err].type === 'err'){
+            this.urlErrors.push(errors[err])
+          } else {
+            this.urlWarns.push(errors[err])
+          };
         }
       }
       this.sendModel();
@@ -41,12 +48,12 @@ const errors = {
     type:'err',
     message:'Please, put something in link field.'
   },
-  patternProtocol : {
+  patternWarning : {
     type:'warn',
-    message:'http(s) protocol prefix is reccomended.'
+    message:'Http(s) protocol prefix is reccomended.'
   }
 };
 class errorMessage {
-  type:string,
-  message:string
+  type:string;
+  message:string;
 };
