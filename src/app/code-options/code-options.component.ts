@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators }            from '@angular/forms';
 
-import { Options, Levels } from './code-options.model';
+import { CommonCodeOptions, Levels } from '../global/typeClasses';
 @Component({
   selector: 'code-options',
   templateUrl: './code-options.component.pug'
@@ -22,7 +22,7 @@ export class CodeOptionsComponent {
     });
   }
   bindChangeEvents(){
-    this.commonOptionsForm.valueChanges.forEach((value : Options) => {
+    this.commonOptionsForm.valueChanges.forEach((value : CommonCodeOptions) => {
       var options = Object.assign({},value);
       switch(options.level){
         case 1 :

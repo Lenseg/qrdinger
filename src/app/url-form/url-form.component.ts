@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, Validators }            from '@angular/forms';
 import { CreateCodeService }  from '../create-code/create-code.service';
 import { patternWarningWalidator } from '../global/directives';
+
+import { ErrorMessage } from '../global/typeClasses';
 @Component({
   selector: 'url-form',
   templateUrl: './url-form.component.pug'
@@ -15,19 +17,19 @@ export class UrlFormComponent {
     patternWarningWalidator(this.protocolRegexp)
   ]);
 
-  urlErrors : errorMessage[] = [];
-  urlWarns : errorMessage[] = [];
+  errors : ErrorMessage[] = [];
+  warns : ErrorMessage[] = [];
 
   constructor(public createCodeService:CreateCodeService){
     this.url.valueChanges.forEach((value:string) => {
-      this.urlErrors = [];
-      this.urlWarns = [];
+      this.errors = [];
+      this.warns = [];
       if (!this.url.valid){
         for (let err in this.url.errors){
           if (errors[err].type === 'err'){
-            this.urlErrors.push(errors[err])
+            this.errors.push(errors[err])
           } else {
-            this.urlWarns.push(errors[err])
+            this.warns.push(errors[err])
           };
         }
       }
@@ -52,8 +54,4 @@ const errors = {
     type:'warn',
     message:'Http(s) protocol prefix is reccomended.'
   }
-};
-class errorMessage {
-  type:string;
-  message:string;
 };

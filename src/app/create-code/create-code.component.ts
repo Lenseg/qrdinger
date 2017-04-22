@@ -1,5 +1,5 @@
 import { Component, Input, Inject } from '@angular/core';
-import { CodeOptions } from '../code-options-model';
+import { CodeOptions } from '../global/typeClasses';
 import { CreateCodeService }  from './create-code.service';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
