@@ -20,7 +20,10 @@ export class UrlFormComponent {
   errors : ErrorMessage[] = [];
   warns : ErrorMessage[] = [];
 
-  constructor(public createCodeService:CreateCodeService){
+  constructor(private createCodeService:CreateCodeService){
+    this.bingUpdateEvents();
+  }
+  bingUpdateEvents():void{
     this.url.valueChanges.forEach((value:string) => {
       this.errors = [];
       this.warns = [];
@@ -36,8 +39,9 @@ export class UrlFormComponent {
       this.sendModel();
     });
   }
+
   sendModel():void{
-    this.createCodeService.codeValueUpdate('url:' + this.url.value);
+    this.createCodeService.codeValueUpdate(this.url.value);
   }
 }
 

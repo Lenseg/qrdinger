@@ -7,22 +7,22 @@ import { CommonCodeOptions, Levels } from '../global/typeClasses';
   templateUrl: './code-options.component.pug'
 })
 export class CodeOptionsComponent {
-  commonOptionsForm : FormGroup;
+  form : FormGroup;
 
-  @Output() onOptionsUpdate = new EventEmitter<Options>();
+  @Output() onOptionsUpdate = new EventEmitter<CommonCodeOptions>();
   constructor(private fb: FormBuilder){
-    this.createCommonOptionsForm();
+    this.createForm();
     this.bindChangeEvents();
   }
-  createCommonOptionsForm(){
-    this.commonOptionsForm = this.fb.group({
+  createForm(){
+    this.form = this.fb.group({
       level: '0',
       foreground: '#000000',
       background: '#ffffff'
     });
   }
   bindChangeEvents(){
-    this.commonOptionsForm.valueChanges.forEach((value : CommonCodeOptions) => {
+    this.form.valueChanges.forEach((value : CommonCodeOptions) => {
       var options = Object.assign({},value);
       switch(options.level){
         case 1 :

@@ -1,3 +1,7 @@
-form
-  input(type="text")
-  input(type="text")
+form([formGroup]="form", novalidate)
+  div.form-group
+    label Number
+    input.form-control(type="text", name="number", placeholder="+0(00)00-00-000", formControlName="number")
+  div.form-group
+    label Message
+    textarea.form-control(type="text", name="message", placeholder="Hello friend!", formControlName="message")

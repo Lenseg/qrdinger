@@ -16,7 +16,10 @@ export class StringFormComponent {
 
   errors : ErrorMessage[] = [];
 
-  constructor(public createCodeService:CreateCodeService){
+  constructor(private createCodeService:CreateCodeService){
+    this.bindUpdateEvents()
+  }
+  bindUpdateEvents():void{
     this.string.valueChanges.forEach((value:string) => {
       this.errors = [];
       if (!this.string.valid){
