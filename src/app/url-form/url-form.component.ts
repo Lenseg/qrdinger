@@ -24,11 +24,11 @@ export class UrlFormComponent {
     this.bingUpdateEvents();
   }
   bingUpdateEvents():void{
-    this.url.valueChanges.forEach((value:string) => {
+    this.url.valueChanges.subscribe((value:string) => {
       this.errors = [];
       this.warns = [];
-      if (!this.url.valid){
-        for (let err in this.url.errors){
+      if (!this.url.valid && !this.url.untouched){
+        for (const err in this.url.errors){
           if (errors[err].type === 'err'){
             this.errors.push(errors[err])
           } else {

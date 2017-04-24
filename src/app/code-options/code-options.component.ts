@@ -22,7 +22,7 @@ export class CodeOptionsComponent {
     });
   }
   bindChangeEvents(){
-    this.form.valueChanges.forEach((value : CommonCodeOptions) => {
+    this.form.valueChanges.subscribe((value : CommonCodeOptions) => {
       var options = Object.assign({},value);
       switch(options.level){
         case 1 :

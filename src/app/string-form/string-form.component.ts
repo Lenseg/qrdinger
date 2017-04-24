@@ -20,10 +20,10 @@ export class StringFormComponent {
     this.bindUpdateEvents()
   }
   bindUpdateEvents():void{
-    this.string.valueChanges.forEach((value:string) => {
+    this.string.valueChanges.subscribe((value:string) => {
       this.errors = [];
-      if (!this.string.valid){
-        for (let err in this.string.errors){
+      if (!this.string.valid && !this.string.untouched){
+        for (const err in this.string.errors){
           this.errors.push(errors[err])
         }
       }

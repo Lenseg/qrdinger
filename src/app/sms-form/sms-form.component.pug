@@ -1,7 +1,11 @@
 form([formGroup]="form", novalidate)
-  div.form-group
+  div.form-group([ngClass]="{'has-error': numberErrors.length, 'has-warning': numberWarns.length, 'has-success': form.controls.number.valid}")
     label Number
-    input.form-control(type="text", name="number", placeholder="+0(00)00-00-000", formControlName="number")
-  div.form-group
+    input.form-control(type="text", name="number", placeholder="+0(00)00-00-000", (keypress)="preventCharInput($event)",(paste)="filterPaste($event)", formControlName="number")
+    span.help-block( *ngFor="let err of numberErrors") {{err.message}}
+    span.help-block( *ngFor="let err of numberWarns") {{err.message}}
+  div.form-group([ngClass]="{'has-error': messageErrors.length, 'has-warning': messageWarns.length, 'has-success': form.controls.message.valid}")
     label Message
     textarea.form-control(type="text", name="message", placeholder="Hello friend!", formControlName="message")
+    span.help-block( *ngFor="let err of messageErrors") {{err.message}}
+    span.help-block( *ngFor="let err of messageWarns") {{err.message}}
