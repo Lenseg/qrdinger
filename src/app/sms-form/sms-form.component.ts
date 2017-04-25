@@ -36,7 +36,7 @@ export class SmsFormComponent {
   }
   bindUpdateEvents():void{
     this.form.valueChanges.subscribe((value:string) => {
-      for(const controlName in errors){
+      for(let controlName in errors){
         const control = this.form.get(controlName);
         this[controlName+'Errors'] = [];
         this[controlName+'Warns'] = [];

@@ -22,7 +22,7 @@ export class StringFormComponent {
   bindUpdateEvents():void{
     this.string.valueChanges.subscribe((value:string) => {
       this.errors = [];
-      if (!this.string.valid && !this.string.untouched){
+      if (!this.string.valid && this.string.dirty){
         for (const err in this.string.errors){
           this.errors.push(errors[err])
         }

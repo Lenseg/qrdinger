@@ -41,14 +41,13 @@ export class WifiFormComponent {
       if(this.checkIsTypeChanged(value.type)){
         this.setFormConfigByType(value.type)
       }
-      for(const controlName in errors){
-        const control = this.form.get(controlName);
+      for(let controlName in errors){
+        let control = this.form.get(controlName);
         this[controlName+'Errors'] = [];
         this[controlName+'Warns'] = [];
         if (control && control.dirty && !control.valid) {
-          for (const key in control.errors) {
-            console.log('key')
-            const errMessage = errors[controlName][key];
+          for (let key in control.errors) {
+            let errMessage = errors[controlName][key];
             if(errMessage.type === 'err'){
               this[controlName+'Errors'].push(errMessage)
             } else {
@@ -64,11 +63,10 @@ export class WifiFormComponent {
     return(group: FormGroup) => {
       let typeControl = group.get(typeControlName);
       let passControl = group.get(passControlName);
-      console.log(passControl, typeControl.value !== 'nopass', !passControl.untouched, passControl.value === '',passControl.value)
-      if(typeControl.value !== 'nopass' && !passControl.untouched && passControl.value === ''){
-        return passControl.setErrors({required: true})
+      if(typeControl.value !== 'nopass' && passControl.value === ''){
+        passControl.setErrors({required: true})
       } else {
-        return passControl.setErrors({})
+        passControl.setErrors(null);
       }
     }
   }
