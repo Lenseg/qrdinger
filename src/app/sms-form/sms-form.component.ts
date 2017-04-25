@@ -26,7 +26,7 @@ export class SmsFormComponent {
   createForm():void{
     this.form = this.fb.group({
       number: ['',[
-        Validators.required
+        Validators.required,
         Validators.pattern(this.numberRegexp),
         patternWarningWalidator(this.statrtsWidthPlusRegexp)
       ]],
@@ -75,7 +75,7 @@ const errors = {
   number:{
     required : {
       type:'err',
-      message:'Please, put something in field.'
+      message:'Are you sure number shold be empty?'
     },
     pattern : {
       type:'err',

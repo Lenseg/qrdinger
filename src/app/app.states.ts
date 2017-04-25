@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home.component';
 import { CreateCodeComponent } from './create-code/create-code.component';
 import { UrlFormComponent } from './url-form/url-form.component';
+import { WifiFormComponent } from './wifi-form/wifi-form.component';
 import { StringFormComponent } from './string-form/string-form.component';
 import { SmsFormComponent } from './sms-form/sms-form.component';
 import { BusinessCardFormComponent } from './business-card-form/business-card-form.component';
@@ -34,9 +35,14 @@ const smsForm = {
   url:'/sms',
   component:SmsFormComponent
 }
+const wifiForm = {
+  name:'createCode.wifi',
+  url:'/wifi',
+  component:WifiFormComponent
+}
 const businessCardForm = {
   name:'createCode.buisnessCard',
   url:'/buisnessCard',
   component:BusinessCardFormComponent
 }
-export const APP_STATES = [homeState, createCode, urlForm, stringForm, smsForm, businessCardForm]
+export const APP_STATES = [homeState, createCode, urlForm, stringForm, smsForm, businessCardForm, wifiForm]
