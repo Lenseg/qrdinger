@@ -39,7 +39,14 @@ export class CreateCodeComponent {
     Object.assign(this.codeOptions, options);
   }
   public selectForm(type:string) : void {
-    this.activeType = type;
+    this.activeType = typesMap[type];
     this.stateService.go('createCode.' + type);
   };
+}
+const typesMap = {
+  wifi : 'Wi-Fi',
+  url : 'Link',
+  string : 'Text',
+  sms : 'SMS',
+  buisnessCard: 'Buisness card'
 }
