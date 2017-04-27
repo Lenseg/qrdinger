@@ -4,7 +4,7 @@ import { CreateCodeService }  from './create-code.service';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
-import { StateService } from 'ui-router-ng2';
+import { StateService, UIRouterGlobals } from 'ui-router-ng2';
 
 @Component({
   selector: 'create-code',
@@ -18,8 +18,17 @@ export class CreateCodeComponent {
   };
   private codeTypes:string[];
   public activeType:string;
-  constructor (public stateService:StateService, public createCodeService:CreateCodeService) {
+  typesMap = {
+    wifi : 'Wi-Fi',
+    url : 'Link',
+    string : 'Text',
+    sms : 'SMS',
+    buisnessCard: 'Buisness card'
+  }
+  constructor (public stateService:StateService, public uiRouterGlobals:UIRouterGlobals, public createCodeService:CreateCodeService) {
     this.getCodeTypes();
+    var currentFormType = uiRouterGlobals.current.name.replace('createCode.','')
+    this.activeType = this.typesMap[currentFormType] || null;
     this.createCodeService.codeValueUdpaveEvent.subscribe((data:string) => {
       this.codeOptions.value = data;
     });
@@ -39,14 +48,7 @@ export class CreateCodeComponent {
     Object.assign(this.codeOptions, options);
   }
   public selectForm(type:string) : void {
-    this.activeType = typesMap[type];
+    this.activeType = this.typesMap[type];
     this.stateService.go('createCode.' + type);
   };
-}
-const typesMap = {
-  wifi : 'Wi-Fi',
-  url : 'Link',
-  string : 'Text',
-  sms : 'SMS',
-  buisnessCard: 'Buisness card'
 }
