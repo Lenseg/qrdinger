@@ -12,9 +12,8 @@ export class CodeOptions {
   size?: string;
 }
 export class CommonCodeOptions {
-  level:string|number = "L";
-  name = '';
-  foreground = '#000000';
-  background = '#ffffff';
+  level?:string|number
+  foreground?:string
+  background?:string
 }
 export const Levels = ['L', 'M', 'Q', 'H'];

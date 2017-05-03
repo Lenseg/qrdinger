@@ -21,7 +21,6 @@ export class DisplayCodeComponent {
 
   }
   ngOnChanges(){
-    console.log('changes')
     this.updateCode();
   }
   ngOnInit(){

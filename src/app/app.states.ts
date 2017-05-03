@@ -37,22 +37,62 @@ const createCode = {
 const urlForm = {
   name:'createCode.url',
   url:'/url',
-  component:UrlFormComponent
+  component:UrlFormComponent,
+  params:{
+    link:{
+      dynamic:true,
+      inherit: true
+    }
+  }
 }
 const stringForm = {
   name:'createCode.string',
   url:'/string',
-  component:StringFormComponent
+  component:StringFormComponent,
+  params:{
+    text:{
+      dynamic:true,
+      inherit: true
+    }
+  }
 }
 const smsForm = {
   name:'createCode.sms',
   url:'/sms',
-  component:SmsFormComponent
+  component:SmsFormComponent,
+  params:{
+    number:{
+      dynamic:true,
+      inherit: true
+    },
+    message:{
+      dynamic:true,
+      inherit: true
+    }
+  }
 }
 const wifiForm = {
   name:'createCode.wifi',
   url:'/wifi',
-  component:WifiFormComponent
+  component:WifiFormComponent,
+  params:{
+    name:{
+      dynamic:true,
+      inherit: true
+    },
+    type:{
+      dynamic:true,
+      inherit: true
+    },
+    pass:{
+      dynamic:true,
+      inherit: true
+    },
+    hidden:{
+      dynamic:true,
+      inherit: true
+    }
+  }
 }
 const businessCardForm = {
   name:'createCode.buisnessCard',

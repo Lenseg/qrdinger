@@ -1,7 +1,7 @@
 form([formGroup]="form", novalidate)
   div.form-group
     label Error correction level - {{'L' || options.level}}
-    input.form-control(type="range", name="level", min="0", max="4", value = "0", formControlName="level")
+    input.form-control(type="range", name="level", min="1", max="4", value = "1", formControlName="level")
   div.form-group
     label Foreground color
     input.form-control(type="color", name="foreground", value="#000000", formControlName="foreground")
