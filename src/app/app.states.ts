@@ -17,8 +17,22 @@ const homeState = {
 
 const createCode = {
   name: 'createCode',
-  url: '/create',
-  component: CreateCodeComponent
+  url: '/create?background?level?foreground',
+  component: CreateCodeComponent,
+  params: {
+    background:{
+      dynamic:true,
+      inherit: true
+    },
+    level:{
+      dynamic:true,
+      inherit: true
+    },
+    foreground:{
+      dynamic:true,
+      inherit: true
+    }
+  }
 }
 const urlForm = {
   name:'createCode.url',

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators }            from '@angular/forms';
-
+import { StateService } from 'ui-router-ng2';
 import { CommonCodeOptions, Levels } from '../global/typeClasses';
 @Component({
   selector: 'code-options',
@@ -10,7 +10,7 @@ export class CodeOptionsComponent {
   form : FormGroup;
 
   @Output() onOptionsUpdate = new EventEmitter<CommonCodeOptions>();
-  constructor(private fb: FormBuilder){
+  constructor(private fb: FormBuilder, private stateService:StateService){
     this.createForm();
     this.bindChangeEvents();
   }
@@ -38,7 +38,11 @@ export class CodeOptionsComponent {
           options.level = 'H';
           break;
       }
-
+      this.stateService.go(this.stateService.current,{
+        background:options.background,
+        level:options.level,
+        foreground:options.foreground
+      })
       this.onOptionsUpdate.emit(options);
     })
   }
