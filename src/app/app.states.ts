@@ -39,7 +39,7 @@ const urlForm = {
   url:'/url',
   component:UrlFormComponent,
   params:{
-    link:{
+    url:{
       dynamic:true,
       inherit: true
     }

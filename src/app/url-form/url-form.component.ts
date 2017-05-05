@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators }            from '@angular/forms';
 import { CreateCodeService }  from '../create-code/create-code.service';
+import { StateService } from 'ui-router-ng2';
 import { patternWarningWalidator } from '../global/directives';
 
 import { ErrorMessage } from '../global/typeClasses';
@@ -11,7 +12,8 @@ import { ErrorMessage } from '../global/typeClasses';
 export class UrlFormComponent {
   urlRegexp = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
   protocolRegexp = /^(http:|ftp:|https:)/;
-  url = new FormControl('',[
+  urlValue = this.stateService.params.url ? decodeURIComponent(this.stateService.params.url) || '' ;
+  url = new FormControl(urlValue,[
     Validators.required,
     Validators.pattern(this.urlRegexp),
     patternWarningWalidator(this.protocolRegexp)
@@ -20,7 +22,7 @@ export class UrlFormComponent {
   errors : ErrorMessage[] = [];
   warns : ErrorMessage[] = [];
 
-  constructor(private createCodeService:CreateCodeService){
+  constructor(private createCodeService:CreateCodeService, private stateService:StateService){
     this.bingUpdateEvents();
   }
   bingUpdateEvents():void{
@@ -36,12 +38,17 @@ export class UrlFormComponent {
           };
         }
       }
-      this.sendModel();
+      this.setUrlParams(this.url.value)
+      this.sendModel(this.url.value);
     });
   }
-
-  sendModel():void{
-    this.createCodeService.codeValueUpdate(this.url.value);
+  setUrlParams(url:string){
+    this.stateService.go(this.stateService.current,{
+      url:url
+    })
+  }
+  sendModel(value):void{
+    this.createCodeService.codeValueUpdate(value);
   }
 }
 
