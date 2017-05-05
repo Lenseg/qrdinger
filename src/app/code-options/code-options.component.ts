@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators }            from '@angular/forms';
 import { StateService } from 'ui-router-ng2';
 import { CommonCodeOptions, Levels } from '../global/typeClasses';
+import { isHexColor } from '../global/directives';
 @Component({
   selector: 'code-options',
   templateUrl: './code-options.component.pug'
@@ -19,9 +20,9 @@ export class CodeOptionsComponent {
   }
   createForm(){
     var formValues:CommonCodeOptions = {};
-    formValues.level =  this.stateService.params.level ? parseInt(decodeURIComponent(this.stateService.params.level)) : 1,
-    formValues.foreground =  this.stateService.params.foreground ? decodeURIComponent(this.stateService.params.foreground) : '#000000',
-    formValues.background =  this.stateService.params.background ? decodeURIComponent(this.stateService.params.background) : '#ffffff';
+    formValues.level =  this.stateService.params.level ? parseInt(decodeURIComponent(this.stateService.params.level)) : 1;
+    formValues.foreground =  this.stateService.params.foreground && isHexColor(this.stateService.params.foreground) ? '#' + decodeURIComponent(this.stateService.params.foreground) : '#000000',
+    formValues.background =  this.stateService.params.background && isHexColor(this.stateService.params.background) ? '#' + decodeURIComponent(this.stateService.params.background) : '#ffffff';
     this.form = this.fb.group(formValues);
     this.updateCode(this.form.value)
   }
@@ -49,9 +50,9 @@ export class CodeOptionsComponent {
   }
   setUrlParams(params:CommonCodeOptions){
     this.stateService.go(this.stateService.current,{
-      background:params.background,
+      background:params.background.substring(1),
       level:params.level,
-      foreground:params.foreground
+      foreground:params.foreground.substring(1)
     })
   }
 }

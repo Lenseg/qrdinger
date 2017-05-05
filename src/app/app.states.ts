@@ -36,7 +36,7 @@ const createCode = {
 }
 const urlForm = {
   name:'createCode.url',
-  url:'/url',
+  url:'/url?url',
   component:UrlFormComponent,
   params:{
     url:{

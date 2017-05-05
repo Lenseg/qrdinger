@@ -12,8 +12,8 @@ import { ErrorMessage } from '../global/typeClasses';
 export class UrlFormComponent {
   urlRegexp = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
   protocolRegexp = /^(http:|ftp:|https:)/;
-  urlValue = this.stateService.params.url ? decodeURIComponent(this.stateService.params.url) || '' ;
-  url = new FormControl(urlValue,[
+  urlValue = this.stateService.params.url ? decodeURIComponent(this.stateService.params.url) : '' ;
+  url = new FormControl(this.urlValue,[
     Validators.required,
     Validators.pattern(this.urlRegexp),
     patternWarningWalidator(this.protocolRegexp)
@@ -47,7 +47,7 @@ export class UrlFormComponent {
       url:url
     })
   }
-  sendModel(value):void{
+  sendModel(value:string):void{
     this.createCodeService.codeValueUpdate(value);
   }
 }

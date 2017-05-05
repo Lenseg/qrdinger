@@ -7,3 +7,7 @@ export function patternWarningWalidator(nameRe: RegExp): ValidatorFn {
     return yes ? null : {'patternWarning': {name}};
   };
 }
+export function isHexColor(h:string) {
+  var regexp = /^[0-9A-F]{6}$/i;
+  return regexp.test(h);
+}
