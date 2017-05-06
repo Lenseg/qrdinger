@@ -20,9 +20,9 @@ export class CodeOptionsComponent {
   }
   createForm(){
     var formValues:CommonCodeOptions = {};
-    formValues.level =  this.stateService.params.level ? parseInt(decodeURIComponent(this.stateService.params.level)) : 1;
-    formValues.foreground =  this.stateService.params.foreground && isHexColor(this.stateService.params.foreground) ? '#' + decodeURIComponent(this.stateService.params.foreground) : '#000000',
-    formValues.background =  this.stateService.params.background && isHexColor(this.stateService.params.background) ? '#' + decodeURIComponent(this.stateService.params.background) : '#ffffff';
+    formValues.level =  this.stateService.params.level ? parseInt(decodeURI(this.stateService.params.level)) : 1;
+    formValues.foreground =  this.stateService.params.foreground && isHexColor(this.stateService.params.foreground) ? '#' + decodeURI(this.stateService.params.foreground) : '#000000',
+    formValues.background =  this.stateService.params.background && isHexColor(this.stateService.params.background) ? '#' + decodeURI(this.stateService.params.background) : '#ffffff';
     this.form = this.fb.group(formValues);
     this.updateCode(this.form.value)
   }

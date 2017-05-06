@@ -41,18 +41,20 @@ const urlForm = {
   params:{
     url:{
       dynamic:true,
-      inherit: true
+      inherit: true,
+      raw:true
     }
   }
 }
 const stringForm = {
   name:'createCode.string',
-  url:'/string',
+  url:'/string?text',
   component:StringFormComponent,
   params:{
     text:{
       dynamic:true,
-      inherit: true
+      inherit: true,
+      raw:true
     }
   }
 }
