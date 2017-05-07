@@ -24,6 +24,12 @@ export class WifiFormComponent {
     this.bindUpdateEvents();
   }
   createForm():void{
+    var formValues:CommonCodeOptions = {};
+    formValues.level =  this.stateService.params.level ? parseInt(decodeURI(this.stateService.params.level)) : 1;
+    formValues.foreground =  this.stateService.params.foreground && isHexColor(this.stateService.params.foreground) ? '#' + decodeURI(this.stateService.params.foreground) : '#000000',
+    formValues.background =  this.stateService.params.background && isHexColor(this.stateService.params.background) ? '#' + decodeURI(this.stateService.params.background) : '#ffffff';
+    this.form = this.fb.group(formValues);
+    this.updateCode(this.form.value)
     this.form = this.fb.group({
       name: ['',
         Validators.required
@@ -56,7 +62,7 @@ export class WifiFormComponent {
           }
         }
       }
-      this.sendModel();
+      this.sendModel(Object.assign({type:'wifi'},this.form.value));
     });
   }
   isPasswordReqired(typeControlName:string,passControlName:string){
@@ -90,20 +96,8 @@ export class WifiFormComponent {
     }
   }
 
-  sendModel():void{
-    this.createCodeService.codeValueUpdate(this.constructWifiString());
-  }
-
-  constructWifiString():string{
-    var code = 'WIFI:' + 'T:' + this.form.value.type + ';';
-    code += 'S:' + this.encodeStringComponent(this.form.value.name) + ';';
-    if(this.form.value.type !== 'nopass'){
-      code += 'P:' + this.encodeStringComponent(this.form.value.pass) + ';';
-    }
-    if(this.form.value.hidden){
-      code += 'H:true;';
-    }
-    return code
+  sendModel(formModel):void{
+    this.createCodeService.codeValueUpdate(formModel);
   }
 
   encodeStringComponent(str:string):string{

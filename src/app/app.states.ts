@@ -80,7 +80,8 @@ const wifiForm = {
   params:{
     name:{
       dynamic:true,
-      inherit: true
+      inherit: true,
+      raw:true
     },
     type:{
       dynamic:true,
@@ -88,7 +89,8 @@ const wifiForm = {
     },
     pass:{
       dynamic:true,
-      inherit: true
+      inherit: true,
+      raw:true
     },
     hidden:{
       dynamic:true,
