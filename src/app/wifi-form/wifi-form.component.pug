@@ -1,7 +1,7 @@
 form([formGroup]="form")
   div.form-group([ngClass]="{'has-error': typeErrors.length, 'has-success': form.controls.name.valid}")
     label Encryption
-    select.form-control(name="name", formControlName="type" novalidate)
+    select.form-control(name="name", formControlName="networkType" novalidate)
       option(value="WPA") WPA/WPA2
       option(value="WEP") WEP
       option(value="nopass") No encryption

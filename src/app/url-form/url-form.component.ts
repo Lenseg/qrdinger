@@ -48,7 +48,9 @@ export class UrlFormComponent {
     })
   }
   sendModel():void{
-    this.createCodeService.codeValueUpdate(this.url.value);
+    this.createCodeService.codeValueUpdate({
+      type:'url',
+      text:this.url.value});
   }
 }
 

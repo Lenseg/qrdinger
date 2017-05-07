@@ -20,13 +20,13 @@ export class CodeValueParams {
   type:string
 }
 export interface WifiCodeValueParams extends CodeValueParams{
-  networkType:string,
-  name: string,
+  networkType?:string,
+  name?: string,
   pass?: string,
   hidden?:boolean
 }
 export interface OnLineCodeValueParams extends CodeValueParams{
-  text:string
+  text?:string
 }
 export interface SmsCodeValueParams extends CodeValueParams{
   number?:string,

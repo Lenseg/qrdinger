@@ -7,10 +7,10 @@ import { Subject } from 'rxjs/Subject'
 export class CreateCodeService {
   codeValue = new Subject<string>();
   codeValueUdpaveEvent = this.codeValue.asObservable();
-  codeValueUpdate (codeValueParams:WifiCodeValueParams | OnLineCodeValueParams | SmsCodeValueParams){
+  codeValueUpdate (codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams){
     this.codeValue.next(this.constructCodeValue(codeValueParams));
   }
-  constructCodeValue(codeValueParams:WifiCodeValueParams | OnLineCodeValueParams | SmsCodeValueParams){
+  constructCodeValue(codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams){
     switch(codeValueParams.type){
       case 'wifi':
         return this.constructWifiValue(codeValueParams);
@@ -24,14 +24,20 @@ export class CreateCodeService {
   }
   constructWifiValue(valueParams:WifiCodeValueParams){
     var codeValue = 'WIFI:' + 'T:' + valueParams.networkType + ';';
-    code += 'S:' + this.encodeStringComponent(valueParams.networkName) + ';';
+    codeValue += 'S:' + this.encodeStringComponent(valueParams.name) + ';';
     if(valueParams.networkType !== 'nopass'){
-      codeValue += 'P:' + this.encodeStringComponent(valueParams.networkPass) + ';';
+      codeValue += 'P:' + this.encodeStringComponent(valueParams.pass) + ';';
     }
-    if(valueParams.networkHidden){
+    if(valueParams.hidden){
       codeValue += 'H:true;';
     }
     return codeValue
+  }
+  encodeStringComponent(str:string):string{
+    var encodedStr = str.replace('"','\\"').replace('"','\\"').replace(',','\\,').replace(';','\\;').replace(':','\\:');
+    if(parseInt(encodedStr,16).toString(16) === encodedStr)
+      encodedStr = '"' + encodedStr + '"';
+    return encodedStr
   }
   constructUrlValue(valueParams:OnLineCodeValueParams){
     return 'URL:' + valueParams.text;

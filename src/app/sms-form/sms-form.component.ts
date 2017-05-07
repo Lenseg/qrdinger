@@ -56,7 +56,10 @@ export class SmsFormComponent {
   }
   sendModel():void{
     var number = this.form.value.number.replace(/[^+[0-9]]*/g,'');
-    this.createCodeService.codeValueUpdate('SMSTO:' + number + ':' + this.form.value.message);
+    this.createCodeService.codeValueUpdate({
+      type:'sms',
+      number:number,
+      message:this.form.value.message});
   }
   preventCharInput(e:KeyboardEvent):void{
     var regexp = /[^0-9,+,(,),\-,—,–, ]/g;

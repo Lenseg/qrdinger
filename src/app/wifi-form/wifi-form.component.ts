@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators }            from '@angular/forms';
 import { CreateCodeService }  from '../create-code/create-code.service';
-
-import { ErrorMessage } from '../global/typeClasses';
+import { StateService } from 'ui-router-ng2';
+import { CommonCodeOptions, ErrorMessage, WifiCodeValueParams } from '../global/typeClasses';
+import { isHexColor } from '../global/directives';
 
 @Component({
   selector: 'wifi-form',
@@ -18,34 +19,33 @@ export class WifiFormComponent {
   passErrors : ErrorMessage[] = [];
   passWarns : ErrorMessage[] = [];
 
-  constructor(private fb:FormBuilder, private createCodeService:CreateCodeService){
+  constructor(private fb:FormBuilder, private createCodeService:CreateCodeService,private stateService:StateService){
     this.createForm();
-    this.typeCache = this.form.value.type;
+    this.typeCache = this.form.value.networkType;
     this.bindUpdateEvents();
   }
   createForm():void{
-    var formValues:CommonCodeOptions = {};
-    formValues.level =  this.stateService.params.level ? parseInt(decodeURI(this.stateService.params.level)) : 1;
-    formValues.foreground =  this.stateService.params.foreground && isHexColor(this.stateService.params.foreground) ? '#' + decodeURI(this.stateService.params.foreground) : '#000000',
-    formValues.background =  this.stateService.params.background && isHexColor(this.stateService.params.background) ? '#' + decodeURI(this.stateService.params.background) : '#ffffff';
-    this.form = this.fb.group(formValues);
-    this.updateCode(this.form.value)
+    var formValues:CodeWifiParams = {};
+    formValues.name =  this.stateService.params.name ? decodeURI(this.stateService.params.name) : '';
+    formValues.pass =  this.stateService.params.pass ? decodeURI(this.stateService.params.pass) : '',
+    formValues.networkType =  this.stateService.params.networkType ? decodeURI(this.stateService.params.networkType) : 'WPA';
+    formValues.hidden =  this.stateService.params.hidden ? this.stateService.params.hidden : false;
     this.form = this.fb.group({
-      name: ['',
+      name: [formValues.name,
         Validators.required
       ],
-      pass: '',
-      type:'WPA',
-      hidden:false
+      pass: formValues.pass,
+      networkType:formValues.networkType,
+      hidden:formValues.hidden
     },{
-      validator: this.isPasswordReqired('type','pass')
+      validator: this.isPasswordReqired('networkType','pass')
     });
     this.bindUpdateEvents();
   }
   bindUpdateEvents():void{
     this.form.valueChanges.subscribe((value:any) => {
-      if(this.checkIsTypeChanged(value.type)){
-        this.setFormConfigByType(value.type)
+      if(this.checkIsTypeChanged(value.networkType)){
+        this.setFormConfigByType(value.networkType)
       }
       for(let controlName in errors){
         let control = this.form.get(controlName);
@@ -95,17 +95,15 @@ export class WifiFormComponent {
       passControll.enable();
     }
   }
-
-  sendModel(formModel):void{
+  sendModel(formModel:WifiCodeValueParams):void{
     this.createCodeService.codeValueUpdate(formModel);
   }
-
-  encodeStringComponent(str:string):string{
-    var encodedStr = str.replace('"','\\"').replace('"','\\"').replace(',','\\,').replace(';','\\;').replace(':','\\:');
-    if(parseInt(encodedStr,16).toString(16) === encodedStr)
-      encodedStr = '"' + encodedStr + '"';
-    return encodedStr
-  }
+}
+class CodeWifiParams{
+  networkType?:string;
+  name?: string;
+  pass?: string;
+  hidden?:boolean;
 }
 const errors = {
   name:{
