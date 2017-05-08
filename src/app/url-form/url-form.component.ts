@@ -38,19 +38,17 @@ export class UrlFormComponent {
           };
         }
       }
-      this.setUrlParams();
-      this.sendModel();
+      this.setUrlParams(this.url.value)
+      this.sendModel(this.url.value);
     });
   }
-  setUrlParams(){
+  setUrlParams(url:string){
     this.stateService.go(this.stateService.current,{
-      url:encodeURIComponent(this.url.value)
+      url:url
     })
   }
-  sendModel():void{
-    this.createCodeService.codeValueUpdate({
-      type:'url',
-      text:this.url.value});
+  sendModel(value:string):void{
+    this.createCodeService.codeValueUpdate(value);
   }
 }
 
