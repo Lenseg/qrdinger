@@ -32,7 +32,6 @@ export class SmsFormComponent {
       ]],
       message: ['',Validators.required]
     });
-    this.bindUpdateEvents();
   }
   bindUpdateEvents():void{
     this.form.valueChanges.subscribe((value:string) => {

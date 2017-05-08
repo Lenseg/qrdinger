@@ -14,6 +14,7 @@ export class CreateCodeService {
 
   }
   codeValueUpdate (codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams){
+    this.setValueAsParams(codeValueParams);
     this.codeValue.next(this.constructCodeValue(codeValueParams));
   }
   constructCodeValue(codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams){
@@ -53,7 +54,17 @@ export class CreateCodeService {
   }
   bindFormParamsUpdate(formObservable: FormGroup){
     formObservable.valueChanges.subscribe(()=>{
+      console.log(formObservable.value)
       this.stateService.go(this.stateService.current,formObservable.value)
     })
   }
-}
+  setValueAsParams(codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams){
+    var params:(WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams) = {};
+    for(var param in codeValueParams){
+      if(param !== 'type'){
+        params[param] = encodeURI(codeValueParams[param]);
+      }
+    }
+    console.log(params,this.stateService.current);
+    this.stateService.go(this.stateService.current,params)
+  }

@@ -17,7 +17,7 @@ export class CommonCodeOptions {
   background?:string
 }
 export class CodeValueParams {
-  type:string
+  type?:string
 }
 export interface WifiCodeValueParams extends CodeValueParams{
   networkType?:string,

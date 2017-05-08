@@ -83,7 +83,7 @@ const wifiForm = {
       inherit: true,
       raw:true
     },
-    type:{
+    networkType:{
       dynamic:true,
       inherit: true
     },
