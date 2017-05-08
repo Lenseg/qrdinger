@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators }            from '@angular/forms';
 import { StateService } from 'ui-router-ng2';
+
+import { CreateCodeService }  from '../create-code/create-code.service';
 import { CommonCodeOptions, Levels } from '../global/typeClasses';
 import { isHexColor } from '../global/directives';
 @Component({
@@ -11,7 +13,7 @@ export class CodeOptionsComponent {
   form : FormGroup;
 
   @Output() onOptionsUpdate = new EventEmitter<CommonCodeOptions>();
-  constructor(private fb: FormBuilder, private stateService:StateService){
+  constructor(private fb: FormBuilder, private stateService:StateService, private createCodeService:CreateCodeService){
 
   }
   ngOnInit(){
@@ -27,11 +29,10 @@ export class CodeOptionsComponent {
     this.updateCode(this.form.value)
   }
   bindChangeEvents(){
-    this.form.valueChanges.subscribe((value : CommonCodeOptions) => {this.updateCode(value);})
+    this.createCodeService.bindFormParamsUpdate(this.form);
   }
   updateCode(value : CommonCodeOptions){
     var options = Object.assign({},value);
-    this.setUrlParams(options);
     switch(options.level){
       case 1 :
         options.level = 'L';

@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+
+import { StateService } from 'ui-router-ng2';
 
 import { WifiCodeValueParams, OnLineCodeValueParams, SmsCodeValueParams } from '../global/typeClasses';
 import { Subject } from 'rxjs/Subject'
@@ -7,6 +10,9 @@ import { Subject } from 'rxjs/Subject'
 export class CreateCodeService {
   codeValue = new Subject<string>();
   codeValueUdpaveEvent = this.codeValue.asObservable();
+  constructor(private stateService:StateService){
+
+  }
   codeValueUpdate (codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams){
     this.codeValue.next(this.constructCodeValue(codeValueParams));
   }
@@ -44,5 +50,10 @@ export class CreateCodeService {
   }
   constructSmsValue(valueParams:SmsCodeValueParams){
     return 'SMSTO:' + valueParams.number + ':' + valueParams.message
+  }
+  bindFormParamsUpdate(formObservable:FormControl | FormGroup){
+    formObservable.valueChanges.subscribe(()=>{
+      this.stateService.go(this.stateService.current,formObservable.value)
+    })
   }
 }
