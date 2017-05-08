@@ -30,6 +30,10 @@ export class CodeOptionsComponent {
   }
   bindChangeEvents(){
     this.createCodeService.bindFormParamsUpdate(this.form);
+    this.form.valueChanges.subscribe(()=>{
+      this.updateCode(this.form.value);
+    })
+
   }
   updateCode(value : CommonCodeOptions){
     var options = Object.assign({},value);
@@ -48,12 +52,5 @@ export class CodeOptionsComponent {
         break;
     }
     this.onOptionsUpdate.emit(options);
-  }
-  setUrlParams(params:CommonCodeOptions){
-    this.stateService.go(this.stateService.current,{
-      background:params.background.substring(1),
-      level:params.level,
-      foreground:params.foreground.substring(1)
-    })
   }
 }

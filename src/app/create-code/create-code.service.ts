@@ -51,7 +51,7 @@ export class CreateCodeService {
   constructSmsValue(valueParams:SmsCodeValueParams){
     return 'SMSTO:' + valueParams.number + ':' + valueParams.message
   }
-  bindFormParamsUpdate(formObservable:FormControl | FormGroup){
+  bindFormParamsUpdate(formObservable: FormGroup){
     formObservable.valueChanges.subscribe(()=>{
       this.stateService.go(this.stateService.current,formObservable.value)
     })
