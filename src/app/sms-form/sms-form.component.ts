@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators }            from '@angular/forms';
 
+import { StateService } from 'ui-router-ng2';
 import { CreateCodeService }  from '../create-code/create-code.service';
 import { ErrorMessage } from '../global/typeClasses';
 import { patternWarningWalidator } from '../global/directives';
@@ -19,11 +20,14 @@ export class SmsFormComponent {
   messageWarns: ErrorMessage[] = [];
   numberErrors: ErrorMessage[] = [];
   numberWarns: ErrorMessage[] = [];
-  constructor(private fb:FormBuilder, private createCodeService:CreateCodeService){
+  constructor(private fb:FormBuilder, private createCodeService:CreateCodeService, private stateService:StateService){
     this.createForm();
     this.bindUpdateEvents();
   }
   createForm():void{
+    var formValues:smsParams = {};
+    formValues.number =  this.stateService.params.number ? decodeURI(this.stateService.params.number) : '';
+    formValues.message =  this.stateService.params.message ? decodeURI(this.stateService.params.message) : '',
     this.form = this.fb.group({
       number: ['',[
         Validators.required,
@@ -32,6 +36,7 @@ export class SmsFormComponent {
       ]],
       message: ['',Validators.required]
     });
+    this.form.setValue(formValues);
   }
   bindUpdateEvents():void{
     this.form.valueChanges.subscribe((value:string) => {
@@ -72,6 +77,10 @@ export class SmsFormComponent {
       control.setValue(control.value.replace(regexp,''));
     },0);
   }
+}
+class smsParams {
+  number?:string;
+  message?:string;
 }
 const errors = {
   number:{

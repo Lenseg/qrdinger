@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { StateService } from 'ui-router-ng2';
 
-import { WifiCodeValueParams, OnLineCodeValueParams, SmsCodeValueParams } from '../global/typeClasses';
+import { WifiCodeValueParams, OnLineCodeValueParams, SmsCodeValueParams, CommonCodeOptions } from '../global/typeClasses';
 import { Subject } from 'rxjs/Subject'
 
 @Injectable()
@@ -54,17 +54,21 @@ export class CreateCodeService {
   }
   bindFormParamsUpdate(formObservable: FormGroup){
     formObservable.valueChanges.subscribe(()=>{
-      console.log(formObservable.value)
-      this.stateService.go(this.stateService.current,formObservable.value)
+      var params:CommonCodeOptions = {};
+      for(var param in formObservable.value){
+          params[param] = encodeURIComponent(formObservable.value[param]);
+      }
+      this.stateService.go(this.stateService.current,params);
     })
   }
   setValueAsParams(codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams){
     var params:(WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams) = {};
     for(var param in codeValueParams){
-      if(param !== 'type'){
-        params[param] = encodeURI(codeValueParams[param]);
+      if(param !== 'type' && param !== ''){
+        params[param] = encodeURIComponent(codeValueParams[param]);
       }
     }
-    console.log(params,this.stateService.current);
+    console.log(params,this.stateService.current)
     this.stateService.go(this.stateService.current,params)
   }
+}

@@ -40,6 +40,7 @@ export class WifiFormComponent {
     },{
       validator: this.isPasswordReqired('networkType','pass')
     });
+    this.form.setValue(formValues);
   }
   bindUpdateEvents():void{
     this.form.valueChanges.subscribe((value:any) => {

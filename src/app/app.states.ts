@@ -22,15 +22,18 @@ const createCode = {
   params: {
     background:{
       dynamic:true,
-      inherit: true
+      inherit: true,
+      raw:true
     },
     level:{
       dynamic:true,
-      inherit: true
+      inherit: true,
+      raw:true
     },
     foreground:{
       dynamic:true,
-      inherit: true
+      inherit: true,
+      raw:true
     }
   }
 }
@@ -47,7 +50,7 @@ const urlForm = {
 }
 const stringForm = {
   name:'createCode.string',
-  url:'/string',
+  url:'/string?text',
   component:StringFormComponent,
   params:{
     text:{
@@ -58,7 +61,7 @@ const stringForm = {
 }
 const smsForm = {
   name:'createCode.sms',
-  url:'/sms',
+  url:'/sms?number?message',
   component:SmsFormComponent,
   params:{
     number:{
@@ -73,7 +76,7 @@ const smsForm = {
 }
 const wifiForm = {
   name:'createCode.wifi',
-  url:'/wifi',
+  url:'/wifi?name?networkType?pass?hidden',
   component:WifiFormComponent,
   params:{
     name:{
