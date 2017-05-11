@@ -3,11 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+// used to create fake backend
+import { fakeBackendProvider } from './_helpers/index';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { BaseRequestOptions } from '@angular/http';
+
+
 import { UIRouterModule  } from 'ui-router-ng2';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { APP_STATES } from './app.states';
 
+import { AlertComponent } from './_directives/index';
+import { AuthGuard } from './_guards/index';
+import { AlertService, AuthenticationService, UserService, CreateCodeService } from './_services/index';
 import { AppComponent }  from './app.component';
 import { HomeComponent }  from './home.component';
 import { CreateCodeComponent }  from './create-code/create-code.component';
@@ -18,7 +27,6 @@ import { StringFormComponent }  from './string-form/string-form.component';
 import { SmsFormComponent }  from './sms-form/sms-form.component';
 import { BusinessCardFormComponent }  from './business-card-form/business-card-form.component';
 import { CodeOptionsComponent } from './code-options/code-options.component';
-import { CreateCodeService }  from './create-code/create-code.service';
 
 @NgModule({
   imports:[
@@ -35,6 +43,10 @@ import { CreateCodeService }  from './create-code/create-code.service';
   ],
   declarations: [
     AppComponent,
+    AlertComponent,
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent
     HomeComponent,
     CreateCodeComponent,
     DisplayCodeComponent,
@@ -44,6 +56,17 @@ import { CreateCodeService }  from './create-code/create-code.service';
     WifiFormComponent,
     BusinessCardFormComponent,
     CodeOptionsComponent
+  ],
+  providers: [
+      AuthGuard,
+      AlertService,
+      AuthenticationService,
+      UserService,
+
+      // providers used to create fake backend
+      fakeBackendProvider,
+      MockBackend,
+      BaseRequestOptions
   ],
   bootstrap: [ AppComponent ]
 })

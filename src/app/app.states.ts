@@ -1,20 +1,32 @@
 import {Transition} from "ui-router-ng2";
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home.component';
+import { HomeComponent } from './home/home.component';
 import { CreateCodeComponent } from './create-code/create-code.component';
 import { UrlFormComponent } from './url-form/url-form.component';
 import { WifiFormComponent } from './wifi-form/wifi-form.component';
 import { StringFormComponent } from './string-form/string-form.component';
 import { SmsFormComponent } from './sms-form/sms-form.component';
 import { BusinessCardFormComponent } from './business-card-form/business-card-form.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './_guards/index';
 
 const homeState = {
   name: 'home',
   url: '/',
   component: HomeComponent
 }
-
+const loginComponent = {
+  name: 'login',
+  url: '/login',
+  component: LoginComponent
+}
+const registerComponent = {
+  name: 'register',
+  url: '/register',
+  component: RegisterComponent
+}
 const createCode = {
   name: 'createCode',
   url: '/create?background?level?foreground',
@@ -99,6 +111,14 @@ const wifiForm = {
     }
   }
 }
+
+export const codesState = {
+  parent: 'app',
+  name: 'codes',
+  url: '/codes',
+  component: CodesComponent,
+  data: { requiresAuth: true }
+};
 const businessCardForm = {
   name:'createCode.buisnessCard',
   url:'/buisnessCard',
