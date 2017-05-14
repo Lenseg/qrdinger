@@ -124,4 +124,16 @@ const businessCardForm = {
   url:'/buisnessCard',
   component:BusinessCardFormComponent
 }
+
+export function returnTo ($transition$: Transition): any {
+  if ($transition$.redirectedFrom() != null) {
+    return $transition$.redirectedFrom().targetState();
+  }
+  const $state = $transition$.router.stateService;
+  if ($transition$.from().name !== '') {
+    return $state.target($transition$.from(), $transition$.params('from'));
+  }
+  return $state.target('home');
+}
+
 export const APP_STATES = [homeState, createCode, urlForm, stringForm, smsForm, businessCardForm, wifiForm]

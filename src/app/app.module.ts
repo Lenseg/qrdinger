@@ -13,12 +13,13 @@ import { UIRouterModule  } from 'ui-router-ng2';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { APP_STATES } from './app.states';
+import { routerConfigFn } from './router.config.ts';
 
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService, CreateCodeService } from './_services/index';
 import { AppComponent }  from './app.component';
-import { HomeComponent }  from './home.component';
+import { HomeComponent }  from './home/home.component';
 import { CreateCodeComponent }  from './create-code/create-code.component';
 import { DisplayCodeComponent }  from './display-code/display-code.component';
 import { UrlFormComponent }  from './url-form/url-form.component';
@@ -33,7 +34,8 @@ import { CodeOptionsComponent } from './code-options/code-options.component';
     UIRouterModule.forRoot({
       states: APP_STATES,
       useHash: true,
-      otherwise: { state: 'home' }
+      otherwise: { state: 'home' },
+      config: routerConfigFn
     }),
     BrowserModule,
     ReactiveFormsModule,
