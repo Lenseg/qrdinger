@@ -5,7 +5,7 @@ import { AppConfigService } from './app-config.service';
 export class AuthService {
   username: string = 'Lenseg';
 
-  constructor(public appConfig: AppConfigService) { }
+  constructor(public appConfig: AppConfigService) { console.log('kek') }
   isAuthenticated() {
     return !!this.appConfig.emailAddress;
   }

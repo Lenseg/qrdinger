@@ -9,6 +9,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { APP_STATES } from './app.states';
 import { routerConfigFn } from './router.config';
 
+import { AuthService, AppConfigService }  from './_services/index';
+
 import { AppComponent }  from './app.component';
 import { LoginComponent }  from './login/login.component';
 import { HomeComponent }  from './home/home.component';
@@ -47,6 +49,10 @@ import { CodeOptionsComponent } from './code-options/code-options.component';
     WifiFormComponent,
     BusinessCardFormComponent,
     CodeOptionsComponent
+  ],
+  providers: [
+    AppConfigService,
+    AuthService
   ],
   bootstrap: [ UIView ]
 })

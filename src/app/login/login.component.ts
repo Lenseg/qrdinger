@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TargetState, StateService } from 'ui-router-ng2';
-import { AuthService } from '../_services/auth.service';
-import { AppConfigService } from '../_services/app-config.service';
+import { AuthService, AppConfigService } from '../_services/index';
 
 import { ErrorMessage } from '../global/typeClasses'
 
@@ -20,6 +19,7 @@ export class LoginComponent {
               private authService: AuthService,
               private $state: StateService
   ) {
+    console.log(authService)
     this.username = authService.username;
 
     this.credentials = {
