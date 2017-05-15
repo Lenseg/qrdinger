@@ -3,7 +3,7 @@ import { Component, trigger, state, style, transition, animate } from '@angular/
 import { Animations } from './global/animations'
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-root',
   templateUrl: './app.component.pug',
   animations: [ Animations.slideInOut ]
 })

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators }            from '@angular/forms';
-import { CreateCodeService }  from '../create-code/create-code.service';
+import { CreateCodeService }  from '../_services/index';
 
 import { ErrorMessage } from '../global/typeClasses';
 

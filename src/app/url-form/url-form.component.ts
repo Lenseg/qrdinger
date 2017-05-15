@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators }            from '@angular/forms';
-import { CreateCodeService }  from '../create-code/create-code.service';
+import { CreateCodeService }  from '../_services/index';
 import { StateService } from 'ui-router-ng2';
 import { patternWarningWalidator } from '../global/directives';
 

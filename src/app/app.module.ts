@@ -3,22 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-// used to create fake backend
-import { fakeBackendProvider } from './_helpers/index';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { BaseRequestOptions } from '@angular/http';
-
-
-import { UIRouterModule  } from 'ui-router-ng2';
+import { UIRouterModule, UIView  } from 'ui-router-ng2';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { APP_STATES } from './app.states';
-import { routerConfigFn } from './router.config.ts';
+import { routerConfigFn } from './router.config';
 
-import { AlertComponent } from './_directives/index';
-import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService, CreateCodeService } from './_services/index';
 import { AppComponent }  from './app.component';
+import { LoginComponent }  from './login/login.component';
 import { HomeComponent }  from './home/home.component';
 import { CreateCodeComponent }  from './create-code/create-code.component';
 import { DisplayCodeComponent }  from './display-code/display-code.component';
@@ -45,11 +37,8 @@ import { CodeOptionsComponent } from './code-options/code-options.component';
   ],
   declarations: [
     AppComponent,
-    AlertComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
-    HomeComponent,
     CreateCodeComponent,
     DisplayCodeComponent,
     UrlFormComponent,
@@ -59,17 +48,6 @@ import { CodeOptionsComponent } from './code-options/code-options.component';
     BusinessCardFormComponent,
     CodeOptionsComponent
   ],
-  providers: [
-      AuthGuard,
-      AlertService,
-      AuthenticationService,
-      UserService,
-
-      // providers used to create fake backend
-      fakeBackendProvider,
-      MockBackend,
-      BaseRequestOptions
-  ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ UIView ]
 })
 export class AppModule { }

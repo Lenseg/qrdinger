@@ -9,25 +9,30 @@ import { StringFormComponent } from './string-form/string-form.component';
 import { SmsFormComponent } from './sms-form/sms-form.component';
 import { BusinessCardFormComponent } from './business-card-form/business-card-form.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { AuthGuard } from './_guards/index';
+
+const appState = {
+  name:'app',
+  redirectTo: 'home',
+  component: AppComponent
+}
 
 const homeState = {
+  parent: 'app',
   name: 'home',
   url: '/',
   component: HomeComponent
 }
-const loginComponent = {
+const loginState = {
+  parent: 'app',
   name: 'login',
   url: '/login',
-  component: LoginComponent
-}
-const registerComponent = {
-  name: 'register',
-  url: '/register',
-  component: RegisterComponent
+  component: LoginComponent,
+  resolve: [
+    { token: 'returnTo', deps: [Transition], resolveFn: returnTo },
+  ]
 }
 const createCode = {
+  parent: 'app',
   name: 'createCode',
   url: '/create?background?level?foreground',
   component: CreateCodeComponent,
@@ -112,13 +117,6 @@ const wifiForm = {
   }
 }
 
-export const codesState = {
-  parent: 'app',
-  name: 'codes',
-  url: '/codes',
-  component: CodesComponent,
-  data: { requiresAuth: true }
-};
 const businessCardForm = {
   name:'createCode.buisnessCard',
   url:'/buisnessCard',
@@ -136,4 +134,4 @@ export function returnTo ($transition$: Transition): any {
   return $state.target('home');
 }
 
-export const APP_STATES = [homeState, createCode, urlForm, stringForm, smsForm, businessCardForm, wifiForm]
+export const APP_STATES = [appState, loginState, homeState, createCode, urlForm, stringForm, smsForm, businessCardForm, wifiForm]

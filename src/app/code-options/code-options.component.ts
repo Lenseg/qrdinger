@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators }            from '@angular/forms';
 import { StateService } from 'ui-router-ng2';
 
-import { CreateCodeService }  from '../create-code/create-code.service';
+import { CreateCodeService }  from '../_services/index';
 import { CommonCodeOptions, Levels } from '../global/typeClasses';
 import { isHexColor } from '../global/directives';
 @Component({
