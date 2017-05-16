@@ -19,7 +19,6 @@ export class LoginComponent {
               private authService: AuthService,
               private $state: StateService
   ) {
-    console.log(authService)
     this.username = authService.username;
 
     this.credentials = {

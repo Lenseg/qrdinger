@@ -13,6 +13,7 @@ import { AuthService, AppConfigService }  from './_services/index';
 
 import { AppComponent }  from './app.component';
 import { LoginComponent }  from './login/login.component';
+import { RegisterComponent }  from './register/register.component';
 import { HomeComponent }  from './home/home.component';
 import { CreateCodeComponent }  from './create-code/create-code.component';
 import { DisplayCodeComponent }  from './display-code/display-code.component';
@@ -43,6 +44,7 @@ import { CodeOptionsComponent } from './code-options/code-options.component';
     LoginComponent,
     CreateCodeComponent,
     DisplayCodeComponent,
+    RegisterComponent,
     UrlFormComponent,
     StringFormComponent,
     SmsFormComponent,
