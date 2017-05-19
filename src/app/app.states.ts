@@ -2,6 +2,7 @@ import {Transition} from "ui-router-ng2";
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { CodesListComponent } from './codes-list/codes-list.component';
 import { CreateCodeComponent } from './create-code/create-code.component';
 import { RegisterComponent } from './register/register.component';
 import { UrlFormComponent } from './url-form/url-form.component';
@@ -16,7 +17,6 @@ const appState = {
   redirectTo: 'home',
   component: AppComponent
 }
-
 const homeState = {
   parent: 'app',
   name: 'home',
@@ -40,6 +40,12 @@ const registerState = {
   resolve: [
     { token: 'returnTo', deps: [Transition], resolveFn: returnTo },
   ]
+}
+const codesListState = {
+  parent: 'app',
+  name: 'codes-list',
+  url: '/my-codes',
+  component: CodesListComponent
 }
 const createCode = {
   parent: 'app',
@@ -144,4 +150,4 @@ export function returnTo ($transition$: Transition): any {
   return $state.target('home');
 }
 
-export const APP_STATES = [appState, loginState, registerState, homeState, createCode, urlForm, stringForm, smsForm, businessCardForm, wifiForm]
+export const APP_STATES = [appState, loginState, registerState, codesListState, homeState, createCode, urlForm, stringForm, smsForm, businessCardForm, wifiForm]

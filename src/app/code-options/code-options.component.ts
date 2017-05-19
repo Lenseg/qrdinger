@@ -11,7 +11,7 @@ import { isHexColor } from '../global/directives';
 })
 export class CodeOptionsComponent {
   form : FormGroup;
-
+  level : string | number;
   @Output() onOptionsUpdate = new EventEmitter<CommonCodeOptions>();
   constructor(private fb: FormBuilder, private stateService:StateService, private createCodeService:CreateCodeService){
 
@@ -25,7 +25,6 @@ export class CodeOptionsComponent {
     formValues.level =  this.stateService.params.level ? parseInt(decodeURIComponent(this.stateService.params.level)) : 1;
     formValues.foreground =  this.stateService.params.foreground ? decodeURIComponent(this.stateService.params.foreground) : '#000000',
     formValues.background =  this.stateService.params.background ? decodeURIComponent(this.stateService.params.background) : '#ffffff';
-    console.log(formValues)
     this.form = this.fb.group(formValues);
     this.updateCode(this.form.value)
   }
@@ -52,6 +51,7 @@ export class CodeOptionsComponent {
         options.level = 'H';
         break;
     }
+    this.level = options.level;
     this.onOptionsUpdate.emit(options);
   }
 }

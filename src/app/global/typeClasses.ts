@@ -12,24 +12,28 @@ export class CodeOptions {
   size?: string;
 }
 export class CommonCodeOptions {
-  level?:string|number
-  foreground?:string
-  background?:string
+  level?:string|number;
+  foreground?:string;
+  background?:string;
+}
+export class CodeDefinition extends CodeOptions {
+  id:string;
+  name:string;
 }
 export class CodeValueParams {
   type?:string
 }
 export interface WifiCodeValueParams extends CodeValueParams{
-  networkType?:string,
-  name?: string,
-  pass?: string,
-  hidden?:boolean
+  networkType?:string;
+  name?: string;
+  pass?: string;
+  hidden?:boolean;
 }
 export interface OnLineCodeValueParams extends CodeValueParams{
   text?:string
 }
 export interface SmsCodeValueParams extends CodeValueParams{
-  number?:string,
-  message?:string
+  number?:string;
+  message?:string;
 }
 export const Levels = ['L', 'M', 'Q', 'H'];

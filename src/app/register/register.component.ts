@@ -17,8 +17,11 @@ export class RegisterComponent{
   passwordWarns: ErrorMessage[] = [];
   emailErrors: ErrorMessage[] = [];
   emailWarns: ErrorMessage[] = [];
+  passwordConfirmErrors: ErrorMessage[] = [];
+  passwordConfirmWarns: ErrorMessage[] = [];
   constructor(private fb:FormBuilder){
     this.createForm();
+    this.bindUpdateEvents();
   }
   createForm():void{
     this.form = this.fb.group({
@@ -29,7 +32,7 @@ export class RegisterComponent{
       password: ['',Validators.required],
       passwordConfirm: ['',Validators.required]
     },{
-      validator: this.isPasswordsAreSame('networkType','pass')
+      validator: this.isPasswordsAreSame('password','passwordConfirm')
     });
   }
   bindUpdateEvents():void{
@@ -49,52 +52,50 @@ export class RegisterComponent{
           }
         }
       }
-      this.sendModel();
     });
   }
-  sendModel():void{
-    var number = this.form.value.number.replace(/[^+[0-9]]*/g,'');
-    this.createCodeService.codeValueUpdate({
-      type:'sms',
-      number:number,
-      message:this.form.value.message});
+  isPasswordsAreSame(passControlName:string,passConfirmControlName:string){
+    return(group: FormGroup) => {
+      let passControl = group.get(passControlName);
+      let passConfirmControl = group.get(passConfirmControlName);
+      if(passConfirmControl.value !== passControl.value){
+        let newErrors = Object.assign(passConfirmControl.errors || {}, {match:true});
+        passConfirmControl.setErrors(newErrors)
+      } else {
+        if(passConfirmControl.errors.match){
+          let newErrors = Object.assign(passConfirmControl.errors || {}, {});
+          delete newErrors.match;
+          passConfirmControl.setErrors(newErrors);
+        }
+      }
+    }
   }
-  preventCharInput(e:KeyboardEvent):void{
-    var regexp = /[^0-9,+,(,),\-,—,–, ]/g;
-    if(regexp.test(e.key))
-      e.preventDefault();
-  }
-  filterPaste(e:ClipboardEvent):void{
-    setTimeout(() => {
-      var regexp = /[^0-9,+,(,),\-,—,–, ]/g;
-      var control = this.form.get('number');
-      control.setValue(control.value.replace(regexp,''));
-    },0);
-  }
-}
-class smsParams {
-  number?:string;
-  message?:string;
 }
 const errors = {
-  number:{
+  password:{
     required : {
       type:'err',
-      message:'Are you sure number shold be empty?'
+      message:'Password required'
+    }
+  },
+  passwordConfirm:{
+    required : {
+      type:'err',
+      message:'Confirm password'
+    },
+    match:{
+      type:'err',
+      message:'Passwords doesn\'t match'
+    }
+  },
+  email : {
+    required : {
+      type:'err',
+      message:'Email required'
     },
     pattern : {
       type:'err',
-      message:'Please, put some numbers in here'
-    },
-    patternWarning : {
-      type:'warn',
-      message:'International prefix (+X) is reccomended'
-    }
-  },
-  message : {
-    required : {
-      type:'warn',
-      message:'Are you sure message shold be empty?'
+      message:'Invalid email'
     }
   }
 }
