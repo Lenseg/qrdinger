@@ -7,7 +7,7 @@ import { CodeDefinition } from '../global/typeClasses'
 })
 
 export class CodesListComponent {
-  codesList : CodeDefinition[];
+  codesList : CodeDefinition[] = [];
   constructor(){
     this.codesList = [{
       background: '#ffffff',
@@ -17,6 +17,14 @@ export class CodesListComponent {
       id:'1',
       name:'kek',
       type:'Wifi'
+    },{
+      background: '#eaeaea',
+      foreground: '#444444',
+      level: 'l',
+      value: 'sdflkjgblbehjrdvh;akrnefgkzjd,nvcz',
+      id:'2',
+      name:'kek2',
+      type:'Sms'
     }]
   }
 }

@@ -49,6 +49,8 @@ export class DisplayCodeComponent {
     this.codeOptions.size = this.canvasContainer.nativeElement.offsetWidth;
   }
   updateCode() : void {
+
+      console.log(this.codeOptions)
     for(var option in this.codeOptions){
       this.code[option] = this.codeOptions[option];
     }
