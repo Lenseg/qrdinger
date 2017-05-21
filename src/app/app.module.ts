@@ -16,6 +16,7 @@ import { LoginComponent }  from './login/login.component';
 import { RegisterComponent }  from './register/register.component';
 import { HomeComponent }  from './home/home.component';
 import { CodesListComponent }  from './codes-list/codes-list.component';
+import { CodesListItemComponent }  from './code-list-item/code-list-item.component';
 import { CreateCodeComponent }  from './create-code/create-code.component';
 import { DisplayCodeComponent }  from './display-code/display-code.component';
 import { UrlFormComponent }  from './url-form/url-form.component';
@@ -46,6 +47,7 @@ import { CodeOptionsComponent } from './code-options/code-options.component';
     CreateCodeComponent,
     DisplayCodeComponent,
     CodesListComponent,
+    CodesListItemComponent,
     RegisterComponent,
     UrlFormComponent,
     StringFormComponent,

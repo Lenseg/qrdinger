@@ -8,4 +8,15 @@ import { CodeDefinition } from '../global/typeClasses'
 
 export class CodesListComponent {
   codesList : CodeDefinition[];
+  constructor(){
+    this.codesList = [{
+      background: '#ffffff',
+      foreground: '#000000',
+      level: 'h',
+      value: 'kek',
+      id:'1',
+      name:'kek',
+      type:'Wifi'
+    }]
+  }
 }

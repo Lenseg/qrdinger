@@ -19,6 +19,7 @@ export class CommonCodeOptions {
 export class CodeDefinition extends CodeOptions {
   id:string;
   name:string;
+  type:string;
 }
 export class CodeValueParams {
   type?:string
