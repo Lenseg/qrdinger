@@ -9,7 +9,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { APP_STATES } from './app.states';
 import { routerConfigFn } from './router.config';
 
-import { AuthService, AppConfigService }  from './_services/index';
+import { AuthService, AppConfigService, CodesService }  from './_services/index';
 
 import { AppComponent }  from './app.component';
 import { LoginComponent }  from './login/login.component';
@@ -17,6 +17,7 @@ import { RegisterComponent }  from './register/register.component';
 import { HomeComponent }  from './home/home.component';
 import { CodesListComponent }  from './codes-list/codes-list.component';
 import { CodesListItemComponent }  from './code-list-item/code-list-item.component';
+import { SingleCodeComponent } from './single-code/single-code.component';
 import { CreateCodeComponent }  from './create-code/create-code.component';
 import { DisplayCodeComponent }  from './display-code/display-code.component';
 import { UrlFormComponent }  from './url-form/url-form.component';
@@ -48,6 +49,7 @@ import { CodeOptionsComponent } from './code-options/code-options.component';
     DisplayCodeComponent,
     CodesListComponent,
     CodesListItemComponent,
+    SingleCodeComponent,
     RegisterComponent,
     UrlFormComponent,
     StringFormComponent,
@@ -58,7 +60,8 @@ import { CodeOptionsComponent } from './code-options/code-options.component';
   ],
   providers: [
     AppConfigService,
-    AuthService
+    AuthService,
+    CodesService
   ],
   bootstrap: [ UIView ]
 })
