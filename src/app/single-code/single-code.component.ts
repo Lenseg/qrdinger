@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CodeDefinition, CodeOptions } from '../global/typeClasses';
-import { CodesService } from '../_services/index'
 
 @Component({
   selector:'single-code',
@@ -9,7 +8,9 @@ import { CodesService } from '../_services/index'
 
 export class SingleCodeComponent {
  edit:boolean;
- consturctor(private codesService:CodesService){
-
+ @Input() code:CodeDefinition;
+ constructor(){
+   console.log(this.code);
  }
+
 }

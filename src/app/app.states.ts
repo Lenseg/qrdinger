@@ -1,8 +1,11 @@
 import {Transition} from "ui-router-ng2";
 
+import { CodesService } from './_services/index';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CodesListComponent } from './codes-list/codes-list.component';
+import { SingleCodeComponent } from './single-code/single-code.component';
 import { CreateCodeComponent } from './create-code/create-code.component';
 import { RegisterComponent } from './register/register.component';
 import { UrlFormComponent } from './url-form/url-form.component';
@@ -22,6 +25,19 @@ const homeState = {
   name: 'home',
   url: '/',
   component: HomeComponent
+}
+const codeState = {
+  parent: 'app',
+  name: 'code',
+  url: '/codes/:codeId',
+  component: SingleCodeComponent,
+  resolve: [
+    {
+      token: 'code',
+      deps: [Transition, CodesService],
+      resolveFn: (trans, codes) =>  codes.getCode(trans.params().codeId)
+    }
+  ]
 }
 const loginState = {
   parent: 'app',
@@ -43,8 +59,8 @@ const registerState = {
 }
 const codesListState = {
   parent: 'app',
-  name: 'codes-list',
-  url: '/my-codes',
+  name: 'codes',
+  url: '/codes',
   component: CodesListComponent
 }
 const createCode = {
@@ -150,4 +166,4 @@ export function returnTo ($transition$: Transition): any {
   return $state.target('home');
 }
 
-export const APP_STATES = [appState, loginState, registerState, codesListState, homeState, createCode, urlForm, stringForm, smsForm, businessCardForm, wifiForm]
+export const APP_STATES = [appState, loginState, registerState, codeState, codesListState, homeState, createCode, urlForm, stringForm, smsForm, businessCardForm, wifiForm]

@@ -22,8 +22,8 @@ export class CodesService {
   }];
 
   constructor() { }
-  getCode(id){
-    for(code of this.codes){
+  getCode(id:string){
+    for(let code of this.codes){
       if(code.id === id)
         return code;
     }
