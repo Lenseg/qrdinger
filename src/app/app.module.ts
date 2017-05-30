@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { UIRouterModule, UIView  } from 'ui-router-ng2';
+
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { APP_STATES } from './app.states';
@@ -27,8 +28,15 @@ import { SmsFormComponent }  from './sms-form/sms-form.component';
 import { BusinessCardFormComponent }  from './business-card-form/business-card-form.component';
 import { CodeOptionsComponent } from './code-options/code-options.component';
 
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { MockData } from './mock-data';
+
 @NgModule({
   imports:[
+    HttpModule,
+    InMemoryWebApiModule.forRoot(MockData, {
+      passThruUnknownUrl: true
+    }),
     UIRouterModule.forRoot({
       states: APP_STATES,
       useHash: true,
@@ -57,6 +65,7 @@ import { CodeOptionsComponent } from './code-options/code-options.component';
     WifiFormComponent,
     BusinessCardFormComponent,
     CodeOptionsComponent
+
   ],
   providers: [
     AppConfigService,

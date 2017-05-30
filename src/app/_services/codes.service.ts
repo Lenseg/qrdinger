@@ -1,31 +1,28 @@
 import { Injectable } from '@angular/core';
 import { CodeDefinition } from '../global/typeClasses';
 
+import { Http } from "@angular/http";
+
 @Injectable()
 export class CodesService {
-  codes: CodeDefinition[] = [{
-    background: '#ffffff',
-    foreground: '#000000',
-    level: 'h',
-    value: 'kek',
-    id:'1',
-    name:'kek',
-    type:'Wifi'
-  },{
-    background: '#eaeaea',
-    foreground: '#444444',
-    level: 'l',
-    value: 'sdflkjgblbehjrdvh;akrnefgkzjd,nvcz',
-    id:'2',
-    name:'kek2',
-    type:'Sms'
-  }];
+  constructor( public http: Http ) {
 
-  constructor() { }
-  getCode(id:string){
-    for(let code of this.codes){
-      if(code.id === id)
-        return code;
+  }
+
+  cache:Promise<CodeDefinition[]> = null;
+
+  getAllCodes() {
+    return this.cache = this.cache || this.http.get('api/codes')
+        .map(resp =>  resp.json())
+        .toPromise();
+  }
+
+  getCode(id:string) {
+    function codeMatchesParam(code:CodeDefinition) {
+      return code.id === id;
     }
+
+    return this.getAllCodes()
+        .then((codes) => {codes.data.find(codeMatchesParam)});
   }
 }

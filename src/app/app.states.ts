@@ -35,7 +35,11 @@ const codeState = {
     {
       token: 'code',
       deps: [Transition, CodesService],
-      resolveFn: (trans, codes) =>  codes.getCode(trans.params().codeId)
+      resolveFn: (trans:Transition, codes:CodesService) => {
+
+        codes.getCode(trans.params().codeId).then(function(data){console.log(data,'kek')})
+        return codes.getCode(trans.params().codeId)
+      }
     }
   ]
 }
