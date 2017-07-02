@@ -1,28 +1,60 @@
 import { Injectable } from '@angular/core';
-import { CodeDefinition } from '../global/typeClasses';
-
-import { Http } from "@angular/http";
+import { Code } from '../global/typeClasses';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/share';
+import 'rxjs/add/operator/map';
+import { Http, Headers, Response } from "@angular/http";
 
 @Injectable()
 export class CodesService {
-  constructor( public http: Http ) {
+  private url = 'api/codes';
 
-  }
+  constructor (private http: Http) {}
+  request:Observable<any>
+  cache:Code[];
 
-  cache:Promise<CodeDefinition[]> = null;
-
-  getAllCodes() {
-    return this.cache = this.cache || this.http.get('api/codes')
-        .map(resp =>  resp.json())
-        .toPromise();
-  }
-
-  getCode(id:string) {
-    function codeMatchesParam(code:CodeDefinition) {
-      return code.id === id;
+  getCodes() {
+    if(this.cache){
+      return Observable.of(this.cache);
+    } else if(this.request) {
+      return this.request;
+    } else {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      this.request = this.http.get(this.url, {
+        headers: headers
+      })
+      .map((resp) => this.cache = resp.json().data)
+      .catch(this.handleError);
+      return this.request;
     }
-
-    return this.getAllCodes()
-        .then((codes) => {codes.data.find(codeMatchesParam)});
+  }
+  getCode(id:string) {
+    if(this.cache){
+      return Observable.of(this.cache.filter( code => code.id === id ));
+    } else {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+        this.request = this.http.get(`${this.url}/${id}`,{
+         headers: headers
+       })
+      .map(resp =>  resp.json())
+      .catch(this.handleError);
+      return this.request;
+    }
+  }
+  private handleError (error: Response | any) {
+    // TODO remote loggingr
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
 }

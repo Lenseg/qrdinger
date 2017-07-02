@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CodeDefinition, CodeOptions } from '../global/typeClasses';
+import { Code, CodeOptions } from '../global/typeClasses';
 
 @Component({
   selector:'single-code',
@@ -7,11 +7,11 @@ import { CodeDefinition, CodeOptions } from '../global/typeClasses';
 })
 
 export class SingleCodeComponent {
- @Input() code:CodeDefinition;
+ @Input() code:Code;
   edit:boolean;
   codeOptions:CodeOptions={};
  constructor(){
-   console.log(this.code)
+   console.log(this.code,'singleConstr')
   //  this.code
    this.codeOptions = this.creareCodeOptions();
  }

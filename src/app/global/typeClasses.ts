@@ -16,7 +16,7 @@ export class CommonCodeOptions {
   foreground?:string;
   background?:string;
 }
-export class CodeDefinition extends CodeOptions {
+export class Code extends CodeOptions {
   id:string;
   name:string;
   type:string;

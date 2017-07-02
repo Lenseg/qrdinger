@@ -1,30 +1,25 @@
-import { Component } from '@angular/core';
-import { CodeDefinition } from '../global/typeClasses'
+import { Component, OnInit, Input } from '@angular/core';
+import { Code } from '../global/typeClasses';
+import { CodesService } from '../_services/index';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector:'codes-list',
   templateUrl:'./codes-list.component.pug'
 })
 
-export class CodesListComponent {
-  codesList : CodeDefinition[] = [];
-  constructor(){
-    this.codesList = [{
-      background: '#ffffff',
-      foreground: '#000000',
-      level: 'h',
-      value: 'kek',
-      id:'1',
-      name:'kek',
-      type:'Wifi'
-    },{
-      background: '#eaeaea',
-      foreground: '#444444',
-      level: 'l',
-      value: 'sdflkjgblbehjrdvh;akrnefgkzjd,nvcz',
-      id:'2',
-      name:'kek2',
-      type:'Sms'
-    }]
+export class CodesListComponent implements OnInit{
+  codes: Code[] = [];
+  error:any;
+  constructor(private codesService:CodesService){
+  }
+  ngOnInit() { this.getCodes(); }
+
+  getCodes() {
+    console.log('get codes')
+    this.codesService.getCodes()
+                     .subscribe(
+                       codes => this.codes = codes,
+                       error =>  this.error = error);
   }
 }

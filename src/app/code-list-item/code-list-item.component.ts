@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CodeDefinition, CodeOptions } from '../global/typeClasses';
+import { Code, CodeOptions } from '../global/typeClasses';
 
 @Component({
   selector:'code-list-item',
@@ -7,10 +7,8 @@ import { CodeDefinition, CodeOptions } from '../global/typeClasses';
 })
 
 export class CodesListItemComponent {
-  @Input('code') code : CodeDefinition;
-  codeOptions : CodeOptions= {
-    value:''
-  };
+  @Input('code') code : Code;
+  codeOptions : CodeOptions;
   constructor(){
     this.codeOptions = this.creareCodeOptions();
   }

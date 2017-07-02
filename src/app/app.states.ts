@@ -30,18 +30,7 @@ const codeState = {
   parent: 'app',
   name: 'code',
   url: '/codes/:codeId',
-  component: SingleCodeComponent,
-  resolve: [
-    {
-      token: 'code',
-      deps: [Transition, CodesService],
-      resolveFn: (trans:Transition, codes:CodesService) => {
-
-        codes.getCode(trans.params().codeId).then(function(data){console.log(data,'kek')})
-        return codes.getCode(trans.params().codeId)
-      }
-    }
-  ]
+  component: SingleCodeComponent
 }
 const loginState = {
   parent: 'app',

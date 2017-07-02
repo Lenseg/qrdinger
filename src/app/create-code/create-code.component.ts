@@ -49,6 +49,6 @@ export class CreateCodeComponent {
   }
   public selectForm(type:string) : void {
     this.activeType = this.typesMap[type];
-    this.stateService.go('createCode.' + type);
+    this.stateService.go(`createCode${type}`);
   };
 }
