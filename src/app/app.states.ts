@@ -26,12 +26,6 @@ const homeState = {
   url: '/',
   component: HomeComponent
 }
-const codeState = {
-  parent: 'app',
-  name: 'code',
-  url: '/codes/:codeId',
-  component: SingleCodeComponent
-}
 const loginState = {
   parent: 'app',
   name: 'login',
@@ -56,12 +50,15 @@ const codesListState = {
   url: '/codes',
   component: CodesListComponent
 }
-const createCode = {
+const editState = {
   parent: 'app',
-  name: 'createCode',
-  url: '/create?background?level?foreground',
-  component: CreateCodeComponent,
+  name: 'edit',
+  url: '/edit/:codeId?background?level?foreground',
+  component: SingleCodeComponent,
   params: {
+    codeId:{
+      value:'new'
+    },
     background:{
       dynamic:true,
       inherit: true,
@@ -80,7 +77,7 @@ const createCode = {
   }
 }
 const urlForm = {
-  name:'createCode.url',
+  name:'edit.url',
   url:'/url?url',
   component:UrlFormComponent,
   params:{
@@ -91,7 +88,7 @@ const urlForm = {
   }
 }
 const stringForm = {
-  name:'createCode.string',
+  name:'edit.string',
   url:'/string?text',
   component:StringFormComponent,
   params:{
@@ -102,7 +99,7 @@ const stringForm = {
   }
 }
 const smsForm = {
-  name:'createCode.sms',
+  name:'edit.sms',
   url:'/sms?number?message',
   component:SmsFormComponent,
   params:{
@@ -117,7 +114,7 @@ const smsForm = {
   }
 }
 const wifiForm = {
-  name:'createCode.wifi',
+  name:'edit.wifi',
   url:'/wifi?name?networkType?pass?hidden',
   component:WifiFormComponent,
   params:{
@@ -143,7 +140,7 @@ const wifiForm = {
 }
 
 const businessCardForm = {
-  name:'createCode.buisnessCard',
+  name:'edit.buisnessCard',
   url:'/buisnessCard',
   component:BusinessCardFormComponent
 }
@@ -159,4 +156,4 @@ export function returnTo ($transition$: Transition): any {
   return $state.target('home');
 }
 
-export const APP_STATES = [appState, loginState, registerState, codeState, codesListState, homeState, createCode, urlForm, stringForm, smsForm, businessCardForm, wifiForm]
+export const APP_STATES = [appState, loginState, registerState, editState, codesListState, homeState, urlForm, stringForm, smsForm, businessCardForm, wifiForm]

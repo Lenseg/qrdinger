@@ -1,6 +1,6 @@
 .row
   .col-xs-12.col-sm-6.col-md-3
-    display-code([codeOptions]="codeOptions")
+    display-code([code]="code")
   .col-xs-12.col-sm-6.col-md-3
     form
       div.btn-group.form-group( dropdown )
@@ -9,5 +9,5 @@
         ul.dropdown-menu( *dropdownMenu role="menu" )
           li(*ngFor="let type of codeTypes", role="menuitem")
             a.dropdown-item((click)="selectForm(type)") {{typesMap[type]}}
-    code-options((onOptionsUpdate)="onOptionsUpdate($event)")
+    code-options([code]="code", (onOptionsUpdate)="onOptionsUpdate($event)")
     ui-view

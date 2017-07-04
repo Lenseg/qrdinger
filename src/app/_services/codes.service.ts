@@ -32,14 +32,16 @@ export class CodesService {
   }
   getCode(id:string) {
     if(this.cache){
-      return Observable.of(this.cache.filter( code => code.id === id ));
+      let res = this.cache.find( code => code.id === id );
+      console.log(res,'cached')
+      return Observable.of(this.cache.find( code => code.id === id ));
     } else {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
         this.request = this.http.get(`${this.url}/${id}`,{
          headers: headers
        })
-      .map(resp =>  resp.json())
+      .map(resp =>  {console.log(resp.json().data);return resp.json().data})
       .catch(this.handleError);
       return this.request;
     }

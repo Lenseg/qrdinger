@@ -17,9 +17,9 @@ export class CommonCodeOptions {
   background?:string;
 }
 export class Code extends CodeOptions {
-  id:string;
-  name:string;
-  type:string;
+  id?:string;
+  name?:string;
+  type?:string;
 }
 export class CodeValueParams {
   type?:string
@@ -29,6 +29,9 @@ export interface WifiCodeValueParams extends CodeValueParams{
   name?: string;
   pass?: string;
   hidden?:boolean;
+}
+export interface UrlCodeValueParams extends CodeValueParams{
+  url?:string
 }
 export interface OnLineCodeValueParams extends CodeValueParams{
   text?:string

@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { StateService } from 'ui-router-ng2';
 
-import { WifiCodeValueParams, OnLineCodeValueParams, SmsCodeValueParams, CommonCodeOptions } from '../global/typeClasses';
+import { WifiCodeValueParams, OnLineCodeValueParams, SmsCodeValueParams,UrlCodeValueParams, CommonCodeOptions } from '../global/typeClasses';
 import { Subject } from 'rxjs/Subject'
 
 @Injectable()
@@ -13,11 +13,12 @@ export class CreateCodeService {
   constructor(private stateService:StateService){
 
   }
-  codeValueUpdate (codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams){
+  codeValueUpdate (codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & UrlCodeValueParams & SmsCodeValueParams){
+    console.log(codeValueParams)
     this.setValueAsParams(codeValueParams);
     this.codeValue.next(this.constructCodeValue(codeValueParams));
   }
-  constructCodeValue(codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams){
+  constructCodeValue(codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & UrlCodeValueParams & SmsCodeValueParams){
     switch(codeValueParams.type){
       case 'wifi':
         return this.constructWifiValue(codeValueParams);
@@ -46,8 +47,8 @@ export class CreateCodeService {
       encodedStr = '"' + encodedStr + '"';
     return encodedStr
   }
-  constructUrlValue(valueParams:OnLineCodeValueParams){
-    return 'URL:' + valueParams.text;
+  constructUrlValue(valueParams:UrlCodeValueParams){
+    return 'URL:' + valueParams.url;
   }
   constructSmsValue(valueParams:SmsCodeValueParams){
     return 'SMSTO:' + valueParams.number + ':' + valueParams.message
@@ -55,20 +56,20 @@ export class CreateCodeService {
   bindFormParamsUpdate(formObservable: FormGroup){
     formObservable.valueChanges.subscribe(()=>{
       var params:CommonCodeOptions = {};
+      console.log(formObservable.value)
       for(var param in formObservable.value){
           params[param] = encodeURIComponent(formObservable.value[param]);
       }
       this.stateService.go(this.stateService.current,params);
     })
   }
-  setValueAsParams(codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams){
+  setValueAsParams(codeValueParams:WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams & UrlCodeValueParams){
     var params:(WifiCodeValueParams & OnLineCodeValueParams & SmsCodeValueParams) = {};
     for(var param in codeValueParams){
       if(param !== 'type' && param !== ''){
         params[param] = encodeURIComponent(codeValueParams[param]);
       }
     }
-    console.log(params,this.stateService.current)
     this.stateService.go(this.stateService.current,params)
   }
 }

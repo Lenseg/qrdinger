@@ -1,5 +1,5 @@
 import { Component, Input, Inject } from '@angular/core';
-import { CodeOptions } from '../global/typeClasses';
+import { Code } from '../global/typeClasses';
 import { CreateCodeService }  from '../_services/create-code.service';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -12,10 +12,10 @@ import { StateService, UIRouterGlobals } from 'ui-router-ng2';
   providers: [ CreateCodeService ]
 })
 export class CreateCodeComponent {
-  @Input()
-  public codeOptions: CodeOptions = {
+  @Input() code: Code = {
     value:''
   };
+  private stateName:string;
   private codeTypes:string[];
   public activeType:string;
   typesMap = {
@@ -27,10 +27,10 @@ export class CreateCodeComponent {
   }
   constructor (public stateService:StateService, public uiRouterGlobals:UIRouterGlobals, public createCodeService:CreateCodeService) {
     this.getCodeTypes();
-    var currentFormType = uiRouterGlobals.current.name.replace('createCode.','')
+    var currentFormType = uiRouterGlobals.current.name.replace('edit.','')
     this.activeType = this.typesMap[currentFormType] || null;
     this.createCodeService.codeValueUdpaveEvent.subscribe((data:string) => {
-      this.codeOptions.value = data;
+      this.code.value = data;
     });
   }
 
@@ -38,17 +38,25 @@ export class CreateCodeComponent {
     this.codeTypes = [];
     var states = this.stateService.get();
     for (let state in states){
-      if(~states[state].name.indexOf('createCode.')){
-        let stateName = states[state].name.replace('createCode.','')
-        this.codeTypes.push(stateName);
+      if(~states[state].name.indexOf('edit.')){
+        this.codeTypes.push(states[state].name.replace('edit.',''));
       }
     }
   };
-  onOptionsUpdate(options:CodeOptions){
-    Object.assign(this.codeOptions, options);
+
+  ngDoCheck() {
+    if(this.code.type && this.code.type !== this.stateName){
+      console.log('here', this.code.type, this.stateName)
+      this.activeType = this.typesMap[this.code.type];
+      this.stateName = this.code.type;
+      this.stateService.go(`edit.${this.stateName}`);
+    }
+  }
+  onOptionsUpdate(options:Code){
+    Object.assign(this.code, options);
   }
   public selectForm(type:string) : void {
     this.activeType = this.typesMap[type];
-    this.stateService.go(`createCode${type}`);
+    this.stateService.go(`edit.${type}`);
   };
 }

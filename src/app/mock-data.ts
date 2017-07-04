@@ -9,7 +9,7 @@ export class MockData implements InMemoryDbService {
       value: 'kek',
       id:'1',
       name:'kek',
-      type:'Wifi'
+      type:'wifi'
     },{
       background: '#eaeaea',
       foreground: '#444444',
@@ -17,7 +17,7 @@ export class MockData implements InMemoryDbService {
       value: 'sdflkjgblbehjrdvh;akrnefgkzjd,nvcz',
       id:'2',
       name:'kek2',
-      type:'Sms'
+      type:'sms'
     }];
     return { codes };
   }

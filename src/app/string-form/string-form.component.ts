@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators }            from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { CreateCodeService }  from '../_services/index';
-
+import { StateService } from 'ui-router-ng2';
 import { ErrorMessage } from '../global/typeClasses';
 
 
@@ -10,13 +10,14 @@ import { ErrorMessage } from '../global/typeClasses';
   templateUrl: './string-form.component.pug'
 })
 export class StringFormComponent {
-  string = new FormControl('',[
+  stringValue = this.stateService.params.text ? decodeURIComponent(this.stateService.params.text) : '' ;
+  string = new FormControl(this.stringValue,[
     Validators.required
   ]);
 
   errors : ErrorMessage[] = [];
 
-  constructor(private createCodeService:CreateCodeService){
+  constructor(private createCodeService:CreateCodeService, private stateService:StateService){
     this.bindUpdateEvents()
   }
   bindUpdateEvents():void{
@@ -31,7 +32,7 @@ export class StringFormComponent {
     });
   }
   sendModel():void{
-    this.createCodeService.codeValueUpdate(this.string.value);
+    this.createCodeService.codeValueUpdate({text:this.string.value});
   }
 }
 
