@@ -1,6 +1,6 @@
 import { Component, trigger, state, style, transition, animate } from '@angular/core';
 
-import { Animations } from './global/animations'
+import { Animations } from './_global/animations'
 
 @Component({
   selector: 'app-root',

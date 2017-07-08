@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Code } from '../global/typeClasses';
+import { Code } from '../_global/typeClasses';
 import { CodesService } from '../_services/index';
 import { Observable } from 'rxjs/Rx';
 

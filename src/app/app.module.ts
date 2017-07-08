@@ -10,7 +10,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { APP_STATES } from './app.states';
 import { routerConfigFn } from './router.config';
 
-import { AuthService, AppConfigService, CodesService }  from './_services/index';
+import { AuthService, AppConfigService, ParamsService }  from './_services/index';
 
 import { AppComponent }  from './app.component';
 import { LoginComponent }  from './login/login.component';
@@ -70,7 +70,7 @@ import { MockData } from './mock-data';
   providers: [
     AppConfigService,
     AuthService,
-    CodesService
+    ParamsService
   ],
   bootstrap: [ UIView ]
 })

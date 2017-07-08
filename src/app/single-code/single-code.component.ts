@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Code, CodeOptions } from '../global/typeClasses';
+import { Code } from '../_global/code';
 
 import { StateService } from 'ui-router-ng2';
 import { CodesService } from '../_services/index';
@@ -11,12 +11,12 @@ import { CodesService } from '../_services/index';
 
 export class SingleCodeComponent {
  code:Code = {};
- codeId:string;
- edit:boolean;
  constructor(public codesService:CodesService, public stateService:StateService){
-  this.codeId = this.stateService.params.codeId;
-  if(this.codeId !== 'new'){
-    this.codesService.getCode(this.codeId).subscribe(code => this.code = code);
+  let codeId = this.stateService.params.codeId;
+  if(codeId !== 'new'){
+    this.codesService.getCode(this.codeId).subscribe(code => this.code = new Code(code));
+  } else {
+    this.code = new Code(code);
   }
  }
 }

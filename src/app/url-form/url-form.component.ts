@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormControl, Validators }            from '@angular/forms';
 import { CreateCodeService }  from '../_services/index';
 import { StateService } from 'ui-router-ng2';
-import { patternWarningWalidator } from '../global/directives';
+import { patternWarningWalidator } from '../_global/directives';
 
-import { ErrorMessage } from '../global/typeClasses';
+import { ErrorMessage } from '../_global/typeClasses';
 @Component({
   selector: 'url-form',
   templateUrl: './url-form.component.pug'

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { TargetState, StateService } from 'ui-router-ng2';
 import { AuthService, AppConfigService } from '../_services/index';
 
-import { ErrorMessage } from '../global/typeClasses'
+import { ErrorMessage } from '../_global/typeClasses'
 
 @Component({
   selector: 'app-login',

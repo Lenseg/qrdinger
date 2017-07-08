@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Code } from '../global/typeClasses';
+import { Code } from '../_global/typeClasses';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/share';

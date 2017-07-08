@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StateService } from 'ui-router-ng2';
 
-import { CreateCodeService }  from '../_services/index';
-import { Code, CommonCodeOptions, Levels } from '../global/typeClasses';
-import { isHexColor } from '../global/directives';
+import { Code, CodeOptions } from '../_global/code';
+import { codeTypesRepresentations } from '../_global/definitions';
+
+import { isHexColor } from '../_global/directives';
 @Component({
   selector: 'code-options',
   templateUrl: './code-options.component.pug'
@@ -13,8 +14,8 @@ export class CodeOptionsComponent {
   @Input() code : Code;
   form : FormGroup;
   level : string | number;
-  @Output() onOptionsUpdate = new EventEmitter<CommonCodeOptions>();
-  constructor(private fb: FormBuilder, private stateService:StateService, private createCodeService:CreateCodeService){
+  @Output() onOptionsUpdate = new EventEmitter<CodeOptions>();
+  constructor(private fb: FormBuilder, private stateService:StateService){
 
   }
   ngOnInit(){
@@ -22,7 +23,7 @@ export class CodeOptionsComponent {
     this.bindChangeEvents();
   }
   createForm(){
-    var formValues:CommonCodeOptions = {
+    var formValues:CodeOptions = {
       level : 1,
       foreground : '#000000',
       background : '#ffffff'
@@ -82,7 +83,6 @@ export class CodeOptionsComponent {
     }
   }
   bindChangeEvents(){
-    this.createCodeService.bindFormParamsUpdate(this.form);
     this.form.valueChanges.subscribe(()=>{
       this.updateCode(this.form.value);
     })

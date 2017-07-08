@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as QRious from 'qrious';
-import { Code, CodeOptions} from '../global/typeClasses';
+import { Code, CodeOptions } from '../_global/code';
 
 @Component({
   selector: 'display-code',

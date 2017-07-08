@@ -1,6 +1,6 @@
 import { UIRouter, Category } from 'ui-router-ng2';
 
-import { requiresAuthHook } from './global/auth.hook';
+import { requiresAuthHook } from './_global/auth.hook';
 
 export function routerConfigFn(router: UIRouter) {
   const transitionService = router.transitionService;
