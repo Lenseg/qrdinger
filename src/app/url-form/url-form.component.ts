@@ -41,7 +41,7 @@ export class UrlFormComponent {
           };
         }
       }
-      this.sendModel(this.url.value);
+      this.sendModel();
     });
   }
   sendModel():void{

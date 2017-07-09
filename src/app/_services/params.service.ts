@@ -20,8 +20,8 @@ export class ParamsService {
   setObjectAsParams(newParams:any){
     var params = {};
     for(var param in params){
-        params[param] = encodeURIComponent(newParams[param]);
-      }
+      params[param] = encodeURIComponent(newParams[param]);
+    }
     this.stateService.go(this.stateService.current,params);
   }
 }

@@ -3,7 +3,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { StateService } from 'ui-router-ng2';
 
-import { WifiCodeModel, StringCodeModel, SmsCodeModel, UrlCodeModel } from '../_global/code';
 import { Subject } from 'rxjs/Subject'
 
 @Injectable()
