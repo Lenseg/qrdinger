@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import { StateService } from 'ui-router-ng2';
-import { ErrorMessage } from '../_global/typeClasses';
+import { ErrorMessage } from '../_global/definitions';
 
 @Component({
   selector:'reqister',

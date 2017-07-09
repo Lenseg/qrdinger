@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { CreateCodeService }  from '../_services/index';
 import { StateService } from 'ui-router-ng2';
-import { ErrorMessage } from '../_global/typeClasses';
+
+import { ModelUpdateService } from '../_services/index'
+
+import { ErrorMessage } from '../_global/definitions';
+import { Code, StringCodeModel } from '../_global/code';
 
 
 @Component({
@@ -17,7 +20,7 @@ export class StringFormComponent {
 
   errors : ErrorMessage[] = [];
 
-  constructor(private createCodeService:CreateCodeService, private stateService:StateService){
+  constructor(private modelUpdateService:ModelUpdateService, private stateService:StateService){
     this.bindUpdateEvents()
   }
   bindUpdateEvents():void{
@@ -32,7 +35,11 @@ export class StringFormComponent {
     });
   }
   sendModel():void{
-    this.createCodeService.codeValueUpdate({text:this.string.value});
+    let model = {
+      type:'string',
+      string:this.string.value
+    };
+    this.modelUpdateService.modelUpdate(model)
   }
 }
 

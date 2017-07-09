@@ -10,13 +10,13 @@ import { CodesService } from '../_services/index';
 })
 
 export class SingleCodeComponent {
- code:Code = {};
+ code:Code;
  constructor(public codesService:CodesService, public stateService:StateService){
   let codeId = this.stateService.params.codeId;
   if(codeId !== 'new'){
-    this.codesService.getCode(this.codeId).subscribe(code => this.code = new Code(code));
+    this.codesService.getCode(codeId).subscribe(code => this.code = new Code(code));
   } else {
-    this.code = new Code(code);
+    this.code = new Code();
   }
  }
 }

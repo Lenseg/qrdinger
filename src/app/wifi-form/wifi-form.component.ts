@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators }            from '@angular/forms';
-import { CreateCodeService }  from '../_services/index';
 import { StateService } from 'ui-router-ng2';
-import { CommonCodeOptions, ErrorMessage, WifiCodeValueParams } from '../_global/typeClasses';
+import { ErrorMessage } from '../_global/definitions';
+
+import { ModelUpdateService } from '../_services/index'
+
+import { Code, WifiCodeModel } from '../_global/code';
 import { isHexColor } from '../_global/directives';
 
 @Component({
@@ -19,7 +22,7 @@ export class WifiFormComponent {
   passErrors : ErrorMessage[] = [];
   passWarns : ErrorMessage[] = [];
 
-  constructor(private fb:FormBuilder, private createCodeService:CreateCodeService,private stateService:StateService){
+  constructor(private modelUpdateService:ModelUpdateService, private fb:FormBuilder,private stateService:StateService){
     this.createForm();
     this.typeCache = this.form.value.networkType;
     this.bindUpdateEvents();
@@ -62,7 +65,7 @@ export class WifiFormComponent {
           }
         }
       }
-      this.sendModel(Object.assign({type:'wifi'},this.form.value));
+      this.sendModel();
     });
   }
   isPasswordReqired(typeControlName:string,passControlName:string){
@@ -95,8 +98,9 @@ export class WifiFormComponent {
       passControll.enable();
     }
   }
-  sendModel(formModel:WifiCodeValueParams):void{
-    this.createCodeService.codeValueUpdate(formModel);
+  sendModel():void{
+    let model = Object.assign({type:'wifi'},this.form.value);
+    this.modelUpdateService.modelUpdate(model)
   }
 }
 class CodeWifiParams{

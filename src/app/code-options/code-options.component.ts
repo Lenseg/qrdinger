@@ -14,7 +14,6 @@ export class CodeOptionsComponent {
   @Input() code : Code;
   form : FormGroup;
   level : string | number;
-  @Output() onOptionsUpdate = new EventEmitter<CodeOptions>();
   constructor(private fb: FormBuilder, private stateService:StateService){
 
   }
@@ -23,14 +22,14 @@ export class CodeOptionsComponent {
     this.bindChangeEvents();
   }
   createForm(){
-    var formValues:CodeOptions = {
+    var formValues:CodeOptionsForm = {
       level : 1,
       foreground : '#000000',
       background : '#ffffff'
     };
     for(let option in formValues){
-      if(option === 'level' && this.code.level){
-        switch(this.code.level.toLowerCase()){
+      if(option === 'level'){
+        switch(this.code.options.level.toLowerCase()){
           case 'l' :
             formValues.level = 1;
             break;
@@ -45,7 +44,7 @@ export class CodeOptionsComponent {
             break;
         }
       } else {
-        formValues[option] = this.code[option] || formValues[option];
+        formValues[option] = this.code.options[option] || formValues[option];
       }
     }
     formValues.level =  this.stateService.params.level ? parseInt(decodeURIComponent(this.stateService.params.level)) : formValues.level;
@@ -54,42 +53,41 @@ export class CodeOptionsComponent {
     this.form = this.fb.group(formValues);
     this.updateCode(this.form.value)
   }
-  ngDoCheck() {
-    if(this.code){
-      for(let option in this.form.value){
-        if(option === 'level' && this.code.level){
-          let cacheValue;
-          switch(this.code.level.toLowerCase()){
-            case 'l' :
-              cacheValue = 1;
-              break;
-            case 'm' :
-              cacheValue = 2;
-              break;
-            case 'q' :
-              cacheValue = 3;
-              break;
-            case 'h' :
-              cacheValue = 4;
-              break;
-          }
-          if(this.form.controls[option].value !== cacheValue)
-            this.form.controls[option].setValue(cacheValue, {emitEvent: false});
-        } else {
-          if(this.form.controls[option].value !== this.code[option])
-            this.form.controls[option].setValue(this.code[option], {emitEvent: false});
-        }
-      }
-    }
-  }
+  // ngDoCheck() {
+  //   if(this.code){
+  //     for(let option in this.form.value){
+  //       if(option === 'level'){
+  //         let cacheValue;
+  //         switch(this.code.options.level.toLowerCase()){
+  //           case 'l' :
+  //             cacheValue = 1;
+  //             break;
+  //           case 'm' :
+  //             cacheValue = 2;
+  //             break;
+  //           case 'q' :
+  //             cacheValue = 3;
+  //             break;
+  //           case 'h' :
+  //             cacheValue = 4;
+  //             break;
+  //         }
+  //         if(this.form.controls[option].value !== cacheValue)
+  //           this.form.controls[option].setValue(cacheValue, {emitEvent: false});
+  //       } else {
+  //         if(this.form.controls[option].value !== this.code.options[option])
+  //           this.form.controls[option].setValue(this.code.options[option], {emitEvent: false});
+  //       }
+  //     }
+  //   }
+  // }
   bindChangeEvents(){
     this.form.valueChanges.subscribe(()=>{
       this.updateCode(this.form.value);
     })
-
   }
-  updateCode(value : CommonCodeOptions){
-    var options = Object.assign({},value);
+  updateCode(value : CodeOptionsForm){
+    var options : any = Object.assign({},value);
     switch(options.level){
       case 1 :
         options.level = 'L';
@@ -105,6 +103,12 @@ export class CodeOptionsComponent {
         break;
     }
     this.level = options.level;
-    this.onOptionsUpdate.emit(options);
+    console.log(this.code, options)
+    Object.assign(this.code.options, options)
   }
+}
+class CodeOptionsForm{
+  level:number;
+  background:string;
+  foreground:string;
 }

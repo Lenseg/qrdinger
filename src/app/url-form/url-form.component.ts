@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators }            from '@angular/forms';
-import { CreateCodeService }  from '../_services/index';
 import { StateService } from 'ui-router-ng2';
+import { ErrorMessage } from '../_global/definitions';
+
+import { ModelUpdateService } from '../_services/index'
+
+import { Code, UrlCodeModel } from '../_global/code';
 import { patternWarningWalidator } from '../_global/directives';
 
-import { ErrorMessage } from '../_global/typeClasses';
 @Component({
   selector: 'url-form',
   templateUrl: './url-form.component.pug'
@@ -22,7 +25,7 @@ export class UrlFormComponent {
   errors : ErrorMessage[] = [];
   warns : ErrorMessage[] = [];
 
-  constructor(private createCodeService:CreateCodeService, private stateService:StateService){
+  constructor(private modelUpdateService:ModelUpdateService,private stateService:StateService){
     this.bingUpdateEvents();
   }
   bingUpdateEvents():void{
@@ -41,8 +44,12 @@ export class UrlFormComponent {
       this.sendModel(this.url.value);
     });
   }
-  sendModel(value:string):void{
-    this.createCodeService.codeValueUpdate({url:value});
+  sendModel():void{
+    let model = {
+      type:'url',
+      url:this.url.value
+    };
+    this.modelUpdateService.modelUpdate(model)
   }
 }
 

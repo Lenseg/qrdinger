@@ -22,7 +22,6 @@ export class ParamsService {
     for(var param in params){
         params[param] = encodeURIComponent(newParams[param]);
       }
-    }
     this.stateService.go(this.stateService.current,params);
   }
 }

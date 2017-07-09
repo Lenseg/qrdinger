@@ -1,11 +1,10 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import * as QRious from 'qrious';
-import { Code, CodeOptions } from '../_global/code';
+import { Code } from '../_global/code';
 
 @Component({
   selector: 'display-code',
   templateUrl: './display-code.component.pug',
-  // styleUrls: ['./display-code.component.less']
   host:{
     '(window:resize)':'onResize()'
   }
@@ -15,7 +14,6 @@ export class DisplayCodeComponent {
 
   private codeInstance : any = {};
   @Input('code') code : Code;
-  codeOptions : CodeOptions = {};
   @ViewChild('canvas') canvas:ElementRef;
   @ViewChild('canvasContainer') canvasContainer:ElementRef;
   constructor () {
@@ -25,20 +23,14 @@ export class DisplayCodeComponent {
     this.updateCode();
   }
   ngOnInit(){
-    this.codeOptions = {
-
-    };
     this.updateSize();
     this.createCode();
   }
   ngDoCheck() {
-    for(var option in this.code){
-        this.codeInstance[option] = this.code[option];
-    }
+    this.updateCode();
   }
   onResize(){
     this.updateSize();
-    this.updateCode();
   }
   createCode(): void {
       this.codeInstance = new QRious({
@@ -50,8 +42,9 @@ export class DisplayCodeComponent {
     this.codeInstance.size = this.canvasContainer.nativeElement.offsetWidth;
   }
   updateCode() : void {
-    for(var option in this.code){
-        this.codeInstance[option] = this.code[option];
+    this.codeInstance.value = this.code.value;
+    for(var option in this.code.options){
+        this.codeInstance[option] = this.code.options[option];
     }
   }
 }

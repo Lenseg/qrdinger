@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators }            from '@angular/forms';
-
 import { StateService } from 'ui-router-ng2';
-import { CreateCodeService }  from '../_services/index';
-import { ErrorMessage } from '../_global/typeClasses';
+
+import { ModelUpdateService } from '../_services/index'
+
+import { Code, SmsCodeModel } from '../_global/code';
+import { ErrorMessage } from '../_global/definitions';
 import { patternWarningWalidator } from '../_global/directives';
 
 @Component({
@@ -11,6 +13,7 @@ import { patternWarningWalidator } from '../_global/directives';
   templateUrl: './sms-form.component.pug'
 })
 export class SmsFormComponent {
+  code:Code;
   numberRegexp = /[0-9]/;
   statrtsWidthPlusRegexp = /^\+/;
 
@@ -20,7 +23,9 @@ export class SmsFormComponent {
   messageWarns: ErrorMessage[] = [];
   numberErrors: ErrorMessage[] = [];
   numberWarns: ErrorMessage[] = [];
-  constructor(private fb:FormBuilder, private createCodeService:CreateCodeService, private stateService:StateService){
+  constructor(private modelUpdateService:ModelUpdateService, private fb:FormBuilder, private stateService:StateService){
+    this.code = this.stateService.params.code;
+    console.log(this.stateService.params)
     this.createForm();
     this.bindUpdateEvents();
   }
@@ -55,15 +60,17 @@ export class SmsFormComponent {
           }
         }
       }
-      this.sendModel();
+      this.setModel();
     });
   }
-  sendModel():void{
+  setModel():void{
     var number = this.form.value.number.replace(/[^+[0-9]]*/g,'');
-    this.createCodeService.codeValueUpdate({
+    let model = {
       type:'sms',
       number:number,
-      message:this.form.value.message});
+      message:this.form.value.message
+    };
+    this.modelUpdateService.modelUpdate(model)
   }
   preventCharInput(e:KeyboardEvent):void{
     var regexp = /[^0-9,+,(,),\-,—,–, ]/g;
