@@ -4,6 +4,9 @@ dist/
 # Dependency directory
 node_modules/
 
+#pug
+/src/**/*.html
+
 # Logs and databases
 *.log
 
