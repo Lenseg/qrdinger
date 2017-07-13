@@ -47,7 +47,7 @@ var StringFormComponent = (function () {
 StringFormComponent = __decorate([
     core_1.Component({
         selector: 'string-form',
-        templateUrl: './string-form.component.pug'
+        templateUrl: './string-form.component.html'
     }),
     __metadata("design:paramtypes", [index_1.ModelUpdateService, angular_1.StateService])
 ], StringFormComponent);

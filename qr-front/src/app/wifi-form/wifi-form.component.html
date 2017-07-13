@@ -1,0 +1,24 @@
+
+<form [formGroup]="form">
+  <div class="form-group" [ngClass]="{'has-error': typeErrors.length, 'has-success': form.controls.name.valid}">
+    <label>Encryption</label>
+    <select class="form-control" name="name" formControlName="networkType" novalidate>
+      <option value="WPA">WPA/WPA2</option>
+      <option value="WEP">WEP</option>
+      <option value="nopass">No encryption</option>
+    </select><span class="help-block" *ngFor="let err of typeErrors">{{err.message}}</span>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" name="hidden" formControlName="hidden" novalidate>Hidden network
+    </label>
+  </div>
+  <div class="form-group" [ngClass]="{'has-error': nameErrors.length, 'has-warning': nameWarns.length, 'has-success': form.controls.name.valid}">
+    <label>Network name</label>
+    <input class="form-control" type="text" name="name" formControlName="name" novalidate placeholder="myWiFi"><span class="help-block" *ngFor="let err of nameErrors">{{err.message}}</span><span class="help-block" *ngFor="let err of nameWarns">{{err.message}}</span>
+  </div>
+  <div class="form-group" [ngClass]="{'has-error': passErrors.length, 'has-warning': passWarns.length, 'has-success': form.controls.pass.valid}">
+    <label>Network password</label>
+    <input class="form-control" type="text" name="pass" formControlName="pass" novalidate><span class="help-block" *ngFor="let err of passErrors">{{err.message}}</span><span class="help-block" *ngFor="let err of passWarns">{{err.message}}</span>
+  </div>
+</form>

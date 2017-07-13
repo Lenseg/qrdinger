@@ -4,7 +4,7 @@ import { Animations } from './_global/animations'
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.pug',
+  templateUrl: './app.component.html',
   animations: [ Animations.slideInOut ]
 })
 

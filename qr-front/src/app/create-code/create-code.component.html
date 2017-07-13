@@ -1,0 +1,18 @@
+
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <display-code [code]="code"></display-code>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <form>
+      <div class="btn-group form-group" dropdown>
+        <button class="btn btn-primary dropdown-toggle form-control" dropdownToggle type="button">{{activeType || 'Select code type'}}<span class="caret"></span></button>
+        <ul class="dropdown-menu" *dropdownMenu role="menu">
+          <li *ngFor="let type of codeTypes" role="menuitem"><a class="dropdown-item" (click)="selectForm(type)">{{typesMap[type]}}</a></li>
+        </ul>
+      </div>
+    </form>
+    <code-options [code]="code" (onOptionsUpdate)="onOptionsUpdate($event)"></code-options>
+    <ui-view></ui-view>
+  </div>
+</div>

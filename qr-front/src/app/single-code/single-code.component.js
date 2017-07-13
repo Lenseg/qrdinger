@@ -28,7 +28,7 @@ var SingleCodeComponent = (function () {
 SingleCodeComponent = __decorate([
     core_1.Component({
         selector: 'single-code',
-        templateUrl: './single-code.component.pug'
+        templateUrl: './single-code.component.html'
     }),
     __metadata("design:paramtypes", [index_1.CodesService, angular_1.StateService])
 ], SingleCodeComponent);

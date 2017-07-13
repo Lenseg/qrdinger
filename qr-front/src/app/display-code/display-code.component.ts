@@ -4,7 +4,7 @@ import { Code } from '../_global/code';
 
 @Component({
   selector: 'display-code',
-  templateUrl: './display-code.component.pug',
+  templateUrl: './display-code.component.html',
   host:{
     '(window:resize)':'onResize()'
   }

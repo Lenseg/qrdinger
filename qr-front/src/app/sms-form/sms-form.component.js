@@ -90,7 +90,7 @@ var SmsFormComponent = (function () {
 SmsFormComponent = __decorate([
     core_1.Component({
         selector: 'sms-form',
-        templateUrl: './sms-form.component.pug'
+        templateUrl: './sms-form.component.html'
     }),
     __metadata("design:paramtypes", [index_1.ModelUpdateService, forms_1.FormBuilder, angular_1.StateService])
 ], SmsFormComponent);

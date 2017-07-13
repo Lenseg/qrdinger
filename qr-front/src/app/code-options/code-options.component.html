@@ -1,0 +1,15 @@
+
+<form [formGroup]="form" novalidate>
+  <div class="form-group">
+    <label>Error correction level - {{level || 'L'}}</label>
+    <input class="form-control" type="range" name="level" min="1" max="4" value="1" formControlName="level">
+  </div>
+  <div class="form-group">
+    <label>Foreground color</label>
+    <input class="form-control" type="color" name="foreground" value="#000000" formControlName="foreground">
+  </div>
+  <div class="form-group">
+    <label>Background color</label>
+    <input class="form-control" type="color" name="background" value="#ffffff" formControlName="background">
+  </div>
+</form>

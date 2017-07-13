@@ -1,2 +1,0 @@
-# qrdinger
-kek

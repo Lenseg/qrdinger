@@ -109,7 +109,7 @@ var WifiFormComponent = (function () {
 WifiFormComponent = __decorate([
     core_1.Component({
         selector: 'wifi-form',
-        templateUrl: './wifi-form.component.pug'
+        templateUrl: './wifi-form.component.html'
     }),
     __metadata("design:paramtypes", [index_1.ModelUpdateService, forms_1.FormBuilder, angular_1.StateService])
 ], WifiFormComponent);

@@ -3,7 +3,7 @@ import { Code } from '../_global/code';
 
 @Component({
   selector:'code-list-item',
-  templateUrl:'./code-list-item.component.pug'
+  templateUrl:'./code-list-item.component.html'
 })
 
 export class CodesListItemComponent {

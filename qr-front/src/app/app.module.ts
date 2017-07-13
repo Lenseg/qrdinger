@@ -2,7 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, RequestOptions } from '@angular/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { UIRouterModule, UIView  } from '@uirouter/angular';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
@@ -43,6 +43,7 @@ import { MockData } from './mock-data';
       config: routerConfigFn
     }),
     BrowserModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
     HttpModule,

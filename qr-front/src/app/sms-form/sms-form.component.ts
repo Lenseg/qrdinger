@@ -10,7 +10,7 @@ import { patternWarningWalidator } from '../_global/directives';
 
 @Component({
   selector: 'sms-form',
-  templateUrl: './sms-form.component.pug'
+  templateUrl: './sms-form.component.html'
 })
 export class SmsFormComponent {
   code:Code;

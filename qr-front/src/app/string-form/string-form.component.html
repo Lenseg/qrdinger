@@ -1,0 +1,7 @@
+
+<form>
+  <div class="form-group" [ngClass]="{'has-error': errors.length, 'has-success': string.valid}">
+    <label>Text</label>
+    <textarea class="form-control" type="text" name="string" [formControl]="string" novalidate placeholder="qrdinger"></textarea><span class="help-block" *ngFor="let err of errors">{{err.message}}</span>
+  </div>
+</form>

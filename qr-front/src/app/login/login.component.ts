@@ -6,7 +6,7 @@ import { ErrorMessage } from '../_global/definitions'
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.pug'
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
   @Input() returnTo: TargetState;

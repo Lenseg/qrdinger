@@ -11,14 +11,15 @@
         "assets",
         "favicon.ico"
       ],
-      "index": "index.pug",
+      "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.less",
+        "../node_modules/bootstrap-less/bootstrap/bootstrap.less"
       ],
       "scripts": [],
       "environmentSource":"environments/environment.ts",

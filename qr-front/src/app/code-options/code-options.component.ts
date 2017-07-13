@@ -8,7 +8,7 @@ import { codeTypesRepresentations } from '../_global/definitions';
 import { isHexColor } from '../_global/directives';
 @Component({
   selector: 'code-options',
-  templateUrl: './code-options.component.pug'
+  templateUrl: './code-options.component.html'
 })
 export class CodeOptionsComponent {
   @Input() code : Code;

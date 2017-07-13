@@ -6,7 +6,7 @@ import { CodesService } from '../_services/index';
 
 @Component({
   selector:'single-code',
-  templateUrl:'./single-code.component.pug'
+  templateUrl:'./single-code.component.html'
 })
 
 export class SingleCodeComponent {

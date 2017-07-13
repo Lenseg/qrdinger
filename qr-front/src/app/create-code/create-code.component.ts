@@ -12,7 +12,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @Component({
   selector: 'create-code',
-  templateUrl: './create-code.component.pug'
+  templateUrl: './create-code.component.html'
 })
 export class CreateCodeComponent {
   @Input() code: Code;

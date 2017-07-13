@@ -10,7 +10,7 @@ import { Code, StringCodeModel } from '../_global/code';
 
 @Component({
   selector: 'string-form',
-  templateUrl: './string-form.component.pug'
+  templateUrl: './string-form.component.html'
 })
 export class StringFormComponent {
   stringValue = this.stateService.params['string'] ? decodeURIComponent(this.stateService.params['string']) : '' ;

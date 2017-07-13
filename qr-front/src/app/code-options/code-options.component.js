@@ -89,7 +89,7 @@ __decorate([
 CodeOptionsComponent = __decorate([
     core_1.Component({
         selector: 'code-options',
-        templateUrl: './code-options.component.pug'
+        templateUrl: './code-options.component.html'
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, angular_1.StateService])
 ], CodeOptionsComponent);

@@ -10,7 +10,7 @@ import { patternWarningWalidator } from '../_global/directives';
 
 @Component({
   selector: 'url-form',
-  templateUrl: './url-form.component.pug'
+  templateUrl: './url-form.component.html'
 })
 export class UrlFormComponent {
   urlRegexp = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;

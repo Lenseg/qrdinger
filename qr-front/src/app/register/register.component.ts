@@ -5,7 +5,7 @@ import { ErrorMessage } from '../_global/definitions';
 
 @Component({
   selector:'reqister',
-  templateUrl:'./register.component.pug'
+  templateUrl:'./register.component.html'
 })
 export class RegisterComponent{
   emailRegexp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;

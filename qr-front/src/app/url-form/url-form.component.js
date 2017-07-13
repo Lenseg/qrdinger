@@ -60,7 +60,7 @@ var UrlFormComponent = (function () {
 UrlFormComponent = __decorate([
     core_1.Component({
         selector: 'url-form',
-        templateUrl: './url-form.component.pug'
+        templateUrl: './url-form.component.html'
     }),
     __metadata("design:paramtypes", [index_1.ModelUpdateService, angular_1.StateService])
 ], UrlFormComponent);

@@ -10,7 +10,7 @@ import { isHexColor } from '../_global/directives';
 
 @Component({
   selector: 'wifi-form',
-  templateUrl: './wifi-form.component.pug'
+  templateUrl: './wifi-form.component.html'
 })
 export class WifiFormComponent {
   form : FormGroup;

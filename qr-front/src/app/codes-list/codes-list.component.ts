@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector:'codes-list',
-  templateUrl:'./codes-list.component.pug'
+  templateUrl:'./codes-list.component.html'
 })
 
 export class CodesListComponent implements OnInit{
