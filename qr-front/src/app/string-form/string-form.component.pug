@@ -1,0 +1,5 @@
+form
+  div.form-group([ngClass]="{'has-error': errors.length, 'has-success': string.valid}")
+    label Text
+    textarea.form-control(type="text", name="string", [formControl]="string" novalidate placeholder="qrdinger")
+    span.help-block( *ngFor="let err of errors") {{err.message}}

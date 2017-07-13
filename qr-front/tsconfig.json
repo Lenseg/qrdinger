@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+      "alwaysStrict":true,
+      "target":"es5",
+      "lib":["es2015", "dom", "es7"],
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "noImplicitAny": false,
+      "preserveConstEnums": true,
+      "suppressImplicitAnyIndexErrors":true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata" : true,
+      "sourceMap": true,
+      "allowJs": true,
+      "types": [
+        "node"
+      ],
+      "typeRoots": [
+        "node_modules/@types"
+      ]
+    },
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "node_modules",
+      "**/*.spec.ts"
+    ]
+}

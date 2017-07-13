@@ -1,0 +1,18 @@
+div.container
+  div.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2
+    h3 Log In
+    p This login screen is for demonstration only... just pick a username, enter 'password' and click 
+      b 
+      |"Log in"
+    hr
+    div
+      label( for="username" ) Username
+        input.form-control( type="text", name="username", id="username", [(ngModel)]="credentials.username" )
+    br
+    div
+      label( for="password" ) Password
+        input.form-control( type="password", name="password", [(ngModel)]="credentials.password" )
+    div
+      button.btn.btn-primary( type="button", [disabled]="authenticating", (click)="login(credentials)" )
+        i.fa.fa-spin.fa-spinner( *ngIf="authenticating" ) 
+        span Log in

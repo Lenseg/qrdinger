@@ -1,0 +1,6 @@
+form
+  div.form-group([ngClass]="{'has-error': errors.length, 'has-warning': warns.length, 'has-success': url.valid}")
+    label Link
+    input.form-control(type="text", name="url", [formControl]="url" novalidate placeholder="http://qrdinger.com")
+    span.help-block( *ngFor="let err of erors") {{err.message}}
+    span.help-block( *ngFor="let err of warns") {{err.message}}
