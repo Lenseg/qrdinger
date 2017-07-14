@@ -36,9 +36,6 @@ export class CodeOptionsComponent {
         formValues[option] = this.code.options[option] || formValues[option];
       }
     }
-    formValues.level =  this.stateService.params['level'] ? this.parseLevel(decodeURIComponent(this.stateService.params['level'])) : formValues.level;
-    formValues.foreground =  this.stateService.params['foreground'] ? decodeURIComponent(this.stateService.params['foreground']) : formValues.foreground,
-    formValues.background =  this.stateService.params['background'] ? decodeURIComponent(this.stateService.params['background']) : formValues.background;
     this.form = this.fb.group(formValues);
     this.updateCode(this.form.value)
   }

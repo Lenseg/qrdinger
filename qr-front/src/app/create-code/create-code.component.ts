@@ -33,6 +33,7 @@ export class CreateCodeComponent {
     if(this.code.type && this.code.type !== this.stateName){
       this.activeType = this.typesMap[this.code.type];
       this.stateName = this.code.type;
+      this.setOptionsFromParams();
       this.stateService.go(`edit.${this.stateName}`,this.paramsService.createParamsObject(Object.assign({},this.code.options,this.code.model)));
     }
   }
@@ -44,6 +45,12 @@ export class CreateCodeComponent {
       this.code.type = type;
     }
     this.activeType = this.typesMap[type];
+    this.setOptionsFromParams();
     this.stateService.go(`edit.${type}`,this.paramsService.createParamsObject(Object.assign({},this.code.options,this.code.model)));
   };
+  setOptionsFromParams(){
+    this.code.options.level =  this.stateService.params['level'] ? decodeURIComponent(this.stateService.params['level']) : this.code.options.level;
+    this.code.options.foreground =  this.stateService.params['foreground'] ? decodeURIComponent(this.stateService.params['foreground']) : this.code.options.foreground,
+    this.code.options.background =  this.stateService.params['background'] ? decodeURIComponent(this.stateService.params['background']) : this.code.options.background;
+  }
 }

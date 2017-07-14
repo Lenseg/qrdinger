@@ -1,11 +1,11 @@
 # Build directory
-dist/
+qr-front/dist/
 
 # Dependency directory
-node_modules/
+**/node_modules/
 
 #pug
-/src/**/*.html
+qr-front/src/**/*.html
 
 # Logs and databases
 *.log

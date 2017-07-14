@@ -1,7 +1,0 @@
-
-<form [formGroup]="form" novalidate>
-  <div class="form-group" [ngClass]="{'has-error': errors.length, 'has-warning': warns.length, 'has-success': form.controls.url.valid}">
-    <label>Link</label>
-    <input class="form-control" type="text" name="url" formControlName="url" novalidate placeholder="http://qrdinger.com"><span class="help-block" *ngFor="let err of erors">{{err.message}}</span><span class="help-block" *ngFor="let err of warns">{{err.message}}</span>
-  </div>
-</form>
