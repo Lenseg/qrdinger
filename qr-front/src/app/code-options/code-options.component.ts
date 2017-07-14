@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StateService } from '@uirouter/angular';
 
+
+import { ParamsService } from '../_services/index';
 import { Code, CodeOptions } from '../_global/code';
 import { codeTypesRepresentations } from '../_global/definitions';
 
@@ -14,7 +16,7 @@ export class CodeOptionsComponent {
   @Input() code : Code;
   form : FormGroup;
   level : string | number;
-  constructor(private fb: FormBuilder, private stateService:StateService){
+  constructor(private fb: FormBuilder, private paramsService:ParamsService, private stateService:StateService){
 
   }
   ngOnInit(){
@@ -29,25 +31,12 @@ export class CodeOptionsComponent {
     };
     for(let option in formValues){
       if(option === 'level'){
-        switch(this.code.options.level.toLowerCase()){
-          case 'l' :
-            formValues.level = 1;
-            break;
-          case 'm' :
-            formValues.level = 2;
-            break;
-          case 'q' :
-            formValues.level = 3;
-            break;
-          case 'h' :
-            formValues.level = 4;
-            break;
-        }
+        formValues.level = this.parseLevel(this.code.options.level)
       } else {
         formValues[option] = this.code.options[option] || formValues[option];
       }
     }
-    formValues.level =  this.stateService.params['level'] ? parseInt(decodeURIComponent(this.stateService.params['level'])) : formValues.level;
+    formValues.level =  this.stateService.params['level'] ? this.parseLevel(decodeURIComponent(this.stateService.params['level'])) : formValues.level;
     formValues.foreground =  this.stateService.params['foreground'] ? decodeURIComponent(this.stateService.params['foreground']) : formValues.foreground,
     formValues.background =  this.stateService.params['background'] ? decodeURIComponent(this.stateService.params['background']) : formValues.background;
     this.form = this.fb.group(formValues);
@@ -82,28 +71,49 @@ export class CodeOptionsComponent {
   //   }
   // }
   bindChangeEvents(){
+    this.paramsService.bindFormParamsUpdate(this.form);
     this.form.valueChanges.subscribe(()=>{
       this.updateCode(this.form.value);
     })
   }
+  parseLevel(level){
+    let parseResult
+    if(typeof level === 'string'){
+      switch(level.toLowerCase()){
+        case 'l' :
+          parseResult = 1;
+          break;
+        case 'm' :
+          parseResult = 2;
+          break;
+        case 'q' :
+          parseResult = 3;
+          break;
+        case 'h' :
+          parseResult = 4;
+          break;
+      }
+    } else if (typeof level === 'number'){
+      switch(level){
+        case 1 :
+          parseResult = 'L';
+          break;
+        case 2 :
+          parseResult = 'M';
+          break;
+        case 3 :
+          parseResult = 'Q';
+          break;
+        case 4 :
+          parseResult = 'H';
+          break;
+      }
+    }
+    return parseResult
+  }
   updateCode(value : CodeOptionsForm){
     var options : any = Object.assign({},value);
-    switch(options.level){
-      case 1 :
-        options.level = 'L';
-        break;
-      case 2 :
-        options.level = 'M';
-        break;
-      case 3 :
-        options.level = 'Q';
-        break;
-      case 4 :
-        options.level = 'H';
-        break;
-    }
-    this.level = options.level;
-    console.log(this.code, options)
+    options.level = this.parseLevel(options.level);
     Object.assign(this.code.options, options)
   }
 }

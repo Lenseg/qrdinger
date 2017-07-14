@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators }            from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators }            from '@angular/forms';
 import { StateService } from '@uirouter/angular';
 import { ErrorMessage } from '../_global/definitions';
 
-import { ModelUpdateService } from '../_services/index'
+import { ParamsService, ModelUpdateService } from '../_services/index'
 
 import { Code, UrlCodeModel } from '../_global/code';
 import { patternWarningWalidator } from '../_global/directives';
@@ -16,24 +16,35 @@ export class UrlFormComponent {
   urlRegexp = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
   protocolRegexp = /^(http:|ftp:|https:)/;
   urlValue = this.stateService.params['url'] ? decodeURIComponent(this.stateService.params['url']) : '' ;
-  url = new FormControl(this.urlValue,[
-    Validators.required,
-    Validators.pattern(this.urlRegexp),
-    patternWarningWalidator(this.protocolRegexp)
-  ]);
+
+  form : FormGroup;
 
   errors : ErrorMessage[] = [];
   warns : ErrorMessage[] = [];
 
-  constructor(private modelUpdateService:ModelUpdateService,private stateService:StateService){
+  constructor(private modelUpdateService:ModelUpdateService, private fb:FormBuilder, private paramsService:ParamsService,private stateService:StateService){
+    this.createForm();
     this.bingUpdateEvents();
   }
+  createForm():void{
+    let url =  this.stateService.params['url'] ? decodeURI(this.stateService.params['url']) : '';
+    this.form = this.fb.group({
+      url: [url,[
+        Validators.required,
+        Validators.pattern(this.urlRegexp),
+        patternWarningWalidator(this.protocolRegexp)
+      ]],
+    });
+  }
   bingUpdateEvents():void{
-    this.url.valueChanges.subscribe((value:string) => {
+    this.paramsService.bindFormParamsUpdate(this.form);
+    this.form.valueChanges.subscribe((value:string) => {
       this.errors = [];
       this.warns = [];
-      if (!this.url.valid && this.url.dirty){
-        for (let err in this.url.errors){
+      const control = this.form.get('url');
+      console.log(control,'ctrl')
+      if (control && !control.valid && control.dirty){
+        for (let err in control.errors){
           if (errors[err].type === 'err'){
             this.errors.push(errors[err])
           } else {
@@ -47,7 +58,7 @@ export class UrlFormComponent {
   sendModel():void{
     let model = {
       type:'url',
-      url:this.url.value
+      url:this.form.value.url
     };
     this.modelUpdateService.modelUpdate(model)
   }

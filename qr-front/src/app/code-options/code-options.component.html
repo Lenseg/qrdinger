@@ -1,7 +1,7 @@
 
 <form [formGroup]="form" novalidate>
   <div class="form-group">
-    <label>Error correction level - {{level || 'L'}}</label>
+    <label>Error correction level - {{code.options.level}}</label>
     <input class="form-control" type="range" name="level" min="1" max="4" value="1" formControlName="level">
   </div>
   <div class="form-group">

@@ -53,7 +53,7 @@ const codesListState = {
 const editState = {
   parent: 'app',
   name: 'edit',
-  url: '/edit/:codeId?background?level?foreground',
+  url: '/edit/:codeId/?background?level?foreground',
   component: SingleCodeComponent,
   params: {
     codeId:{
@@ -78,7 +78,7 @@ const editState = {
 }
 const urlForm = {
   name:'edit.url',
-  url:'/url?url',
+  url:'url?url',
   component:UrlFormComponent,
   params:{
     url:{
@@ -89,7 +89,7 @@ const urlForm = {
 }
 const stringForm = {
   name:'edit.string',
-  url:'/string?text',
+  url:'string?text',
   component:StringFormComponent,
   params:{
     text:{
@@ -100,7 +100,7 @@ const stringForm = {
 }
 const smsForm = {
   name:'edit.sms',
-  url:'/sms?number?message',
+  url:'sms?number?message',
   component:SmsFormComponent,
   params:{
     number:{
@@ -115,7 +115,7 @@ const smsForm = {
 }
 const wifiForm = {
   name:'edit.wifi',
-  url:'/wifi?name?networkType?pass?hidden',
+  url:'wifi?name?networkType?pass?hidden',
   component:WifiFormComponent,
   params:{
     name:{

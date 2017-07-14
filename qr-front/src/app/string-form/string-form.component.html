@@ -1,7 +1,7 @@
 
-<form>
-  <div class="form-group" [ngClass]="{'has-error': errors.length, 'has-success': string.valid}">
+<form [formGroup]="form" novalidate>
+  <div class="form-group" [ngClass]="{'has-error': errors.length, 'has-success': form.controls.string.valid}">
     <label>Text</label>
-    <textarea class="form-control" type="text" name="string" [formControl]="string" novalidate placeholder="qrdinger"></textarea><span class="help-block" *ngFor="let err of errors">{{err.message}}</span>
+    <textarea class="form-control" type="text" name="string" formControlName="string" placeholder="qrdinger"></textarea><span class="help-block" *ngFor="let err of errors">{{err.message}}</span>
   </div>
 </form>

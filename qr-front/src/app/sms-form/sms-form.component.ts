@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators }            from '@angular/forms';
 import { StateService } from '@uirouter/angular';
 
-import { ModelUpdateService } from '../_services/index'
+import { ParamsService, ModelUpdateService } from '../_services/index'
 
 import { Code, SmsCodeModel } from '../_global/code';
 import { ErrorMessage } from '../_global/definitions';
@@ -23,12 +23,14 @@ export class SmsFormComponent {
   messageWarns: ErrorMessage[] = [];
   numberErrors: ErrorMessage[] = [];
   numberWarns: ErrorMessage[] = [];
-  constructor(private modelUpdateService:ModelUpdateService, private fb:FormBuilder, private stateService:StateService){
+  constructor(private modelUpdateService:ModelUpdateService, private paramsService:ParamsService, private fb:FormBuilder, private stateService:StateService){
     this.createForm();
     this.bindUpdateEvents();
   }
   createForm():void{
-    var formValues:smsParams = {};
+    var formValues:smsParams = {
+
+    };
     formValues.number =  this.stateService.params['number'] ? decodeURI(this.stateService.params['number']) : '';
     formValues.message =  this.stateService.params['message'] ? decodeURI(this.stateService.params['message']) : '',
     this.form = this.fb.group({
@@ -42,6 +44,7 @@ export class SmsFormComponent {
     this.form.setValue(formValues);
   }
   bindUpdateEvents():void{
+    this.paramsService.bindFormParamsUpdate(this.form);
     this.form.valueChanges.subscribe((value:string) => {
       for(let controlName in errors){
         const control = this.form.get(controlName);

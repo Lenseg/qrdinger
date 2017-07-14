@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators }            from '@ang
 import { StateService } from '@uirouter/angular';
 import { ErrorMessage } from '../_global/definitions';
 
-import { ModelUpdateService } from '../_services/index'
+import { ParamsService, ModelUpdateService } from '../_services/index'
 
 import { Code, WifiCodeModel } from '../_global/code';
 import { isHexColor } from '../_global/directives';
@@ -22,7 +22,7 @@ export class WifiFormComponent {
   passErrors : ErrorMessage[] = [];
   passWarns : ErrorMessage[] = [];
 
-  constructor(private modelUpdateService:ModelUpdateService, private fb:FormBuilder,private stateService:StateService){
+  constructor(private modelUpdateService:ModelUpdateService, private paramsService:ParamsService, private fb:FormBuilder,private stateService:StateService){
     this.createForm();
     this.typeCache = this.form.value.networkType;
     this.bindUpdateEvents();
@@ -46,6 +46,7 @@ export class WifiFormComponent {
     this.form.setValue(formValues);
   }
   bindUpdateEvents():void{
+    this.paramsService.bindFormParamsUpdate(this.form);
     this.form.valueChanges.subscribe((value:any) => {
       if(this.checkIsTypeChanged(value.networkType)){
         this.setFormConfigByType(value.networkType)

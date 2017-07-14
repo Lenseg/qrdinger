@@ -2,7 +2,7 @@ import { Component, Input, Inject } from '@angular/core';
 
 import { StateService, UIRouterGlobals } from '@uirouter/angular';
 
-import { ModelUpdateService } from '../_services/index'
+import { ParamsService, ModelUpdateService } from '../_services/index'
 
 import { Code }  from '../_global/code';
 import { codeTypes, codeTypesRepresentations } from '../_global/definitions';
@@ -21,7 +21,7 @@ export class CreateCodeComponent {
   private codeTypes:any = codeTypes;
   private typesMap:any = codeTypesRepresentations;
   private modelsCache:any = {};
-  constructor (public modelUpdateService:ModelUpdateService, public stateService:StateService, public uiRouterGlobals:UIRouterGlobals) {
+  constructor (public modelUpdateService:ModelUpdateService, private paramsService:ParamsService,  public stateService:StateService, public uiRouterGlobals:UIRouterGlobals) {
     var currentFormType = uiRouterGlobals.current.name.replace('edit.','')
     this.activeType = this.typesMap[currentFormType] || null;
     this.modelUpdateService.modelUdpaveEvent.subscribe((data:any) => {
@@ -33,7 +33,7 @@ export class CreateCodeComponent {
     if(this.code.type && this.code.type !== this.stateName){
       this.activeType = this.typesMap[this.code.type];
       this.stateName = this.code.type;
-      this.stateService.go(`edit.${this.stateName}`,Object.assign({},this.code.options,this.code.model));
+      this.stateService.go(`edit.${this.stateName}`,this.paramsService.createParamsObject(Object.assign({},this.code.options,this.code.model)));
     }
   }
   public selectForm(type:string) : void {
@@ -44,6 +44,6 @@ export class CreateCodeComponent {
       this.code.type = type;
     }
     this.activeType = this.typesMap[type];
-    this.stateService.go(`edit.${type}`,Object.assign({},this.code.options,this.code.model));
+    this.stateService.go(`edit.${type}`,this.paramsService.createParamsObject(Object.assign({},this.code.options,this.code.model)));
   };
 }

@@ -10,18 +10,36 @@ export class ParamsService {
   }
   bindFormParamsUpdate(formObservable: FormGroup){
     formObservable.valueChanges.subscribe(()=>{
-      var params:any = {};
-      for(var param in formObservable.value){
-          params[param] = encodeURIComponent(formObservable.value[param]);
-      }
-      this.stateService.go(this.stateService.current,params);
+      this.setObjectAsParams(formObservable.value);
     })
   }
-  setObjectAsParams(newParams:any){
+  createParamsObject(newParams){
     var params = {};
-    for(var param in params){
-      params[param] = encodeURIComponent(newParams[param]);
+    for(var param in newParams){
+      if(param === 'level'){
+        if(typeof newParams[param] === 'number'){
+          switch(newParams[param]){
+            case 1 :
+              params[param] = 'L';
+              break;
+            case 2 :
+              params[param] = 'M';
+              break;
+            case 3 :
+              params[param] = 'Q';
+              break;
+            case 4 :
+              params[param] = 'H';
+              break;
+          }
+        }
+      } else {
+        params[param] = encodeURIComponent(newParams[param]);
+      }
     }
-    this.stateService.go(this.stateService.current,params);
+    return params;
+  }
+  setObjectAsParams(newParams:any){
+    this.stateService.go(this.stateService.current,this.createParamsObject(newParams));
   }
 }
