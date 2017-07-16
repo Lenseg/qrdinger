@@ -1,7 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule, RequestOptions } from '@angular/http';
+import { HttpModule, Http, RequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { UIRouterModule, UIView  } from '@uirouter/angular';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -26,19 +26,27 @@ import { StringFormComponent }  from './string-form/string-form.component';
 import { SmsFormComponent }  from './sms-form/sms-form.component';
 import { BusinessCardFormComponent }  from './business-card-form/business-card-form.component';
 import { CodeOptionsComponent } from './code-options/code-options.component';
+import { CallbackComponent } from './callback/callback.component';
 
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { MockData } from './mock-data';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig(), http, options);
+}
+
+// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { MockData } from './mock-data';
+
+
 
 @NgModule({
   imports:[
     HttpModule,
-    InMemoryWebApiModule.forRoot(MockData, {
-      passThruUnknownUrl: true
-    }),
+    // InMemoryWebApiModule.forRoot(MockData, {
+    //   passThruUnknownUrl: true
+    // }),
     UIRouterModule.forRoot({
       states: APP_STATES,
-      useHash: true,
       otherwise: { state: 'home' },
       config: routerConfigFn
     }),
@@ -46,7 +54,6 @@ import { MockData } from './mock-data';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpModule,
     BsDropdownModule.forRoot()
   ],
   declarations: [
@@ -64,15 +71,20 @@ import { MockData } from './mock-data';
     SmsFormComponent,
     WifiFormComponent,
     BusinessCardFormComponent,
-    CodeOptionsComponent
-
+    CodeOptionsComponent,
+    CallbackComponent
   ],
   providers: [
     AppConfigService,
     AuthService,
     ParamsService,
     CodesService,
-    ModelUpdateService
+    ModelUpdateService,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    }
   ],
   bootstrap: [ UIView ]
 })

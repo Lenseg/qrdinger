@@ -12,6 +12,11 @@ nav.navbar.navbar-fixed-top
         li
           a.navbar_link(uiSref='codes') Codes
         li
-          a.navbar_link(uiSref='edit/new') Add code
+          a.navbar_link(uiSref='edit') Add code
+      ul.nav.navbar-nav.navbar-right
+        li
+          a( *ngIf="!authService.authenticated", (click)="authService.login()") Log In
+        li
+          a( *ngIf="authService.authenticated", (click)="authService.logout()") Log Out
 div.container.mt-20
   ui-view

@@ -14,11 +14,17 @@ import { StringFormComponent } from './string-form/string-form.component';
 import { SmsFormComponent } from './sms-form/sms-form.component';
 import { BusinessCardFormComponent } from './business-card-form/business-card-form.component';
 import { LoginComponent } from './login/login.component';
+import { CallbackComponent } from './callback/callback.component';
 
 const appState = {
   name:'app',
   redirectTo: 'home',
   component: AppComponent
+}
+const callbackState = {
+  name:'callback',
+  url: '/callback',
+  component: CallbackComponent
 }
 const homeState = {
   parent: 'app',
@@ -156,4 +162,4 @@ export function returnTo ($transition$: Transition): any {
   return $state.target('home');
 }
 
-export const APP_STATES = [appState, loginState, registerState, editState, codesListState, homeState, urlForm, stringForm, smsForm, businessCardForm, wifiForm]
+export const APP_STATES = [appState, loginState, callbackState, registerState, editState, codesListState, homeState, urlForm, stringForm, smsForm, businessCardForm, wifiForm]

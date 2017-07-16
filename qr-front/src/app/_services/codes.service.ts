@@ -5,14 +5,15 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch'
+import { AuthHttp } from 'angular2-jwt';
 
 import { Http, Headers, Response } from "@angular/http";
 
 @Injectable()
 export class CodesService {
-  private url = 'api/codes';
+  private url = 'http://localhost:3001/api/codes/';
 
-  constructor (private http: Http) {}
+  constructor (private authHttp: AuthHttp) {}
   request:Observable<any>
   cache:Code[];
 
@@ -24,10 +25,10 @@ export class CodesService {
     } else {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      this.request = this.http.get(this.url, {
+      this.request = this.authHttp.get(this.url, {
         headers: headers
       })
-      .map((resp) => this.cache = resp.json().data)
+      .map((resp) => this.cache = resp.json() || {})
       .catch(this.handleError);
       return this.request;
     }
@@ -39,12 +40,12 @@ export class CodesService {
     } else {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-        this.request = this.http.get(`${this.url}/${id}`,{
+      let request = this.authHttp.get(`${this.url}/${id}`,{
          headers: headers
        })
-      .map(resp =>  {return resp.json().data})
+      .map(resp =>  resp.json() || {})
       .catch(this.handleError);
-      return this.request;
+      return request;
     }
   }
   private handleError (error: Response | any) {
