@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TargetState, StateService } from '@uirouter/angular';
-// import { AuthService, AppConfigService } from '../_services/index';
+import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
+import { AuthService } from '../_services/index';
 
 import { ErrorMessage } from '../_global/definitions'
 
@@ -9,42 +10,36 @@ import { ErrorMessage } from '../_global/definitions'
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
+  emailRegexp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
   @Input() returnTo: TargetState;
-  username:string;
-  credentials:credentials = { username: null, password: null };
   authenticating: boolean;
   errorMessage: ErrorMessage;
+  form : FormGroup;
 
-  constructor(
-              private $state: StateService
-  ) {
-    // this.username = authService.username;
+  passwordErrors: ErrorMessage[] = [];
+  passwordWarns: ErrorMessage[] = [];
+  emailErrors: ErrorMessage[] = [];
+  emailWarns: ErrorMessage[] = [];
 
-    // this.credentials = {
-    //   username: appConfig.emailAddress,
-    //   password: 'password'
-    // };
+  constructor(private fb:FormBuilder, private $state: StateService, private authService: AuthService) {
+   this.createForm();
   }
+  createForm():void{
+    this.form = this.fb.group({
+      email: ['',[
+        Validators.required,
+        Validators.pattern(this.emailRegexp)
+      ]],
+      password: ['',Validators.required],
+    });
+  }
+  login() {
+    this.authenticating = true;
+    this.authService.loginWithEmail(this.form.value.email, this.form.value.password).then(()=>{
 
-  // login(credentials:credentials) {
-  //   // this.authenticating = true;
-  //
-  //   const returnToOriginalState = () => {
-  //     const state = this.returnTo.state();
-  //     const params = this.returnTo.params();
-  //     const options = Object.assign({}, this.returnTo.options(), { reload: true });
-  //     this.$state.go(state, params, options);
-  //   };
-  //
-  //   const showError = (errorMessage:ErrorMessage) =>
-  //     this.errorMessage = errorMessage;
-  //
-  //   const stop = () => this.authenticating = false;
-  //   this.authService.authenticate(credentials.username, credentials.password)
-  //     .then(returnToOriginalState)
-  //     .catch(showError)
-  //     .then(stop, stop);
-  // }
+    });
+  }
 }
 class credentials {
   username:string | null;

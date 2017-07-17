@@ -54,6 +54,7 @@ const codesListState = {
   parent: 'app',
   name: 'codes',
   url: '/codes',
+  protected:true,
   component: CodesListComponent
 }
 const editState = {

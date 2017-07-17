@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/fo
 import { StateService } from '@uirouter/angular';
 import { ErrorMessage } from '../_global/definitions';
 
+import { AuthService } from '../_services/index';
 @Component({
   selector:'reqister',
   templateUrl:'./register.component.html'
@@ -19,7 +20,7 @@ export class RegisterComponent{
   emailWarns: ErrorMessage[] = [];
   passwordConfirmErrors: ErrorMessage[] = [];
   passwordConfirmWarns: ErrorMessage[] = [];
-  constructor(private fb:FormBuilder){
+  constructor(private fb:FormBuilder, private authService:AuthService){
     this.createForm();
     this.bindUpdateEvents();
   }
@@ -54,6 +55,9 @@ export class RegisterComponent{
       }
     });
   }
+  register(){
+    this.authService.registerUser(this.form.value.email, this.form.value.password);
+  }
   isPasswordsAreSame(passControlName:string,passConfirmControlName:string){
     return(group: FormGroup) => {
       let passControl = group.get(passControlName);
@@ -62,7 +66,7 @@ export class RegisterComponent{
         let newErrors = Object.assign(passConfirmControl.errors || {}, {match:true});
         passConfirmControl.setErrors(newErrors)
       } else {
-        if(passConfirmControl.errors.match){
+        if(passConfirmControl.errors && passConfirmControl.errors.match){
           let newErrors = Object.assign(passConfirmControl.errors || {}, {});
           delete newErrors.match;
           passConfirmControl.setErrors(newErrors);

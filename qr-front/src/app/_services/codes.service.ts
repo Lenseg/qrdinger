@@ -5,15 +5,15 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch'
-import { AuthHttp } from 'angular2-jwt';
 
+import * as firebase from 'firebase/app';
 import { Http, Headers, Response } from "@angular/http";
 
 @Injectable()
 export class CodesService {
   private url = 'http://localhost:3001/api/codes/';
-
-  constructor (private authHttp: AuthHttp) {}
+  private database = firebase.database();
+  constructor (private http: Http) {}
   request:Observable<any>
   cache:Code[];
 
@@ -25,7 +25,7 @@ export class CodesService {
     } else {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      this.request = this.authHttp.get(this.url, {
+      this.request = this.http.get(this.url, {
         headers: headers
       })
       .map((resp) => this.cache = resp.json() || {})
@@ -40,7 +40,7 @@ export class CodesService {
     } else {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      let request = this.authHttp.get(`${this.url}/${id}`,{
+      let request = this.http.get(`${this.url}/${id}`,{
          headers: headers
        })
       .map(resp =>  resp.json() || {})

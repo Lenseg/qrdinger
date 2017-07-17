@@ -9,6 +9,10 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { APP_STATES } from './app.states';
 import { routerConfigFn } from './router.config';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { AuthService, AppConfigService, ParamsService, CodesService, ModelUpdateService }  from './_services/index';
 
 import { AppComponent }  from './app.component';
@@ -28,16 +32,10 @@ import { BusinessCardFormComponent }  from './business-card-form/business-card-f
 import { CodeOptionsComponent } from './code-options/code-options.component';
 import { CallbackComponent } from './callback/callback.component';
 
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
-
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp(new AuthConfig(), http, options);
-}
-
 // import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { MockData } from './mock-data';
 
-
+import { environment } from '../environments/environment'
 
 @NgModule({
   imports:[
@@ -54,6 +52,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     BsDropdownModule.forRoot()
   ],
   declarations: [
@@ -79,12 +80,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     AuthService,
     ParamsService,
     CodesService,
-    ModelUpdateService,
-    {
-      provide: AuthHttp,
-      useFactory: authHttpServiceFactory,
-      deps: [Http, RequestOptions]
-    }
+    ModelUpdateService
   ],
   bootstrap: [ UIView ]
 })

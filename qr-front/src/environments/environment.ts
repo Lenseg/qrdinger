@@ -4,5 +4,13 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyApCwQTqMckd8XG1dr2prTqB6tQw2VuNUU",
+    authDomain: "qrdinger.firebaseapp.com",
+    databaseURL: "https://qrdinger.firebaseio.com",
+    projectId: "qrdinger",
+    storageBucket: "qrdinger.appspot.com",
+    messagingSenderId: "252516911799"
+  }
 };
