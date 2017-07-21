@@ -26,6 +26,7 @@ export class SmsFormComponent {
   constructor(private modelUpdateService:ModelUpdateService, private paramsService:ParamsService, private fb:FormBuilder, private stateService:StateService){
     this.createForm();
     this.bindUpdateEvents();
+    this.setModel();
   }
   createForm():void{
     var formValues:smsParams = {

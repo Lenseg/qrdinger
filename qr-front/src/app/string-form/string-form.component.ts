@@ -20,6 +20,7 @@ export class StringFormComponent {
   constructor(private modelUpdateService:ModelUpdateService, private fb:FormBuilder, private paramsService:ParamsService, private stateService:StateService){
     this.createForm();
     this.bindUpdateEvents();
+    this.setModel();
   }
   createForm(){
     let stringValue = this.stateService.params['string'] ? decodeURIComponent(this.stateService.params['string']) : '' ;
@@ -28,22 +29,22 @@ export class StringFormComponent {
         Validators.required
       ]]
     });
+    this.setModel();
   }
   bindUpdateEvents():void{
     this.paramsService.bindFormParamsUpdate(this.form);
     this.form.valueChanges.subscribe((value:string) => {
       this.errors = [];
       const control = this.form.get('string');
-      console.log(control)
       if (control && !control.valid && control.dirty){
         for (const err in control.errors){
           this.errors.push(errors[err])
         }
       }
-      this.sendModel();
+      this.setModel();
     });
   }
-  sendModel():void{
+  setModel():void{
     let model = {
       type:'string',
       string:this.form.value.string

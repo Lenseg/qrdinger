@@ -19,7 +19,7 @@ export class CodeOptionsComponent {
   constructor(private fb: FormBuilder, private paramsService:ParamsService, private stateService:StateService){
 
   }
-  ngOnInit(){
+  ngOnChanges(){
     this.createForm();
     this.bindChangeEvents();
   }

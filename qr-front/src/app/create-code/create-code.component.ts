@@ -14,7 +14,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
   selector: 'create-code',
   templateUrl: './create-code.component.html'
 })
-export class CreateCodeComponent {
+export class CreateCodeComponent{
   @Input() code: Code;
   private stateName:string;
   private activeType:string;
@@ -27,13 +27,14 @@ export class CreateCodeComponent {
     this.modelUpdateService.modelUdpaveEvent.subscribe((data:any) => {
       this.code.model = data;
     });
+
   }
 
-  ngDoCheck() {
+  ngOnChanges() {
+    this.setOptionsFromParams();
     if(this.code.type && this.code.type !== this.stateName){
       this.activeType = this.typesMap[this.code.type];
       this.stateName = this.code.type;
-      this.setOptionsFromParams();
       this.stateService.go(`edit.${this.stateName}`,this.paramsService.createParamsObject(Object.assign({},this.code.options,this.code.model)));
     }
   }

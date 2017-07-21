@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Code } from '../_global/code';
 import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/map';
@@ -9,44 +10,37 @@ import 'rxjs/add/operator/catch'
 import * as firebase from 'firebase/app';
 import { Http, Headers, Response } from "@angular/http";
 
+import { AuthService } from './index';
+
 @Injectable()
 export class CodesService {
-  private url = 'http://localhost:3001/api/codes/';
-  private database = firebase.database();
-  constructor (private http: Http) {}
-  request:Observable<any>
+  list:FirebaseListObservable<any>;
   cache:Code[];
 
+  constructor (private afDb: AngularFireDatabase, private authService: AuthService) {
+    this.authService.userObservable.subscribe(user =>{
+      if(user.uid){
+        this.list = this.afDb.list('/codes/' + user.uid , {
+          query: {
+            limitToLast: 50
+          }
+        });
+        this.list.subscribe(codes => this.cache = codes);
+      }
+    })
+  }
+
   getCodes() {
-    if(this.cache){
-      return Observable.of(this.cache);
-    } else if(this.request) {
-      return this.request;
-    } else {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      this.request = this.http.get(this.url, {
-        headers: headers
-      })
-      .map((resp) => this.cache = resp.json() || {})
-      .catch(this.handleError);
-      return this.request;
-    }
+    return this.list;
   }
   getCode(id:string) {
     if(this.cache){
       let res = this.cache.find( code => code.id === id );
       return Observable.of(this.cache.find( code => code.id === id ));
-    } else {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      let request = this.http.get(`${this.url}/${id}`,{
-         headers: headers
-       })
-      .map(resp =>  resp.json() || {})
-      .catch(this.handleError);
-      return request;
     }
+  }
+  saveCode(code){
+    this.list.push(code);
   }
   private handleError (error: Response | any) {
     // TODO remote loggingr

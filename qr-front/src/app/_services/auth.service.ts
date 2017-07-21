@@ -12,15 +12,23 @@ export class AuthService {
   // @TODO: Update AUTH_CONFIG and remove .example extension in src/app/auth/auth0-variables.ts.example
 
   // Create a stream of logged in status to communicate throughout app
-  loggedIn: boolean;
-  user: Observable<firebase.User>;
+  loggedIn: boolean = false;
+  userObservable: Observable<firebase.User>;
+  user:firebase.User;
 
   constructor(private stateService:StateService, public afAuth: AngularFireAuth) {
-    this.user = this.afAuth.authState;
+    this.userObservable = this.afAuth.authState;
+    this.userObservable.subscribe( user => {
+      this.user = user
+      if(user.uid)
+        this.setLoggedIn(true)
+    })
   }
-
   setLoggedIn(value: boolean) {
     this.loggedIn = value;
+  }
+  getUserId(){
+    return this.user.uid
   }
   checkAuthenticated() {
     return this.loggedIn;
@@ -49,25 +57,9 @@ export class AuthService {
       this.stateService.go('codes',{});
     });;
   }
-  handleAuth() {
-    // When Auth0 hash parsed, get profile
-  }
-
-  private _getProfile(authResult) {
-  }
-
-  private _setSession(authResult, profile) {
-    // Save session data and update login status subject
-  }
-
   logout() {
     // Remove tokens and profile and update login status subject
     this.afAuth.auth.signOut();
-  }
-
-  get authenticated() {
-    return false
-    // Check if there's an unexpired access token
   }
 
 }

@@ -25,6 +25,7 @@ export class UrlFormComponent {
   constructor(private modelUpdateService:ModelUpdateService, private fb:FormBuilder, private paramsService:ParamsService,private stateService:StateService){
     this.createForm();
     this.bingUpdateEvents();
+    this.setModel();
   }
   createForm():void{
     let url =  this.stateService.params['url'] ? decodeURI(this.stateService.params['url']) : '';
@@ -42,7 +43,6 @@ export class UrlFormComponent {
       this.errors = [];
       this.warns = [];
       const control = this.form.get('url');
-      console.log(control,'ctrl')
       if (control && !control.valid && control.dirty){
         for (let err in control.errors){
           if (errors[err].type === 'err'){
@@ -52,10 +52,10 @@ export class UrlFormComponent {
           };
         }
       }
-      this.sendModel();
+      this.setModel();
     });
   }
-  sendModel():void{
+  setModel():void{
     let model = {
       type:'url',
       url:this.form.value.url

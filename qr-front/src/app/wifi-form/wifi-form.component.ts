@@ -25,6 +25,7 @@ export class WifiFormComponent {
   constructor(private modelUpdateService:ModelUpdateService, private paramsService:ParamsService, private fb:FormBuilder,private stateService:StateService){
     this.createForm();
     this.typeCache = this.form.value.networkType;
+    this.setModel();
     this.bindUpdateEvents();
   }
   createForm():void{
@@ -66,7 +67,7 @@ export class WifiFormComponent {
           }
         }
       }
-      this.sendModel();
+      this.setModel();
     });
   }
   isPasswordReqired(typeControlName:string,passControlName:string){
@@ -99,7 +100,7 @@ export class WifiFormComponent {
       passControll.enable();
     }
   }
-  sendModel():void{
+  setModel():void{
     let model = Object.assign({type:'wifi'},this.form.value);
     this.modelUpdateService.modelUpdate(model)
   }

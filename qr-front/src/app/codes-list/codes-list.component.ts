@@ -16,13 +16,14 @@ export class CodesListComponent implements OnInit{
   ngOnInit() { this.getCodes(); }
 
   getCodes() {
+
     this.codesService.getCodes()
-                     .subscribe(
-                       codes => {
-                          codes.forEach((code)=>{
-                            this.codes.push(new Code(code))
-                          })
-                       },
-                       error =>  this.error = error);
+           .subscribe(
+             codes => {
+                codes.forEach((code)=>{
+                  this.codes.push(new Code(code))
+                })
+             },
+             error =>  this.error = error);
   }
 }

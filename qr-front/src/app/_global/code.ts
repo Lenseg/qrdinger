@@ -3,6 +3,38 @@ export class Code {
   name:string = '';
   options?:CodeOptions;
   private _model : WifiCodeModel | UrlCodeModel | StringCodeModel | SmsCodeModel;
+  constructor(code?:Code){
+    this.id = code && code.id ? code.id : this.id;
+    this.name = code && code.name ? code.name : this.name;
+    if(code && code.options){
+      this.options = new CodeOptions(code.options);
+    } else {
+      this.options = new CodeOptions();
+    }
+    if(code && code.model)
+      switch( code.model.type ){
+        case 'wifi':
+          this._model = new WifiCodeModel(code.model);
+        break;
+        case 'url':
+          this._model = new UrlCodeModel(code.model);
+        break;
+        case 'string':
+          this._model = new StringCodeModel(code.model);
+        break;
+        case 'sms':
+          this._model = new SmsCodeModel(code.model);
+        break;
+      }
+  }
+  public toJSON(): string {
+    let obj = Object.assign({}, this);
+    obj.model = this.model;
+    delete obj.toJSON;
+    delete obj._model;
+    let res =  JSON.stringify(obj);
+    return JSON.stringify(obj);
+  }
   set model(model){
     if(this._model && this._model.type === model.type){
       for(let prop in model){
@@ -27,30 +59,6 @@ export class Code {
   };
   get model():any{
     return this._model;
-  }
-  constructor(code?:Code){
-    this.id = code && code.id ? code.id : this.id;
-    this.name = code && code.name ? code.name : this.name;
-    if(code && code.options){
-      this.options = new CodeOptions(code.options);
-    } else {
-      this.options = new CodeOptions();
-    }
-    if(code && code.model)
-      switch( code.model.type ){
-        case 'wifi':
-          this._model = new WifiCodeModel(code.model);
-        break;
-        case 'url':
-          this._model = new UrlCodeModel(code.model);
-        break;
-        case 'string':
-          this._model = new StringCodeModel(code.model);
-        break;
-        case 'sms':
-          this._model = new SmsCodeModel(code.model);
-        break;
-      }
   }
   get value(): string {
     if(this._model)

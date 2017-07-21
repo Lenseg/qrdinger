@@ -1,16 +1,17 @@
 div.container
-  div.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2
+  div.col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2
     form([formGroup]="form", novalidate)
       h3 Log In
       hr
-      div
+      div.form-group
         label( for="email" ) Mail
-          input.form-control( type="email", name="email", id="email", formControlName="email" )
-      br
-      div
+        input.form-control( type="email", name="email", id="email", formControlName="email" )
+      div.form-group
         label( for="password" ) Password
-          input.form-control( type="password", name="password", formControlName="password" )
-      div
-        button.btn.btn-primary( type="button", [disabled]="authenticating || !form.valid", (click)="login()" )
+        input.form-control( type="password", name="password", formControlName="password" )
+      div.form-group
+        button.btn.btn-primary.pull-left( type="button", [disabled]="authenticating || !form.valid", (click)="login()" )
           i.fa.fa-spin.fa-spinner( *ngIf="authenticating" ) 
           span Log in
+        a.btn.btn-success.pull-right( uiSref="register" )
+          span Register

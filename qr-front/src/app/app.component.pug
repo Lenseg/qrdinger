@@ -15,8 +15,8 @@ nav.navbar.navbar-fixed-top
           a.navbar_link(uiSref='edit') Add code
       ul.nav.navbar-nav.navbar-right
         li
-          a( *ngIf="!(authService.user | async)?.uid", (click)="authService.login()") Log In
+          a( *ngIf="!(authService.userObservable | async)?.uid" uiSref='login') Log In
         li
-          a( *ngIf="(authService.user | async)?.uid", (click)="authService.logout()") Log Out
+          a( *ngIf="(authService.userObservable | async)?.uid", (click)="authService.logout()") Log Out
 div.container.mt-20
   ui-view
