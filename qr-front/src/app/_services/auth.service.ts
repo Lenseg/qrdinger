@@ -19,9 +19,12 @@ export class AuthService {
   constructor(private stateService:StateService, public afAuth: AngularFireAuth) {
     this.userObservable = this.afAuth.authState;
     this.userObservable.subscribe( user => {
-      this.user = user
-      if(user.uid)
+      if(user === null){
+        this.setLoggedIn(false);
+      } else if (user.uid){
+        this.user = user;
         this.setLoggedIn(true)
+      }
     })
   }
   setLoggedIn(value: boolean) {
@@ -58,8 +61,8 @@ export class AuthService {
     });;
   }
   logout() {
-    // Remove tokens and profile and update login status subject
     this.afAuth.auth.signOut();
+    this.stateService.go('login',{});
   }
 
 }

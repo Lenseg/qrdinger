@@ -32,24 +32,19 @@ import { BusinessCardFormComponent }  from './business-card-form/business-card-f
 import { CodeOptionsComponent } from './code-options/code-options.component';
 import { CallbackComponent } from './callback/callback.component';
 
-// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-// import { MockData } from './mock-data';
 
 import { environment } from '../environments/environment'
 
 @NgModule({
   imports:[
+    BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
-    // InMemoryWebApiModule.forRoot(MockData, {
-    //   passThruUnknownUrl: true
-    // }),
     UIRouterModule.forRoot({
       states: APP_STATES,
       otherwise: { state: 'home' },
       config: routerConfigFn
     }),
-    BrowserModule,
-    BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),

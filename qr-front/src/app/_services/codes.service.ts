@@ -18,19 +18,17 @@ export class CodesService {
   cache:Code[];
 
   constructor (private afDb: AngularFireDatabase, private authService: AuthService) {
-    this.authService.userObservable.subscribe(user =>{
-      if(user.uid){
-        this.list = this.afDb.list('/codes/' + user.uid , {
-          query: {
-            limitToLast: 50
-          }
-        });
-        this.list.subscribe(codes => this.cache = codes);
-      }
-    })
   }
 
   getCodes() {
+    if(this.authService.checkAuthenticated() && !this.list){
+      this.list = this.afDb.list('/codes/' + this.authService.user.uid , {
+        query: {
+          limitToLast: 50
+        }
+      });
+      this.list.subscribe(codes => this.cache = codes);
+    }
     return this.list;
   }
   getCode(id:string) {

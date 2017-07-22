@@ -19,6 +19,7 @@ import { CallbackComponent } from './callback/callback.component';
 const appState = {
   name:'app',
   redirectTo: 'home',
+  abstract: true,
   component: AppComponent
 }
 const callbackState = {
@@ -29,26 +30,20 @@ const callbackState = {
 const homeState = {
   parent: 'app',
   name: 'home',
-  url: '/',
+  url: '/home',
   component: HomeComponent
 }
 const loginState = {
   parent: 'app',
   name: 'login',
   url: '/login',
-  component: LoginComponent,
-  resolve: [
-    { token: 'returnTo', deps: [Transition], resolveFn: returnTo },
-  ]
+  component: LoginComponent
 }
 const registerState = {
   parent: 'app',
   name: 'register',
   url: '/register',
-  component: RegisterComponent,
-  resolve: [
-    { token: 'returnTo', deps: [Transition], resolveFn: returnTo },
-  ]
+  component: RegisterComponent
 }
 const codesListState = {
   parent: 'app',
@@ -150,17 +145,6 @@ const businessCardForm = {
   name:'edit.buisnessCard',
   url:'/buisnessCard',
   component:BusinessCardFormComponent
-}
-
-export function returnTo ($transition$: Transition): any {
-  if ($transition$.redirectedFrom() != null) {
-    return $transition$.redirectedFrom().targetState();
-  }
-  const $state = $transition$.router.stateService;
-  if ($transition$.from().name !== '') {
-    return $state.target($transition$.from(), $transition$.params('from'));
-  }
-  return $state.target('home');
 }
 
 export const APP_STATES = [appState, loginState, callbackState, registerState, editState, codesListState, homeState, urlForm, stringForm, smsForm, businessCardForm, wifiForm]
