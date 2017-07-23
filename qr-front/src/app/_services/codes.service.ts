@@ -15,7 +15,7 @@ import { AuthService } from './index';
 @Injectable()
 export class CodesService {
   list:FirebaseListObservable<any>;
-  cache:Code[];
+  cache:any[];
 
   constructor (private afDb: AngularFireDatabase, private authService: AuthService) {
   }
@@ -23,22 +23,25 @@ export class CodesService {
   getCodes() {
     if(this.authService.checkAuthenticated() && !this.list){
       this.list = this.afDb.list('/codes/' + this.authService.user.uid , {
-        query: {
-          limitToLast: 50
-        }
       });
-      this.list.subscribe(codes => this.cache = codes);
+      this.list.subscribe(codes =>
+        this.cache = codes);
     }
     return this.list;
   }
   getCode(id:string) {
     if(this.cache){
-      let res = this.cache.find( code => code.id === id );
-      return Observable.of(this.cache.find( code => code.id === id ));
+      return Observable.of(this.cache.find( code => code.$key === id ));
+    } else {
+      return this.afDb.object('/codes/' + this.authService.user.uid + '/' + id)
     }
   }
-  saveCode(code){
-    this.list.push(code);
+  saveCode(code, key){
+    if(key!=='new'){
+      this.list.update(key, code.toObj())
+    } else {
+      this.list.push(code.toObj());
+    }
   }
   private handleError (error: Response | any) {
     // TODO remote loggingr

@@ -6,10 +6,14 @@ export function routerConfigFn(router: UIRouter) {
   const transitionService = router.transitionService;
   // requiresAuthHook(transitionService);
 
-  let criteria = { entering: (state) => {
+  let criteriaAuth = { entering: (state) => {
       return state.protected
   } };
-  router.transitionService.onStart(criteria, requireAuthentication);
+  router.transitionService.onStart(criteriaAuth, requireAuthentication);
+  let criteriaNewCode = { entering: (state) => {
+      return state.name === 'edit' && state.params.id !== 'new';
+  } };
+  router.transitionService.onStart(criteriaNewCode, requireAuthentication);
   router.trace.enable(Category.TRANSITION);
 };
 function requireAuthentication(transition) {

@@ -21,7 +21,9 @@ export class CodesListComponent implements OnInit{
            .subscribe(
              codes => {
                 codes.forEach((code)=>{
-                  this.codes.push(new Code(code))
+                  let codeObj = new Code(code);
+                  codeObj.id = code.$key;
+                  this.codes.push(codeObj);
                 })
              },
              error =>  this.error = error);

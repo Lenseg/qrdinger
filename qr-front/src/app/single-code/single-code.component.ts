@@ -11,14 +11,16 @@ import { CodesService, AuthService } from '../_services/index';
 
 export class SingleCodeComponent {
  code:Code;
+ codeId:string;
  constructor(public codesService:CodesService, public stateService:StateService, private authService : AuthService){
-  let codeId = this.stateService.params['codeId'];
+  this.codeId = this.stateService.params['codeId'];
   this.code = new Code();
-  if(codeId !== 'new'){
-    this.codesService.getCode(codeId).subscribe(code => this.code = new Code(code));
+  if(this.codeId !== 'new'){
+    this.codesService.getCode(this.codeId).subscribe(code =>
+      this.code = new Code(code))
   }
  }
  saveCode(){
-   this.codesService.saveCode(this.code.toJSON());
+   this.codesService.saveCode(this.code, this.codeId);
  }
 }

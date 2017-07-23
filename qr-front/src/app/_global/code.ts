@@ -1,5 +1,5 @@
 export class Code {
-  id:string = 'new';
+  id?:string;
   name:string = '';
   options?:CodeOptions;
   private _model : WifiCodeModel | UrlCodeModel | StringCodeModel | SmsCodeModel;
@@ -28,12 +28,16 @@ export class Code {
       }
   }
   public toJSON(): string {
+    let obj = this.toObj();
+    return JSON.stringify(obj);
+  }
+  public toObj(): any {
     let obj = Object.assign({}, this);
     obj.model = this.model;
     delete obj.toJSON;
     delete obj._model;
-    let res =  JSON.stringify(obj);
-    return JSON.stringify(obj);
+    delete obj.id;
+    return obj;
   }
   set model(model){
     if(this._model && this._model.type === model.type){
