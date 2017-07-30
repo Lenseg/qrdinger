@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import * as QRious from 'qrious';
+import { QRious } from '../_global/qrious';
 import { Code } from '../_global/code';
 
 @Component({
@@ -37,6 +37,7 @@ export class DisplayCodeComponent {
         size:this.canvasContainer.nativeElement.offsetWidth,
         element:this.canvas.nativeElement
       });
+      console.log(this.codeInstance)
   }
   updateSize(): void {
     this.codeInstance.size = this.canvasContainer.nativeElement.offsetWidth;

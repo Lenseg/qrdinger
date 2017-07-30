@@ -1,8 +1,13 @@
 .row
-  .col-xs-12.col-sm-6.col-md-3
+  .col-xs-12.col-md-6
     display-code([code]="code")
-  .col-xs-12.col-sm-6.col-md-3
+    .form-group
+      button.btn.btn-success(*ngIf="(authService.userObservable | async)?.uid", (click)="saveCode()") Save code
+      export-code([canvas]="canvas")
+  .col-xs-12.col-md-6
     form
+      div.form-group(*ngIf="(authService.userObservable | async)?.uid")
+        input.form-control([(ngModel)]="code.name", placeholder="Code name", [ngModelOptions]="{standalone: true}")
       div.btn-group.form-group( dropdown )
         button.btn.btn-primary.dropdown-toggle.form-control( dropdownToggle type="button" ) {{activeType || 'Select code type'}}
            span.caret
@@ -10,4 +15,4 @@
           li(*ngFor="let type of codeTypes", role="menuitem")
             a.dropdown-item((click)="selectForm(type)") {{typesMap[type]}}
     code-options([code]="code", (onOptionsUpdate)="onOptionsUpdate($event)")
-    ui-view
+    ui-view      

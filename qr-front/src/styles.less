@@ -29,12 +29,16 @@ body {
   }
 }
 .navbar{
-  background-color: @main;
+  background-color: transparent;
   &-collapse{
     overflow: hidden;
   }
   &_link{
-    color: @background;
+    color: @main;
+    &:hover{
+      background: transparent !important;
+      text-decoration: underline !important;
+    }
   }
   .icon-bar{
     background-color: @background;

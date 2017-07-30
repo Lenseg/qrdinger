@@ -5,7 +5,6 @@ import { CodesService } from './_services/index';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CodesListComponent } from './codes-list/codes-list.component';
-import { SingleCodeComponent } from './single-code/single-code.component';
 import { CreateCodeComponent } from './create-code/create-code.component';
 import { RegisterComponent } from './register/register.component';
 import { UrlFormComponent } from './url-form/url-form.component';
@@ -30,7 +29,7 @@ const callbackState = {
 const homeState = {
   parent: 'app',
   name: 'home',
-  url: '/home',
+  url: '/',
   component: HomeComponent
 }
 const loginState = {
@@ -56,7 +55,7 @@ const editState = {
   parent: 'app',
   name: 'edit',
   url: '/edit/:codeId/?background?level?foreground',
-  component: SingleCodeComponent,
+  component: CreateCodeComponent,
   params: {
     codeId:{
       value:'new'

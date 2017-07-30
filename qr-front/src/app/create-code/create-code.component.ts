@@ -1,8 +1,8 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Input, Inject, ViewChild, ElementRef } from '@angular/core';
 
 import { StateService, UIRouterGlobals } from '@uirouter/angular';
 
-import { ParamsService, ModelUpdateService } from '../_services/index'
+import { CodesService, ParamsService, ModelUpdateService, AuthService } from '../_services/index'
 
 import { Code }  from '../_global/code';
 import { codeTypes, codeTypesRepresentations } from '../_global/definitions';
@@ -15,13 +15,20 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
   templateUrl: './create-code.component.html'
 })
 export class CreateCodeComponent{
-  @Input() code: Code;
+  public code: Code;
+  public codeId:string;
   private stateName:string;
   private activeType:string;
   private codeTypes:any = codeTypes;
   private typesMap:any = codeTypesRepresentations;
   private modelsCache:any = {};
-  constructor (public modelUpdateService:ModelUpdateService, private paramsService:ParamsService,  public stateService:StateService, public uiRouterGlobals:UIRouterGlobals) {
+  constructor (public codesService:CodesService, public modelUpdateService:ModelUpdateService, private paramsService:ParamsService, public authService : AuthService,  public stateService:StateService, public uiRouterGlobals:UIRouterGlobals) {
+    this.codeId = this.stateService.params['codeId'];
+    this.code = new Code();
+    if(this.codeId !== 'new'){
+      this.codesService.getCode(this.codeId).subscribe(code =>
+        this.code = new Code(code))
+    }
     var currentFormType = uiRouterGlobals.current.name.replace('edit.','')
     this.activeType = this.typesMap[currentFormType] || null;
     this.modelUpdateService.modelUdpaveEvent.subscribe((data:any) => {
@@ -53,5 +60,8 @@ export class CreateCodeComponent{
     this.code.options.level =  this.stateService.params['level'] ? decodeURIComponent(this.stateService.params['level']) : this.code.options.level;
     this.code.options.foreground =  this.stateService.params['foreground'] ? decodeURIComponent(this.stateService.params['foreground']) : this.code.options.foreground,
     this.code.options.background =  this.stateService.params['background'] ? decodeURIComponent(this.stateService.params['background']) : this.code.options.background;
+  }
+  saveCode(){
+    this.codesService.saveCode(this.code, this.codeId);
   }
 }

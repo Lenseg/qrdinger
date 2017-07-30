@@ -1,5 +1,0 @@
-div.form-group
-  input.form-control(*ngIf="(authService.userObservable | async)?.uid", [(ngModel)]="code.name" placeholder="Code name")
-create-code([code]="code")
-div.form-group
-  button.btn.btn-success(*ngIf="(authService.userObservable | async)?.uid", (click)="saveCode()") Save code

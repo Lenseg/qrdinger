@@ -11,7 +11,7 @@ export function routerConfigFn(router: UIRouter) {
   } };
   router.transitionService.onStart(criteriaAuth, requireAuthentication);
   let criteriaNewCode = { entering: (state) => {
-      return state.name === 'edit' && state.params.id !== 'new';
+      return state.name === 'edit' && state.params.codeId.config.value !== 'new';
   } };
   router.transitionService.onStart(criteriaNewCode, requireAuthentication);
   router.trace.enable(Category.TRANSITION);

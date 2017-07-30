@@ -13,7 +13,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-import { AuthService, AppConfigService, ParamsService, CodesService, ModelUpdateService }  from './_services/index';
+import { AuthService, AppConfigService, ParamsService, CodesService, ExportCodeService, ModelUpdateService }  from './_services/index';
 
 import { AppComponent }  from './app.component';
 import { LoginComponent }  from './login/login.component';
@@ -21,7 +21,6 @@ import { RegisterComponent }  from './register/register.component';
 import { HomeComponent }  from './home/home.component';
 import { CodesListComponent }  from './codes-list/codes-list.component';
 import { CodesListItemComponent }  from './code-list-item/code-list-item.component';
-import { SingleCodeComponent } from './single-code/single-code.component';
 import { CreateCodeComponent }  from './create-code/create-code.component';
 import { DisplayCodeComponent }  from './display-code/display-code.component';
 import { UrlFormComponent }  from './url-form/url-form.component';
@@ -33,7 +32,8 @@ import { CodeOptionsComponent } from './code-options/code-options.component';
 import { CallbackComponent } from './callback/callback.component';
 
 
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
+import { ExportCodeComponent } from './export-code/export-code.component'
 
 @NgModule({
   imports:[
@@ -60,7 +60,6 @@ import { environment } from '../environments/environment'
     DisplayCodeComponent,
     CodesListComponent,
     CodesListItemComponent,
-    SingleCodeComponent,
     RegisterComponent,
     UrlFormComponent,
     StringFormComponent,
@@ -68,14 +67,16 @@ import { environment } from '../environments/environment'
     WifiFormComponent,
     BusinessCardFormComponent,
     CodeOptionsComponent,
-    CallbackComponent
+    CallbackComponent,
+    ExportCodeComponent
   ],
   providers: [
     AppConfigService,
     AuthService,
     ParamsService,
     CodesService,
-    ModelUpdateService
+    ModelUpdateService,
+    ExportCodeService
   ],
   bootstrap: [ UIView ]
 })
