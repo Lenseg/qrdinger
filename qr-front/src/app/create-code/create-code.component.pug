@@ -3,7 +3,7 @@
     display-code([code]="code")
     .form-group
       button.btn.btn-success(*ngIf="(authService.userObservable | async)?.uid", (click)="saveCode()") Save code
-      export-code([canvas]="canvas")
+      export-code([code]="code")
   .col-xs-12.col-md-6
     form
       div.form-group(*ngIf="(authService.userObservable | async)?.uid")

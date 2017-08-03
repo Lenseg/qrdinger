@@ -1,6 +1,8 @@
 const Nevis = require('nevis/lite');
+const C2S = require('canvas2svg');
 
 const Renderer = require('qrious-core/src/renderer/Renderer');
+const CanvasRenderer = require('qrious-core/src/renderer/CanvasRenderer');
 const Frame = require('qrious-core/src/Frame');
 const ImageRenderer = require('qrious-core/src/renderer/ImageRenderer');
 const Option = require('qrious-core/src/option/Option');
@@ -22,13 +24,13 @@ let optionManager = new OptionManager([
   new Option('value', true, '')
 ]);
 let serviceManager = new ServiceManager();
-let SvgCanvasRenderer = Renderer.extend({
+let SvgRenderer = Renderer.extend({
   draw: function(frame) {
     var i, j;
     var qrious = this.qrious;
     var moduleSize = this.getModuleSize(frame);
     var offset = this.getOffset(frame);
-    var context = this.element.getContext('2d');
+    var context = C2S(qrious.size,qrious.size);
 
     context.fillStyle = qrious.foreground;
     context.globalAlpha = qrious.foregroundAlpha;
@@ -43,7 +45,7 @@ let SvgCanvasRenderer = Renderer.extend({
   },
   reset: function() {
     var qrious = this.qrious;
-    var context = this.element.getContext('2d');
+    var context = C2S(qrious.size,qrious.size);
     var size = qrious.size;
 
     context.lineWidth = 1;
@@ -51,6 +53,10 @@ let SvgCanvasRenderer = Renderer.extend({
     context.fillStyle = qrious.background;
     context.globalAlpha = qrious.backgroundAlpha;
     context.fillRect(0, 0, size, size);
+  },
+  resize: function() {
+    var element = this.element;
+    element.width = element.height = this.qrious.size;
   }
 });
 const QRious = Nevis.extend(function(options) {
@@ -60,9 +66,10 @@ const QRious = Nevis.extend(function(options) {
   var elementService = serviceManager.getService('element');
   var canvas = element && elementService.isCanvas(element) ? element : elementService.createCanvas();
   var image = element && elementService.isImage(element) ? element : elementService.createImage();
-
-  this._canvasRenderer = new SvgCanvasRenderer(this, canvas, true);
+  var svgCanvas = elementService.createCanvas();
+  this._canvasRenderer = new CanvasRenderer(this, canvas, true);
   this._imageRenderer = new ImageRenderer(this, image, image === element);
+  this._svgRenderer = new SvgRenderer(this, svgCanvas, false);
 
   this.update();
 }, {
@@ -77,6 +84,9 @@ const QRious = Nevis.extend(function(options) {
   toDataURL: function(mime) {
     return this.canvas.toDataURL(mime || this.mime);
   },
+  toSVG:function(){
+    console.log(this._svgRenderer);
+  },
   update: function() {
     var frame = new Frame({
       level: this.level,
@@ -85,6 +95,7 @@ const QRious = Nevis.extend(function(options) {
 
     this._canvasRenderer.render(frame);
     this._imageRenderer.render(frame);
+    this._svgRenderer.render(frame);
   }
 }, {
   use: function(service) {
