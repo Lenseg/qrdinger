@@ -7,15 +7,32 @@ export class ExportCodeService {
   constructor() {
 
   }
-  saveFile(data,streamType,name?){
-    let base64 = data.replace(/^data:image\/(png|jpeg|jpg);base64,/, ''),
-    byteCharacters = atob(base64),
+  saveSVG(qrious, name){
+
+    let svgData = qrious.swgCtx.getSerializedSvg();
+    this.saveBlob(svgData, "image/svg+xml;charset=utf-8", name);
+  }
+  saveImage(qrious,type,name){
+    let streamType,
+    base64;
+    if( type ==='jpeg'){
+        base64 = qrious.toDataURL('image/jpeg');
+        streamType = 'image/jpeg';
+    } else {
+      base64 = qrious.toDataURL('image/png');
+      streamType = 'image/png';
+    }
+    base64 = base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, '');
+    let byteCharacters = atob(base64),
     byteNumbers = new Array(byteCharacters.length);
     for (var i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
-    let byteArray = new Uint8Array(byteNumbers),
-    blob = new Blob([byteArray], {type:streamType}),
+    let byteArray = new Uint8Array(byteNumbers);
+    this.saveBlob(byteArray,streamType,name)
+  }
+  saveBlob(data,streamType,name){
+    let blob = new Blob([data], {type:streamType}),
     url = URL.createObjectURL(blob),
     fileName = name || 'code';
     if(~window.navigator.userAgent.indexOf("MSIE ")){
@@ -33,28 +50,18 @@ export class ExportCodeService {
     let elem = document.createElement('canvas'),
     qrious = new QRious({
       size:500,
-      element:elem
+      element:elem,
+      hasSvg:type === 'svg'
     });
-    document.body.appendChild(elem)
     qrious.value = code.value;
     for(var option in code.options){
       qrious[option] = code.options[option];
     }
-    let data;
-    switch( type ){
-      case 'jpeg':
-        data = qrious.toDataURL('image/jpeg');
-      break;
-      case 'png':
-        data = qrious.toDataURL('image/png');
-      break;
-      case 'svg':
-        qrious.toSVG('image/png');
-      break;
-      default:
-        data = qrious.toDataURL('image/png');
-      break;
+    if(type === 'svg'){
+      this.saveSVG(qrious, name);
+    } else {
+      this.saveImage(qrious, type, name);
     }
-    this.saveFile(data, 'image/'+type, code.name)
+    elem.remove();
   }
 }

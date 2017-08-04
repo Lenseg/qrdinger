@@ -21,38 +21,41 @@ let optionManager = new OptionManager([
   new Option('mime', true, 'image/png'),
   new Option('padding', true, null, Utilities.abs),
   new Option('size', true, 100, Utilities.abs),
-  new Option('value', true, '')
+  new Option('value', true, ''),
+  new Option('hasSvg', false, false)
 ]);
 let serviceManager = new ServiceManager();
 let SvgRenderer = Renderer.extend({
+  context:null,
   draw: function(frame) {
-    var i, j;
-    var qrious = this.qrious;
-    var moduleSize = this.getModuleSize(frame);
-    var offset = this.getOffset(frame);
-    var context = C2S(qrious.size,qrious.size);
+    let i, j,
+    qrious = this.qrious,
+    moduleSize = this.getModuleSize(frame),
+    offset = this.getOffset(frame);
 
-    context.fillStyle = qrious.foreground;
-    context.globalAlpha = qrious.foregroundAlpha;
+    this.context.fillStyle = qrious.foreground;
+    this.context.globalAlpha = qrious.foregroundAlpha;
+
+    qrious.swgCtx = this.context;
 
     for (i = 0; i < frame.width; i++) {
       for (j = 0; j < frame.width; j++) {
         if (frame.buffer[(j * frame.width) + i]) {
-          context.fillRect((moduleSize * i) + offset, (moduleSize * j) + offset, moduleSize, moduleSize);
+          this.context.fillRect((moduleSize * i) + offset, (moduleSize * j) + offset, moduleSize, moduleSize);
         }
       }
     }
   },
   reset: function() {
     var qrious = this.qrious;
-    var context = C2S(qrious.size,qrious.size);
+    this.context = C2S(qrious.size,qrious.size);
     var size = qrious.size;
 
-    context.lineWidth = 1;
-    context.clearRect(0, 0, size, size);
-    context.fillStyle = qrious.background;
-    context.globalAlpha = qrious.backgroundAlpha;
-    context.fillRect(0, 0, size, size);
+    this.context.lineWidth = 1;
+    this.context.clearRect(0, 0, size, size);
+    this.context.fillStyle = qrious.background;
+    this.context.globalAlpha = qrious.backgroundAlpha;
+    this.context.fillRect(0, 0, size, size);
   },
   resize: function() {
     var element = this.element;
@@ -69,7 +72,7 @@ const QRious = Nevis.extend(function(options) {
   var svgCanvas = elementService.createCanvas();
   this._canvasRenderer = new CanvasRenderer(this, canvas, true);
   this._imageRenderer = new ImageRenderer(this, image, image === element);
-  this._svgRenderer = new SvgRenderer(this, svgCanvas, false);
+  this._svgRenderer = new SvgRenderer(this, svgCanvas, optionManager.get('hasSvg', this));
 
   this.update();
 }, {
@@ -83,9 +86,6 @@ const QRious = Nevis.extend(function(options) {
   },
   toDataURL: function(mime) {
     return this.canvas.toDataURL(mime || this.mime);
-  },
-  toSVG:function(){
-    console.log(this._svgRenderer);
   },
   update: function() {
     var frame = new Frame({
