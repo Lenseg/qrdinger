@@ -19,14 +19,15 @@ export class CodesService {
 
   constructor (private afDb: AngularFireDatabase, private authService: AuthService) {
   }
-
-  getCodes() {
-    if(this.authService.checkAuthenticated() && !this.list){
+  getList() {
+    if(this.authService.checkAuthenticated() && !this.list)
       this.list = this.afDb.list('/codes/' + this.authService.user.uid , {
       });
-      this.list.subscribe(codes =>
-        this.cache = codes);
-    }
+    return this.list;
+  }
+  getCodes() {
+    this.getList().subscribe(codes =>
+      this.cache = codes);
     return this.list;
   }
   getCode(id:string) {
@@ -38,10 +39,13 @@ export class CodesService {
   }
   saveCode(code, key){
     if(key!=='new'){
-      this.list.update(key, code.toObj())
+      this.getList().update(key, code.toObj())
     } else {
-      this.list.push(code.toObj());
+      this.getList().push(code.toObj());
     }
+  }
+  removeCode(key){
+    this.getList().remove(key);
   }
   private handleError (error: Response | any) {
     // TODO remote loggingr

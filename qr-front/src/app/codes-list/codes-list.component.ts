@@ -16,10 +16,10 @@ export class CodesListComponent implements OnInit{
   ngOnInit() { this.getCodes(); }
 
   getCodes() {
-
     this.codesService.getCodes()
            .subscribe(
              codes => {
+                this.codes = [];
                 codes.forEach((code)=>{
                   let codeObj = new Code(code);
                   codeObj.id = code.$key;

@@ -1,9 +1,20 @@
-.col-xs-12.col-sm-4
-  display-code( [code]="code" )
-.col-xs-12.col-sm-8
-  h4 
-    a( uiSref="edit",  [uiParams]="{ codeId: code.id }") {{code.name}}
-  h5 {{code.type}}
-.col-xs-12
-  button.btn.btn-primary Edit
-  button.btn.btn-primary Save as
+.row
+  .col-xs-12.col-sm-4
+    display-code( [code]="code" )
+  .col-xs-12.col-sm-8
+    h4.text-overflow
+      a( uiSref="edit",  [uiParams]="{ codeId: code.id }") {{code.name}}
+        i.icon-pencil
+    export-code
+    button.btn.btn-danger((click)="delete()")
+      i.icon-trash-empty
+.row
+  .col-xs-4
+    h5 Type
+  .col-xs-8
+    p.mt-10 {{code.type}}
+.row
+  .col-xs-4
+    h5 Value
+  .col-xs-8
+    p.text-overflow.mt-10  {{code.value}}

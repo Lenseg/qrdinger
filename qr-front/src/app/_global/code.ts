@@ -62,7 +62,7 @@ export class Code {
     }
   };
   get model():any{
-    return this._model;
+    return this._model || null;
   }
   get value(): string {
     if(this._model)

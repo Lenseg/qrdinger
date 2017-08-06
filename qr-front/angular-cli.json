@@ -19,7 +19,8 @@
       "prefix": "app",
       "styles": [
         "styles.less",
-        "../node_modules/bootstrap-less/bootstrap/bootstrap.less"
+        "../node_modules/bootstrap-less/bootstrap/bootstrap.less",
+        "../fonts/fontello/css/fontello.css"
       ],
       "scripts": [],
       "environmentSource":"environments/environment.ts",
