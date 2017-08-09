@@ -60,6 +60,9 @@ export class AuthService {
       this.stateService.go('codes',{});
     });;
   }
+  resetPass(email){
+    return this.afAuth.auth.sendPasswordResetEmail(email)
+  }
   logout() {
     this.afAuth.auth.signOut();
     this.stateService.go('login',{});

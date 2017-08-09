@@ -3,8 +3,9 @@
 @success: #06D6A0;
 @error: #EF476F;
 @attension: #FFD166;
-@background: #FCFCFC;
+@background: #fff;
 @text: #191923;
+@active: #eeeeee;
 
 @button-transition: {
   transition: all 120ms ease-in;
@@ -16,8 +17,19 @@ body {
   background-color: @background;
   color: @text;
 }
-
+a{
+  cursor: pointer;
+}
+code-list-item {
+  display: block;
+  padding: 10px;
+  border: 1px solid #eeeeee;
+  border-radius: 5px;
+}
 .mt{
+  &-0{
+    margin-top: 0;
+  }
   &-5{
     margin-top: 5px;
   }
@@ -28,12 +40,58 @@ body {
     margin-top: 20px;
   }
 }
+.mr{
+  &-0{
+    margin-right: 0;
+  }
+  &-5{
+    margin-right: 5px;
+  }
+  &-10{
+    margin-right: 10px;
+  }
+  &-20{
+    margin-right: 20px;
+  }
+}
+.ml{
+  &-0{
+    margin-left: 0;
+  }
+  &-5{
+    margin-left: 5px;
+  }
+  &-10{
+    margin-left: 10px;
+  }
+  &-20{
+    margin-left: 20px;
+  }
+}
+.mb{
+  &-0{
+    margin-bottom: 0;
+  }
+  &-5{
+    margin-bottom: 5px;
+  }
+  &-10{
+    margin-bottom: 10px;
+  }
+  &-20{
+    margin-bottom: 20px;
+  }
+}
 .navbar{
   background-color: transparent;
+  border-bottom: 1px solid @active;
   &-collapse{
     overflow: hidden;
   }
   &_link{
+    &.active{
+      background-color: @active;
+    }
     color: @main;
     &:hover{
       background: transparent !important;
@@ -68,6 +126,12 @@ body {
       transform: rotate(-45deg) translate(3px,-4px);
     }
   }
+}
+.code-type{
+  padding: 3px 10px;
+  background: @main;
+  color: @background;
+  border-radius: 5px;
 }
 .text-overflow {
     overflow: hidden;

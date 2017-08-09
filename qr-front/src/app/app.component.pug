@@ -10,12 +10,12 @@ nav.navbar.navbar-fixed-top
     div#navbar.navbar-collapse(aria-expanded="false", [@slideInOut]="isCollapsed()")
       ul.nav.navbar-nav
         li
-          a.navbar_link(uiSref='codes') Codes
+          a.navbar_link(uiSref='codes', *ngIf="(authService.userObservable | async)?.uid", uiSrefActive="active") Codes
         li
-          a.navbar_link(uiSref='edit' , [uiOptions]="{ inherit: false }" ) Add code
+          a.navbar_link(uiSref='edit' , [uiOptions]="{ inherit: false }", uiSrefActive="active") Add code
       ul.nav.navbar-nav.navbar-right
         li
-          a.navbar_link( *ngIf="!(authService.userObservable | async)?.uid" uiSref='login') Log In
+          a.navbar_link( *ngIf="!(authService.userObservable | async)?.uid" uiSref="login", uiSrefActive="active") Log In
         li
           a.navbar_link( *ngIf="(authService.userObservable | async)?.uid", (click)="authService.logout()") Log Out
 div.container.mt-20

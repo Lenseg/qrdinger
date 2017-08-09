@@ -5,13 +5,15 @@ div.container
       hr
       div.form-group
         label( for="email" ) Mail
-        input.form-control( type="email", name="email", id="email", formControlName="email" )
+        input.form-control( type="email", name="email", id="email", formControlName="email" , placeholder="main@gqrdinder.com")
       div.form-group
         label( for="password" ) Password
         input.form-control( type="password", name="password", formControlName="password" )
       div.form-group
-        button.btn.btn-primary.pull-left( type="button", [disabled]="authenticating || !form.valid", (click)="login()" )
+        button.btn.btn-primary.mb-10.pull-left( type="button", [disabled]="authenticating || !form.valid", (click)="login()" )
           i.fa.fa-spin.fa-spinner( *ngIf="authenticating" ) 
           span Log in
-        a.btn.btn-success.pull-right( uiSref="register" )
+        a.btn.btn-default.mb-10.ml-10.pull-right( uiSref="register" )
           span Register
+        a.btn.btn-default.pull-right( uiSref="forgot-pass" )
+          span Reset password

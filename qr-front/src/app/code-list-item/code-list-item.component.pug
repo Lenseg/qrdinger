@@ -1,20 +1,16 @@
 .row
-  .col-xs-12.col-sm-4
+  .col-xs-4
     display-code( [code]="code" )
-  .col-xs-12.col-sm-8
-    h4.text-overflow
+  .col-xs-6
+    h4.text-overflow.mt-5
       a( uiSref="edit",  [uiParams]="{ codeId: code.id }") {{code.name}}
         i.icon-pencil
-    export-code
-    button.btn.btn-danger((click)="delete()")
+  .col-xs-2
+    p.code-type.pull-right(*ngIf="code.type") {{code.type}}
+  .col-xs-8
+    button.pull-right.btn.ml-5.btn-danger((click)="delete()")
       i.icon-trash-empty
-.row
-  .col-xs-4
-    h5 Type
-  .col-xs-8
-    p.mt-10 {{code.type}}
-.row
-  .col-xs-4
-    h5 Value
-  .col-xs-8
-    p.text-overflow.mt-10  {{code.value}}
+    export-code.pull-right
+.row(*ngIf="code.value")
+  .col-xs-12
+    p.bg-info.text-overflow.mt-10.mb-0  {{code.value}}

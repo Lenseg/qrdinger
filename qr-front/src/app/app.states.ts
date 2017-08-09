@@ -14,6 +14,7 @@ import { SmsFormComponent } from './sms-form/sms-form.component';
 import { BusinessCardFormComponent } from './business-card-form/business-card-form.component';
 import { LoginComponent } from './login/login.component';
 import { CallbackComponent } from './callback/callback.component';
+import { ForgotPassComponent } from './forgot-pass/forgot-pass.component'
 
 const appState = {
   name:'app',
@@ -37,6 +38,12 @@ const loginState = {
   name: 'login',
   url: '/login',
   component: LoginComponent
+}
+const forgotPassState = {
+  parent: 'app',
+  name: 'forgot-pass',
+  url: '/forgot-pass',
+  component: ForgotPassComponent
 }
 const registerState = {
   parent: 'app',
@@ -146,4 +153,4 @@ const businessCardForm = {
   component:BusinessCardFormComponent
 }
 
-export const APP_STATES = [appState, loginState, callbackState, registerState, editState, codesListState, homeState, urlForm, stringForm, smsForm, businessCardForm, wifiForm]
+export const APP_STATES = [appState, loginState, forgotPassState, callbackState, registerState, editState, codesListState, homeState, urlForm, stringForm, smsForm, businessCardForm, wifiForm]
