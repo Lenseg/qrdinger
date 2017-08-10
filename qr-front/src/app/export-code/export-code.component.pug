@@ -1,7 +1,6 @@
 .btn-group( dropdown )
-  button.btn.btn-primary.dropdown-toggle.form-control( dropdownToggle type="button" ) 
-    i.icon-floppy
-     span.caret
+  button.btn.btn-primary.dropdown-toggle.form-control( dropdownToggle type="button" ) Export
+    span.caret
   ul.dropdown-menu( *dropdownMenu role="menu" )
     li(*ngFor="let type of exportCodeService.types", role="menuitem")
       a.dropdown-item((click)="export(type)") {{type}}

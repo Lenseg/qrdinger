@@ -34,7 +34,7 @@ export class CreateCodeComponent{
     this.modelUpdateService.modelUdpaveEvent.subscribe((data:any) => {
       this.code.model = data;
     });
-
+    this.setOptionsFromParams()
   }
 
   ngOnChanges() {
@@ -62,6 +62,11 @@ export class CreateCodeComponent{
     this.code.options.background =  this.stateService.params['background'] ? decodeURIComponent(this.stateService.params['background']) : this.code.options.background;
   }
   saveCode(){
-    this.codesService.saveCode(this.code, this.codeId);
+    if(this.codeId === 'new'){
+      this.codeId = this.codesService.saveCode(this.code);
+      this.stateService.go(this.stateService.current,{'codeId':this.codeId});
+    } else {
+      this.codesService.updateCode(this.code, this.codeId)
+    }
   }
 }

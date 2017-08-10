@@ -65,7 +65,10 @@ const editState = {
   component: CreateCodeComponent,
   params: {
     codeId:{
-      value:'new'
+      value:'new',
+      dynamic:true,
+      inherit: true,
+      raw:true
     },
     background:{
       dynamic:true,

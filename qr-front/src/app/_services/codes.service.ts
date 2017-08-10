@@ -37,12 +37,11 @@ export class CodesService {
       return this.afDb.object('/codes/' + this.authService.user.uid + '/' + id)
     }
   }
-  saveCode(code, key){
-    if(key!=='new'){
-      this.getList().update(key, code.toObj())
-    } else {
-      this.getList().push(code.toObj());
-    }
+  saveCode(code){
+    return this.getList().push(code.toObj()).key;
+  }
+  updateCode(code, key){
+    return this.getList().update(key, code.toObj());
   }
   removeCode(key){
     this.getList().remove(key);

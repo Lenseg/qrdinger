@@ -8,7 +8,6 @@ export class ExportCodeService {
 
   }
   saveSVG(qrious, name){
-
     let svgData = qrious.swgCtx.getSerializedSvg();
     this.saveBlob(svgData, "image/svg+xml;charset=utf-8", name);
   }
