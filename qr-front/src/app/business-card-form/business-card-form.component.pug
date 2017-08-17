@@ -1,2 +1,26 @@
-form
-  input(type="text")
+form([formGroup]="form")
+  div.form-group([ngClass]="{'has-error': nameErrors.length, 'has-warning': nameWarns.length, 'has-success': form.controls.name.valid}")
+    label Name
+    input.form-control(type="text", name="name", formControlName="name" novalidate placeholder="myWiFi")
+    span.help-block( *ngFor="let err of nameErrors") {{err.message}}
+    span.help-block( *ngFor="let err of nameWarns") {{err.message}}
+  div.form-group([ngClass]="{'has-error': lastnameErrors.length, 'has-warning': lastnameWarns.length, 'has-success': form.controls.lastname.valid}")
+    label Lastname
+    input.form-control(type="text", name="lastname", formControlName="lastname" novalidate)
+    span.help-block( *ngFor="let err of lastnameErrors") {{err.message}}
+    span.help-block( *ngFor="let err of lastnameWarns") {{err.message}}
+  div.form-group([ngClass]="{'has-error': companyErrors.length, 'has-warning': companyWarns.length, 'has-success': form.controls.company.valid}")
+    label Company
+    input.form-control(type="text", name="company", formControlName="company" novalidate)
+    span.help-block( *ngFor="let err of companyErrors") {{err.message}}
+    span.help-block( *ngFor="let err of companyWarns") {{err.message}}
+  div.form-group([ngClass]="{'has-error': jobtitleErrors.length, 'has-warning': jobtitleWarns.length, 'has-success': form.controls.jobtitle.valid}")
+    label Jobtitle
+    input.form-control(type="text", name="jobtitle", formControlName="jobtitle" novalidate)
+    span.help-block( *ngFor="let err of jobtitleErrors") {{err.message}}
+    span.help-block( *ngFor="let err of jobtitleWarns") {{err.message}}
+  div.form-group([ngClass]="{'has-error': streetErrors.length, 'has-warning': streetWarns.length, 'has-success': form.controls.street.valid}")
+    label Lastname
+    input.form-control(type="text", name="street", formControlName="street" novalidate)
+    span.help-block( *ngFor="let err of streetErrors") {{err.message}}
+    span.help-block( *ngFor="let err of streetWarns") {{err.message}}
