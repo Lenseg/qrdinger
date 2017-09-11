@@ -1,4 +1,5 @@
 import { UIRouter, Category } from '@uirouter/angular';
+import { Title }     from '@angular/platform-browser';
 import { AuthService } from './_services/index';
 // import { requiresAuthHook } from './_global/auth.hook';
 
@@ -14,6 +15,7 @@ export function routerConfigFn(router: UIRouter) {
       return state.name === 'edit' && state.params.codeId.config.value !== 'new';
   } };
   router.transitionService.onStart(criteriaNewCode, requireAuthentication);
+  router.transitionService.onStart({}, titleUpdaterHook);
   router.trace.enable(Category.TRANSITION);
 };
 function requireAuthentication(transition) {
@@ -21,4 +23,11 @@ function requireAuthentication(transition) {
   let authService = transition.injector().get(AuthService);
   if(!authService.checkAuthenticated())
     return $state.target('login',{},{});
+}
+
+function titleUpdaterHook(transition){
+  let data = transition.to().data,
+  title = data && data.title ? data.title + ' - Qrdinger' : 'Qrdinger';
+  let titleService = transition.injector().get(Title);
+  titleService.setTitle(title);
 }

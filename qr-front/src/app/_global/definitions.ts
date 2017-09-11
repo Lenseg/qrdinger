@@ -9,6 +9,6 @@ export const codeTypesRepresentations = {
   url : 'Link',
   string : 'Text',
   sms : 'SMS',
-  buisnessCard: 'Buisness card'
+  // buisnessCard: 'Buisness card'
 };
 export const levels = ['L', 'M', 'Q', 'H'];

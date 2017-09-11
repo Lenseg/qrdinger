@@ -5,13 +5,13 @@ import { AuthService } from '../_services/index';
 import { ErrorMessage } from '../_global/definitions';
 @Component({
   selector: 'app-forgot-pass',
-  templateUrl: './forgot-pass.component.html',
-  styleUrls: ['./forgot-pass.component.css']
+  templateUrl: './forgot-pass.component.html'
 })
 export class ForgotPassComponent {
   emailRegexp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
   errorMessage: ErrorMessage;
   form:FormGroup;
+  loading:boolean;
   constructor(private fb:FormBuilder, private authService: AuthService) {
    this.createForm();
   }
@@ -24,6 +24,19 @@ export class ForgotPassComponent {
     });
   }
   resetPass() {
-    this.authService.resetPass(this.form.value.email)
+    this.loading = true;
+    this.authService.resetPass(this.form.value.email).then(()=> {
+      this.loading = false;
+      this.errorMessage = {
+        type:'success',
+        message: 'Reset email has been sent.'
+      }
+    }).catch((error:any) => {
+      this.loading = false;
+      this.errorMessage = {
+        type:'error',
+        message: error.message
+      }
+    });
   }
 }

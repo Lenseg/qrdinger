@@ -37,6 +37,9 @@ const loginState = {
   parent: 'app',
   name: 'login',
   url: '/login',
+  data:{
+    title:'Login'
+  },
   component: LoginComponent
 }
 const forgotPassState = {
@@ -49,6 +52,9 @@ const registerState = {
   parent: 'app',
   name: 'register',
   url: '/register',
+  data:{
+    title:'Registration'
+  },
   component: RegisterComponent
 }
 const codesListState = {
@@ -56,12 +62,18 @@ const codesListState = {
   name: 'codes',
   url: '/codes',
   protected:true,
+  data:{
+    title:'Codes'
+  },
   component: CodesListComponent
 }
 const editState = {
   parent: 'app',
   name: 'edit',
   url: '/edit/:codeId/?background?level?foreground',
+  data:{
+    title:'QR code'
+  },
   component: CreateCodeComponent,
   params: {
     codeId:{
@@ -91,6 +103,9 @@ const urlForm = {
   name:'edit.url',
   url:'url?url',
   component:UrlFormComponent,
+  data:{
+    title:'URL QR code'
+  },
   params:{
     url:{
       dynamic:true,
@@ -102,6 +117,9 @@ const stringForm = {
   name:'edit.string',
   url:'string?text',
   component:StringFormComponent,
+  data:{
+    title:'Text QR code'
+  },
   params:{
     text:{
       dynamic:true,
@@ -113,6 +131,9 @@ const smsForm = {
   name:'edit.sms',
   url:'sms?number?message',
   component:SmsFormComponent,
+  data:{
+    title:'SMS QR code'
+  },
   params:{
     number:{
       dynamic:true,
@@ -128,6 +149,9 @@ const wifiForm = {
   name:'edit.wifi',
   url:'wifi?name?networkType?pass?hidden',
   component:WifiFormComponent,
+  data:{
+    title:'Wifi QR code'
+  },
   params:{
     name:{
       dynamic:true,

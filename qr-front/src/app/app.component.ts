@@ -13,7 +13,7 @@ import { AuthService } from './_services/index'
 export class AppComponent {
   private collapsed: boolean;
 
-  constructor (private authService:AuthService) {
+  constructor (private authService:AuthService ) {
     this.collapsed = true;
   }
   public isCollapsed(): boolean {
