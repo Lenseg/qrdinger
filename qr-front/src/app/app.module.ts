@@ -5,6 +5,7 @@ import { HttpModule, Http, RequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { UIRouterModule, UIView  } from '@uirouter/angular';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { MetaModule, MetaConfig } from 'ng2-ui-router-meta';
 
 import { APP_STATES } from './app.states';
 import { routerConfigFn } from './router.config';
@@ -36,6 +37,14 @@ import { environment } from '../environments/environment';
 import { ExportCodeComponent } from './export-code/export-code.component';
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
 
+const metaConfig: MetaConfig = {
+  useTitleSuffix: true,
+  defaults: {
+    title: 'Qrdinger',
+    titleSuffix: ' | Qrdinger'
+  }
+};
+
 @NgModule({
   imports:[
     BrowserModule,
@@ -46,6 +55,7 @@ import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
       otherwise: { state: 'home' },
       config: routerConfigFn
     }),
+    MetaModule.forRoot(metaConfig),
     ReactiveFormsModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
