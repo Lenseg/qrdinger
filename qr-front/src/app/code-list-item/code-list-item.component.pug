@@ -4,7 +4,6 @@
   .col-xs-6
     h4.text-overflow.mt-5
       a( uiSref="edit",  [uiParams]="{ codeId: code.id }") {{code.name}}
-        i.icon-pencil
   .col-xs-2
     p.code-type.pull-right(*ngIf="code.type") {{code.type}}
   .col-xs-8
