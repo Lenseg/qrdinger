@@ -11,7 +11,7 @@ import { UrlFormComponent } from './url-form/url-form.component';
 import { WifiFormComponent } from './wifi-form/wifi-form.component';
 import { StringFormComponent } from './string-form/string-form.component';
 import { SmsFormComponent } from './sms-form/sms-form.component';
-import { BusinessCardFormComponent } from './business-card-form/business-card-form.component';
+// import { BusinessCardFormComponent } from './business-card-form/business-card-form.component';
 import { LoginComponent } from './login/login.component';
 import { CallbackComponent } from './callback/callback.component';
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component'
@@ -190,10 +190,10 @@ const wifiForm = {
   }
 }
 
-const businessCardForm = {
-  name:'edit.buisnessCard',
-  url:'/buisnessCard',
-  component:BusinessCardFormComponent
-}
+// const businessCardForm = {
+//   name:'edit.buisnessCard',
+//   url:'/buisnessCard',
+//   component:BusinessCardFormComponent
+// }
 
-export const APP_STATES = [appState, loginState, forgotPassState, callbackState, registerState, editState, codesListState, homeState, urlForm, stringForm, smsForm, businessCardForm, wifiForm]
+export const APP_STATES = [appState, loginState, forgotPassState, callbackState, registerState, editState, codesListState, homeState, urlForm, stringForm, smsForm, wifiForm]

@@ -28,7 +28,7 @@ import { UrlFormComponent }  from './url-form/url-form.component';
 import { WifiFormComponent }  from './wifi-form/wifi-form.component';
 import { StringFormComponent }  from './string-form/string-form.component';
 import { SmsFormComponent }  from './sms-form/sms-form.component';
-import { BusinessCardFormComponent }  from './business-card-form/business-card-form.component';
+// import { BusinessCardFormComponent }  from './business-card-form/business-card-form.component';
 import { CodeOptionsComponent } from './code-options/code-options.component';
 import { CallbackComponent } from './callback/callback.component';
 
@@ -76,7 +76,7 @@ const metaConfig: MetaConfig = {
     StringFormComponent,
     SmsFormComponent,
     WifiFormComponent,
-    BusinessCardFormComponent,
+    // BusinessCardFormComponent,
     CodeOptionsComponent,
     CallbackComponent,
     ExportCodeComponent,

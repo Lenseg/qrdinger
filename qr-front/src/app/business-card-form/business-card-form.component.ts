@@ -14,6 +14,7 @@ import { isHexColor } from '../_global/directives';
 })
 export class BusinessCardFormComponent {
   form : FormGroup;
+  typeCache:string;
   errors:{
     typeErrors : ErrorMessage[] = [];
     nameErrors : ErrorMessage[] = [];
