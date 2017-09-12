@@ -41,7 +41,8 @@ const metaConfig: MetaConfig = {
   useTitleSuffix: true,
   defaults: {
     title: 'Qrdinger',
-    titleSuffix: ' | Qrdinger'
+    titleSuffix: ' | Qrdinger',
+    description:'Generate, customize, store and export your qr-codes for free in Qrdinger application. Various code types, styling options and export formats.'
   }
 };
 

@@ -85,9 +85,6 @@ code-list-item {
 .navbar{
   background-color: transparent;
   border-bottom: 1px solid @active;
-  &-collapse{
-    overflow: hidden;
-  }
   &_link{
     &.active{
       background-color: @active;
@@ -99,8 +96,9 @@ code-list-item {
     }
   }
   .icon-bar{
-    background-color: @background;
+    background-color: @main;
   }
+
   &-toggle{
     span{
       @button-transition();
@@ -141,6 +139,16 @@ code-list-item {
 @media (min-width: 768px) {
   .navbar-collapse {
       height: auto !important;
+  }
+}
+@media (max-width: 767px) {
+  .navbar-collapse {
+      padding:0;
+      overflow: hidden;
+  }
+  .navbar-nav{
+    background: #fff;
+    margin: 0;
   }
 }
 .dropdown-menu{

@@ -20,7 +20,13 @@ const appState = {
   name:'app',
   redirectTo: 'home',
   abstract: true,
-  component: AppComponent
+  component: AppComponent,
+  data:{
+    meta:{
+      title:'Home',
+      description:'Generate, customize, store and export your qr-codes for free in Qrdinger application. Various code types, styling options and export formats.'
+    }
+  }
 }
 const callbackState = {
   name:'callback',
@@ -31,7 +37,13 @@ const homeState = {
   parent: 'app',
   name: 'home',
   url: '/',
-  component: HomeComponent
+  component: HomeComponent,
+  data:{
+    meta:{
+      title:'Home',
+      description:'Generate, customize and store your qr-codes for free in Qrdinger application. Various code types and styling options and export formats.'
+    }
+  }
 }
 const loginState = {
   parent: 'app',
@@ -39,7 +51,8 @@ const loginState = {
   url: '/login',
   data:{
     meta:{
-      title:'Login'
+      title:'Login',
+      description:'Authorize to receive access to saved qr-codes and full functionality of application.'
     }
   },
   component: LoginComponent
@@ -48,6 +61,12 @@ const forgotPassState = {
   parent: 'app',
   name: 'forgot-pass',
   url: '/forgot-pass',
+  data:{
+    meta:{
+      title:'Password reset',
+      description:'Reset password via email.'
+    }
+  },
   component: ForgotPassComponent
 }
 const registerState = {
@@ -56,7 +75,8 @@ const registerState = {
   url: '/register',
   data:{
     meta:{
-      title:'Registration'
+      title:'Registration',
+      description:'Register to receive access to full functionality of application and qr-code saving.'
     }
   },
   component: RegisterComponent
@@ -68,7 +88,8 @@ const codesListState = {
   protected:true,
   data:{
     meta:{
-      title:'Codes'
+      title:'Codes',
+      description:'Your saved codes and application dashboard. Here you can manage codes, or proceed to code edit.'
     }
   },
   component: CodesListComponent
@@ -79,7 +100,8 @@ const editState = {
   url: '/edit/:codeId/?background?level?foreground',
   data:{
     meta:{
-      title:'QR code'
+      title:'QR code',
+      description:'Basic qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
     }
   },
   component: CreateCodeComponent,
@@ -113,7 +135,8 @@ const urlForm = {
   component:UrlFormComponent,
   data:{
     meta:{
-      title:'URL QR code'
+      title:'URL QR code',
+      description:'URL qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
     }
   },
   params:{
@@ -129,7 +152,8 @@ const stringForm = {
   component:StringFormComponent,
   data:{
     meta:{
-      title:'Text QR code'
+      title:'Text QR code',
+      description:'Text qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
     }
   },
   params:{
@@ -145,7 +169,8 @@ const smsForm = {
   component:SmsFormComponent,
   data:{
     meta:{
-      title:'SMS QR code'
+      title:'SMS QR code',
+      description:'SMS qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
     }
   },
   params:{
@@ -165,7 +190,8 @@ const wifiForm = {
   component:WifiFormComponent,
   data:{
     meta:{
-      title:'Wifi QR code'
+      title:'Wifi QR code',
+      description:'Wifi qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
     }
   },
   params:{
