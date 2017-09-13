@@ -14,7 +14,7 @@ import { AuthService } from './_services/index'
 export class AppComponent {
   private collapsed: boolean;
 
-  constructor (private authService:AuthService, private metaService: MetaService ) {
+  constructor (public authService:AuthService, private metaService: MetaService ) {
     this.collapsed = true;
   }
   public isCollapsed(): boolean {

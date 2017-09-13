@@ -18,7 +18,7 @@ export class CreateCodeComponent{
   public code: Code;
   public codeId:string;
   private stateName:string;
-  private activeType:string;
+  public activeType:string;
   private codeTypes:any = codeTypes;
   private typesMap:any = codeTypesRepresentations;
   private modelsCache:any = {};
