@@ -88,7 +88,7 @@ const codesListState = {
   protected:true,
   data:{
     meta:{
-      title:'Codes',
+      title:'Saved Qr codes',
       description:'Your saved codes and application dashboard. Here you can manage codes, or proceed to code edit.'
     }
   },
@@ -100,7 +100,7 @@ const editState = {
   url: '/edit/:codeId/?background?level?foreground',
   data:{
     meta:{
-      title:'QR code',
+      title:'QR code generator',
       description:'Basic qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
     }
   },
@@ -135,7 +135,7 @@ const urlForm = {
   component:UrlFormComponent,
   data:{
     meta:{
-      title:'URL QR code',
+      title:'URL QR code generator',
       description:'URL qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
     }
   },
@@ -152,7 +152,7 @@ const stringForm = {
   component:StringFormComponent,
   data:{
     meta:{
-      title:'Text QR code',
+      title:'Text QR code generator',
       description:'Text qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
     }
   },
@@ -169,7 +169,7 @@ const smsForm = {
   component:SmsFormComponent,
   data:{
     meta:{
-      title:'SMS QR code',
+      title:'SMS QR code generator',
       description:'SMS qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
     }
   },
@@ -190,7 +190,7 @@ const wifiForm = {
   component:WifiFormComponent,
   data:{
     meta:{
-      title:'Wifi QR code',
+      title:'Wifi QR code generator',
       description:'Wifi qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
     }
   },
