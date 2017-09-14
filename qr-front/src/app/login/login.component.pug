@@ -1,6 +1,6 @@
 div.container
   div.col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2
-    form([formGroup]="form", novalidate)
+    form([formGroup]="form", [ngClass]="{'has-error':errorMessage && errorMessage.type==='error'}", novalidate)
       h3 Log In
       hr
       div.form-group
@@ -9,7 +9,7 @@ div.container
       div.form-group
         label( for="password" ) Password
         input.form-control( type="password", name="password", formControlName="password" )
-      div.form-group
+      div.form-group.clearfix
         button.btn.btn-primary.mb-10.pull-left( type="button", [disabled]="authenticating || !form.valid", (click)="login()" )
           i.fa.fa-spin.fa-spinner( *ngIf="authenticating" ) 
           span Log in
@@ -17,3 +17,5 @@ div.container
           span Register
         a.btn.btn-default.pull-right( uiSref="forgot-pass" )
           span Reset password
+      div.form-group  
+        span.help-block(*ngIf="errorMessage") {{errorMessage.message}}

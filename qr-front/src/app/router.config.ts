@@ -1,13 +1,8 @@
 import { UIRouter, Category } from '@uirouter/angular';
 import { AuthService } from './_services/index';
-// import { Injector } from "@angular/core";
-// import { MetaService } from 'ng2-ui-router-meta';
-// import { requiresAuthHook } from './_global/auth.hook';
 
 export function routerConfigFn(router: UIRouter) {
   const transitionService = router.transitionService;
-  // requiresAuthHook(transitionService);
-  // let metaService: MetaService = injector.get(MetaService);
   let criteriaAuth = { entering: (state) => {
       return state.protected
   } };
@@ -16,7 +11,11 @@ export function routerConfigFn(router: UIRouter) {
       return state.name === 'edit' && state.params.codeId.config.value !== 'new';
   } };
   router.transitionService.onStart(criteriaNewCode, requireAuthentication);
-  // router.transitionService.onStart({}, titleUpdaterHook);
+
+  let criteriaUnathorizedOnly = { entering: (state) => {
+      return state.data && state.data.unathorizedOnly
+  } };
+  router.transitionService.onStart(criteriaUnathorizedOnly, unathorizedOnly);
   router.trace.enable(Category.TRANSITION);
 };
 function requireAuthentication(transition) {
@@ -25,7 +24,11 @@ function requireAuthentication(transition) {
   if(!authService.checkAuthenticated())
     return $state.target('login',{},{});
 }
-
+function unathorizedOnly(transition) {
+  let authService = transition.injector().get(AuthService);
+  if(authService.checkAuthenticated())
+    return transition.abort();
+}
 // function titleUpdaterHook(transition){
 //   let data = transition.to().data,
 //   title = data && data.title ? data.title + ' - Qrdinger' : 'Qrdinger';

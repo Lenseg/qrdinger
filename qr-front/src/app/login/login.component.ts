@@ -17,11 +17,6 @@ export class LoginComponent {
   errorMessage: ErrorMessage;
   form : FormGroup;
 
-  passwordErrors: ErrorMessage[] = [];
-  passwordWarns: ErrorMessage[] = [];
-  emailErrors: ErrorMessage[] = [];
-  emailWarns: ErrorMessage[] = [];
-
   constructor(private fb:FormBuilder, private $state: StateService, private authService: AuthService) {
    this.createForm();
   }
@@ -36,9 +31,12 @@ export class LoginComponent {
   }
   login() {
     this.authenticating = true;
-    this.authService.loginWithEmail(this.form.value.email, this.form.value.password).then(()=>{
-
-    });
+    this.authService.loginWithEmail(this.form.value.email, this.form.value.password).catch((error)=>{
+      this.errorMessage = {
+        type:'error',
+        message:error.message
+      }
+    })
   }
 }
 class credentials {

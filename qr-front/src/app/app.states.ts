@@ -50,6 +50,7 @@ const loginState = {
   name: 'login',
   url: '/login',
   data:{
+    unathorizedOnly:true,
     meta:{
       title:'Login',
       description:'Authorize to receive access to saved qr-codes and full functionality of application.'
@@ -61,6 +62,7 @@ const forgotPassState = {
   parent: 'app',
   name: 'forgot-pass',
   url: '/forgot-pass',
+  protected:true,
   data:{
     meta:{
       title:'Password reset',
