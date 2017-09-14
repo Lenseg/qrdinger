@@ -20,6 +20,9 @@ export class AppComponent {
   public isCollapsed(): boolean {
     return this.collapsed;
   }
+  public hideMenu(): void {
+    this.collapsed = true;
+  }
   public toggleMenu(): void {
     this.collapsed = !this.collapsed;
   }
