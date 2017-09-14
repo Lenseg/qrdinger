@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Code } from '../_global/code';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/share';
@@ -16,17 +17,23 @@ import { AuthService } from './index';
 export class CodesService {
   list:FirebaseListObservable<any>;
   cache:any[];
-
+  listSubscription:Subscription;
   constructor (private afDb: AngularFireDatabase, private authService: AuthService) {
   }
   getList() {
-    if(this.authService.checkAuthenticated() && !this.list)
+    if(this.authService.checkAuthenticated() && !this.list){
       this.list = this.afDb.list('/codes/' + this.authService.user.uid , {
       });
+      this.authService.userObservable.subscribe(user => {
+        if(user === null && this.listSubscription){
+          this.listSubscription.unsubscribe();
+        }
+      })
+    }
     return this.list;
   }
   getCodes() {
-    this.getList().subscribe(codes =>
+    this.listSubscription = this.getList().subscribe(codes =>
       this.cache = codes);
     return this.list;
   }

@@ -64,8 +64,8 @@ export class AuthService {
     return this.afAuth.auth.sendPasswordResetEmail(email)
   }
   logout() {
-    this.afAuth.auth.signOut();
-    this.stateService.go('login',{});
+    this.afAuth.auth.signOut().then(()=>{
+      this.stateService.go('login',{});
+    });
   }
-
 }
