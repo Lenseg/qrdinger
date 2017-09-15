@@ -11,8 +11,8 @@ div.container
         input.form-control( type="password", name="password", formControlName="password" )
       div.form-group.clearfix
         button.btn.btn-primary.mb-10.pull-left( type="button", [disabled]="authenticating || !form.valid", (click)="login()" )
-          i.fa.fa-spin.fa-spinner( *ngIf="authenticating" ) 
           span Log in
+          app-callback.pull-right( [hidden]="!authenticating")
         a.btn.btn-default.mb-10.ml-10.pull-right( uiSref="register" )
           span Register
         a.btn.btn-default.pull-right( uiSref="forgot-pass" )

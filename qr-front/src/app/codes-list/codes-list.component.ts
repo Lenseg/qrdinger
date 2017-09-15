@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Rx';
 })
 
 export class CodesListComponent implements OnInit{
-  codes: Code[] = [];
+  codes: Code[];
   error:any;
   constructor(private codesService:CodesService){
   }

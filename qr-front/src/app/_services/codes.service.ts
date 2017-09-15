@@ -45,7 +45,7 @@ export class CodesService {
     }
   }
   saveCode(code){
-    return this.getList().push(code.toObj()).key;
+    return this.getList().push(code.toObj());
   }
   updateCode(code, key){
     return this.getList().update(key, code.toObj());

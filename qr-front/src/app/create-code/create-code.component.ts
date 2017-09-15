@@ -9,6 +9,7 @@ import { codeTypes, codeTypesRepresentations } from '../_global/definitions';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
+import { ErrorMessage } from '../_global/definitions'
 
 @Component({
   selector: 'create-code',
@@ -19,8 +20,10 @@ export class CreateCodeComponent{
   public codeId:string;
   private stateName:string;
   public activeType:string;
+  public saving:boolean;
   private codeTypes:any = codeTypes;
   private typesMap:any = codeTypesRepresentations;
+  errorMessage: ErrorMessage;
   private modelsCache:any = {};
   constructor (public codesService:CodesService, public modelUpdateService:ModelUpdateService, private paramsService:ParamsService, public authService : AuthService,  public stateService:StateService, public uiRouterGlobals:UIRouterGlobals) {
     this.codeId = this.stateService.params['codeId'];
@@ -62,11 +65,31 @@ export class CreateCodeComponent{
     this.code.options.background =  this.stateService.params['background'] ? decodeURIComponent(this.stateService.params['background']) : this.code.options.background;
   }
   saveCode(){
+    this.saving = true;
+    let promice;
     if(this.codeId === 'new'){
-      this.codeId = this.codesService.saveCode(this.code);
-      this.stateService.go(this.stateService.current,{'codeId':this.codeId});
+      promice = this.codesService.saveCode(this.code);
+      this.codeId = promice.key;
+      promice.then((arg)=>{
+        this.stateService.go(this.stateService.current,{'codeId':this.codeId});
+        this.saving = false;
+      })
+      .catch((error)=>{
+        this.showError(error);
+      });
     } else {
-      this.codesService.updateCode(this.code, this.codeId)
+      this.codesService.updateCode(this.code, this.codeId).then((arg)=>{
+        this.saving = false;
+      })
+      .catch((error)=>{
+        this.showError(error);
+      });
+    }
+  }
+  showError(error){
+    this.errorMessage = {
+      type:'error',
+      message:error.message
     }
   }
 }

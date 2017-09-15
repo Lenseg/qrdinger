@@ -3,7 +3,7 @@ import { TargetState, StateService } from '@uirouter/angular';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import { AuthService } from '../_services/index';
 
-import { ErrorMessage } from '../_global/definitions'
+import { ErrorMessage } from '../_global/definitions';
 
 @Component({
   selector: 'app-login',
