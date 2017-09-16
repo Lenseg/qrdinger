@@ -32,6 +32,7 @@ export class LoginComponent {
   login() {
     this.authenticating = true;
     this.authService.loginWithEmail(this.form.value.email, this.form.value.password).catch((error)=>{
+      this.authenticating = false;
       this.errorMessage = {
         type:'error',
         message:error.message
