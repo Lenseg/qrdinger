@@ -8,9 +8,9 @@ export function routerConfigFn(router: UIRouter) {
   } };
   router.transitionService.onStart(criteriaAuth, requireAuthentication);
   let criteriaNewCode = { entering: (state) => {
-      return state.name === 'edit' && state.params.codeId.config.value !== 'new';
+      return state.name === 'edit'
   } };
-  router.transitionService.onStart(criteriaNewCode, requireAuthentication);
+  router.transitionService.onStart(criteriaNewCode, requireEditAuthentication);
 
   let criteriaUnathorizedOnly = { entering: (state) => {
       return state.data && state.data.unathorizedOnly
@@ -21,8 +21,43 @@ export function routerConfigFn(router: UIRouter) {
 function requireAuthentication(transition) {
   let $state = transition.router.stateService;
   let authService = transition.injector().get(AuthService);
-  if(!authService.checkAuthenticated())
-    return $state.target('login',{},{});
+
+  if(!authService.checkAuthenticated()){
+    if(!authService.user){
+      authService.userObservable.subscribe( user => {
+        if(user === null){
+          $state.go('login',{},{});
+        } else if (user.uid){
+          let targetState = transition.to(),
+          tarhetParams = transition.params();
+          $state.go(targetState.name,tarhetParams,{});
+        }
+      })
+      return $state.go('callback',{},{});
+    } else {
+      $state.go('login',{},{});
+    }
+  }
+}
+function requireEditAuthentication(transition) {
+  let $state = transition.router.stateService;
+  let authService = transition.injector().get(AuthService);
+  if(!authService.checkAuthenticated() && transition.params().codeId.value !== 'new'){
+    if(!authService.user){
+      authService.userObservable.subscribe( user => {
+        if(user === null){
+          $state.go('login',{},{});
+        } else if (user.uid){
+          let targetState = transition.to(),
+          tarhetParams = transition.params();
+          $state.go(targetState.name,tarhetParams,{});
+        }
+      })
+      return $state.go('callback',{},{});
+    } else {
+      $state.go('login',{},{});
+    }
+  }
 }
 function unathorizedOnly(transition) {
   let authService = transition.injector().get(AuthService);

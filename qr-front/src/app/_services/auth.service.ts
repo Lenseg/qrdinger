@@ -8,10 +8,6 @@ declare var auth0: any;
 
 @Injectable()
 export class AuthService {
-  // Create Auth0 web auth instance
-  // @TODO: Update AUTH_CONFIG and remove .example extension in src/app/auth/auth0-variables.ts.example
-
-  // Create a stream of logged in status to communicate throughout app
   loggedIn: boolean = false;
   userObservable: Observable<firebase.User>;
   user:firebase.User;
