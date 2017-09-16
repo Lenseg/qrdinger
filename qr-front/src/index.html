@@ -6,78 +6,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
-      .main-loader{
-        position: fixed;
+      * {
+        box-sizing: border-box;
+      }
+      body{
+        font-size: 14px;
+      }
+      .main-loader{    
+        position:fixed;
         top: 50%;
         left: 50%;
-        background: #26547C;
-        padding: 10px;
         transform: translate(-50%,-50%);
-        width: 60px;
-        height: 60px;
-        border-radius: 10px;
       }
-      .main-loader svg {
-          max-width: 100%;
-          max-height: 100%;
+      .main-loader .loader {
+        width: 1.5em;
+        height: 1.5em;
+        margin: 0 auto;
+        background: #26547C;
+        font-size: 3em;
+        padding: 0.25em;
+        border-radius: .15em;
+      }
+      .line {
+        animation: expand 1s ease-in-out infinite;
+        border-radius: .075em;
+        display: block;
+        float: left;
+        margin: 0 .05em;
+        width: .15em;
+        height: 1em;
+      }
+      .line {
+        background: #fff;
+      }
+      .line:nth-child(2) {
+        animation-delay: 180ms;
+      }
+      .line:nth-child(3) {
+        animation-delay: 360ms;
+      }
+      .line:nth-child(4) {
+        animation-delay: 540ms;
+      }
+      @keyframes expand {
+        0% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(.5);
+        }
       }
     </style>
   </head>
   <body>
     <ui-view>
-      <div class="main-loader"><svg width="135" height="140" viewBox="0 0 135 140" xmlns="http://www.w3.org/2000/svg" fill="#fff">
-    <rect y="10" width="15" height="120" rx="6">
-        <animate attributeName="height"
-             begin="0.5s" dur="1s"
-             values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear"
-             repeatCount="indefinite" />
-        <animate attributeName="y"
-             begin="0.5s" dur="1s"
-             values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear"
-             repeatCount="indefinite" />
-    </rect>
-    <rect x="30" y="10" width="15" height="120" rx="6">
-        <animate attributeName="height"
-             begin="0.25s" dur="1s"
-             values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear"
-             repeatCount="indefinite" />
-        <animate attributeName="y"
-             begin="0.25s" dur="1s"
-             values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear"
-             repeatCount="indefinite" />
-    </rect>
-    <rect x="60" width="15" height="140" rx="6">
-        <animate attributeName="height"
-             begin="0s" dur="1s"
-             values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear"
-             repeatCount="indefinite" />
-        <animate attributeName="y"
-             begin="0s" dur="1s"
-             values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear"
-             repeatCount="indefinite" />
-    </rect>
-    <rect x="90" y="10" width="15" height="120" rx="6">
-        <animate attributeName="height"
-             begin="0.25s" dur="1s"
-             values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear"
-             repeatCount="indefinite" />
-        <animate attributeName="y"
-             begin="0.25s" dur="1s"
-             values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear"
-             repeatCount="indefinite" />
-    </rect>
-    <rect x="120" y="10" width="15" height="120" rx="6">
-        <animate attributeName="height"
-             begin="0.5s" dur="1s"
-             values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear"
-             repeatCount="indefinite" />
-        <animate attributeName="y"
-             begin="0.5s" dur="1s"
-             values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear"
-             repeatCount="indefinite" />
-    </rect>
-</svg>
-
+      <div class="main-loader">
+        <div class="loader">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
       </div>
     </ui-view>
   </body>
