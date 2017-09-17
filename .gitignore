@@ -18,3 +18,8 @@ qr-front/src/**/*.html
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+#environments configs
+qr-front/src/environments/*.ts
+#firebase configs
+qr-back/firebaseconfigs.js
