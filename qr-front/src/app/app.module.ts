@@ -36,6 +36,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { environment } from '../environments/environment';
 import { ExportCodeComponent } from './export-code/export-code.component';
 import { ForgotPassComponent } from './forgot-pass/forgot-pass.component';
+import { RedirectFormComponent } from './redirect-form/redirect-form.component';
 
 const metaConfig: MetaConfig = {
   useTitleSuffix: true,
@@ -81,7 +82,8 @@ const metaConfig: MetaConfig = {
     CodeOptionsComponent,
     CallbackComponent,
     ExportCodeComponent,
-    ForgotPassComponent
+    ForgotPassComponent,
+    RedirectFormComponent
   ],
   providers: [
     AppConfigService,
