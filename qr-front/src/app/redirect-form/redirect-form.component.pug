@@ -2,10 +2,10 @@ form([formGroup]="form", novalidate)
   div.form-group([ngClass]="{'has-error': pathErrors.length, 'has-warning': pathWarns.length, 'has-success': form.controls.path.valid}")
     label qrdinger URL
     input.form-control(type="text", name="path", placeholder="qrdinger", formControlName="path")
-    span.help-block( *ngFor="let err of numberErrors") {{err.message}}
-    span.help-block( *ngFor="let err of numberWarns") {{err.message}}
+    span.help-block( *ngFor="let err of pathErrors") {{err.message}}
+    span.help-block( *ngFor="let err of pathWarns") {{err.message}}
   div.form-group([ngClass]="{'has-error': redirectErrors.length, 'has-warning': redirectWarns.length, 'has-success': form.controls.redirect.valid}")
     label Redirect to
-    textarea.form-control(type="text", name="redirect", placeholder="http://qrdinger.com", formControlName="redirect")
-    span.help-block( *ngFor="let err of messageErrors") {{err.message}}
-    span.help-block( *ngFor="let err of messageWarns") {{err.message}}
+    input.form-control(type="text", name="redirect", placeholder="http://qrdinger.com", formControlName="redirect")
+    span.help-block( *ngFor="let err of redirectErrors") {{err.message}}
+    span.help-block( *ngFor="let err of redirectWarns") {{err.message}}

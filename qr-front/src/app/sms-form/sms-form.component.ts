@@ -4,7 +4,7 @@ import { StateService } from '@uirouter/angular';
 
 import { ParamsService, ModelUpdateService } from '../_services/index'
 
-import { Code, SmsCodeModel } from '../_global/code';
+import { Code } from '../_global/code';
 import { ErrorMessage } from '../_global/definitions';
 import { patternWarningWalidator } from '../_global/directives';
 
@@ -29,20 +29,16 @@ export class SmsFormComponent {
     this.setModel();
   }
   createForm():void{
-    var formValues:smsParams = {
-
-    };
-    formValues.number =  this.stateService.params['number'] ? decodeURI(this.stateService.params['number']) : '';
-    formValues.message =  this.stateService.params['message'] ? decodeURI(this.stateService.params['message']) : '',
+    let number =  this.stateService.params['number'] ? decodeURI(this.stateService.params['number']) : '',
+    message =  this.stateService.params['message'] ? decodeURI(this.stateService.params['message']) : '';
     this.form = this.fb.group({
-      number: ['',[
+      number: [number,[
         Validators.required,
         Validators.pattern(this.numberRegexp),
         patternWarningWalidator(this.statrtsWidthPlusRegexp)
       ]],
-      message: ['',Validators.required]
+      message: [message,Validators.required]
     });
-    this.form.setValue(formValues);
   }
   bindUpdateEvents():void{
     this.paramsService.bindFormParamsUpdate(this.form);
