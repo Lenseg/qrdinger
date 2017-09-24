@@ -42,7 +42,7 @@ function requireAuthentication(transition) {
 function requireEditAuthentication(transition) {
   let $state = transition.router.stateService;
   let authService = transition.injector().get(AuthService);
-  if(!authService.checkAuthenticated() && transition.params().codeId.value !== 'new'){
+  if(!authService.checkAuthenticated() && transition.params().codeId !== 'new'){
     if(!authService.user){
       authService.userObservable.subscribe( user => {
         if(user === null){
