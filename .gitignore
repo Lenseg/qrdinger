@@ -20,6 +20,6 @@ ehthumbs.db
 Thumbs.db
 
 #environments configs
-qr-front/src/environments/*.ts
+qr-front/src/environments/
 #firebase configs
-qr-back/firebaseconfigs.js
+qr-back/firebaseconfig.json
