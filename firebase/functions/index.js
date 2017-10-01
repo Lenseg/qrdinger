@@ -7,7 +7,7 @@ admin.initializeApp(functions.config().firebase);
 const redirects = admin.database().ref('/redurects/');
 const codes = functions.database.ref('/codes/{uid}/{codeId}');
 
-export.writeRedirect = function(){
+exports.writeRedirect = function(){
   codes.onCreate(e => {
     const val = e.data.val();
     if( val.model.type === 'redirect' ){
@@ -19,7 +19,7 @@ export.writeRedirect = function(){
     }
   });
 }
-export.updateRedirect = function(){
+exports.updateRedirect = function(){
   codes.onUpdate(e => {
     const val = e.data.val();
     if( val.model.type === 'redirect' ){
@@ -31,7 +31,7 @@ export.updateRedirect = function(){
     }
   });
 }
-export.deleteRedirect = function(){
+exports.deleteRedirect = function(){
   codes.onDelete(e => {
     const val = e.previous.val();
     if( val.model.type === 'redirect' ){

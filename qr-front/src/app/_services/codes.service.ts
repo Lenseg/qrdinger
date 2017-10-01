@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Code } from '../_global/code';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';

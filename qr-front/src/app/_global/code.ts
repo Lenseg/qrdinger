@@ -2,7 +2,7 @@ export class Code {
   id?:string;
   name:string = '';
   options?:CodeOptions;
-  private _model : WifiCodeModel | UrlCodeModel | StringCodeModel | SmsCodeModel;
+  private _model : WifiCodeModel | UrlCodeModel | StringCodeModel | SmsCodeModel | RedirectCodeModel;
   constructor(code?:Code){
     this.id = code && code.id ? code.id : this.id;
     this.name = code && code.name ? code.name : this.name;
@@ -24,6 +24,8 @@ export class Code {
         break;
         case 'sms':
           this._model = new SmsCodeModel(code.model);
+        case 'redirect':
+          this._model = new RedirectCodeModel(code.model);
         break;
       }
   }
@@ -58,6 +60,9 @@ export class Code {
         case 'sms':
           this._model = new SmsCodeModel(model);
         break;
+        case 'redirect' :
+          this._model = new RedirectCodeModel(model);
+        break;
       }
     }
   };
@@ -87,6 +92,9 @@ export class Code {
       break;
       case 'sms' :
         this._model = new SmsCodeModel();
+      break;
+      case 'redirect' :
+        this._model = new RedirectCodeModel();
       break;
     }
   }
@@ -148,6 +156,23 @@ export class UrlCodeModel{
   }
   public getValue (){
     return 'URL:' + this.url;
+  }
+}
+export class RedirectCodeModel{
+  readonly type:string='redirect';
+  path?:string='';
+  redirect?:string='';
+  address?:string='';
+  constructor(options?:any){
+    if(options)
+      for(let prop in options){
+        if(this.hasOwnProperty(prop) && options[prop])
+          this[prop] = options[prop];
+      };
+  }
+  public getValue (){
+    console.log(this.address , this.path, 'kek')
+    return 'URL:' + this.address + this.path;
   }
 }
 export class StringCodeModel{

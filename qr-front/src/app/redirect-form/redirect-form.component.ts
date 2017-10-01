@@ -14,9 +14,16 @@ import { patternWarningWalidator } from '../_global/directives';
 })
 export class RedirectFormComponent {
 
+  address:string = 'http://qrdinger.com/';
+
+  urlRegexp = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+  pathEndRegexp = /^[\w\d_-]+$/;
+  protocolRegexp = /^(http:|ftp:|https:)/;
+
   code:Code;
 
   form : FormGroup;
+
 
   pathErrors: ErrorMessage[] = [];
   pathWarns: ErrorMessage[] = [];
@@ -28,13 +35,18 @@ export class RedirectFormComponent {
     this.setModel();
   }
   createForm():void{
-    let path =  this.stateService.params['number'] ? decodeURI(this.stateService.params['number']) : '',
-    redirect =  this.stateService.params['message'] ? decodeURI(this.stateService.params['message']) : '';
+    let path =  this.stateService.params['path'] ? decodeURI(this.stateService.params['path']) : '',
+    redirect =  this.stateService.params['redirect'] ? decodeURI(this.stateService.params['redirect']) : '';
     this.form = this.fb.group({
       path: [path,[
-        Validators.required
+        Validators.required,
+        Validators.pattern(this.pathEndRegexp)
       ]],
-      redirect: [redirect,Validators.required]
+      redirect: [redirect,[
+        Validators.required,
+        Validators.pattern(this.urlRegexp),
+        patternWarningWalidator(this.protocolRegexp)
+      ]]
     });
   }
   bindUpdateEvents():void{
@@ -61,31 +73,36 @@ export class RedirectFormComponent {
   setModel():void{
     let model = {
       type:'redirect',
-      number:this.form.value.path,
-      message:this.form.value.redirect
+      address:this.address,
+      path:this.form.value.path,
+      redirect:this.form.value.redirect
     };
     this.modelUpdateService.modelUpdate(model)
   }
 }
 const errors = {
-  number:{
+  path:{
     required : {
       type:'err',
-      message:'Are you sure number shold be empty?'
+      message:'Path cant be empty?'
     },
     pattern : {
       type:'err',
-      message:'Please, put some numbers in here'
+      message:'Only alpha-numeric and -_ allowed.'
+    },
+  },
+  redirect : {
+    pattern : {
+      type:'err',
+      message:'Your link is incorrect.'
+    },
+    required : {
+      type:'err',
+      message:'Please, put something in link field.'
     },
     patternWarning : {
       type:'warn',
-      message:'International prefix (+X) is reccomended'
-    }
-  },
-  message : {
-    required : {
-      type:'warn',
-      message:'Are you sure message shold be empty?'
+      message:'Http(s) protocol prefix is reccomended.'
     }
   }
 

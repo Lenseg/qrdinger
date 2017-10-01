@@ -8,6 +8,7 @@ import { CodesListComponent } from './codes-list/codes-list.component';
 import { CreateCodeComponent } from './create-code/create-code.component';
 import { RegisterComponent } from './register/register.component';
 import { UrlFormComponent } from './url-form/url-form.component';
+import { RedirectFormComponent } from './redirect-form/redirect-form.component';
 import { WifiFormComponent } from './wifi-form/wifi-form.component';
 import { StringFormComponent } from './string-form/string-form.component';
 import { SmsFormComponent } from './sms-form/sms-form.component';
@@ -165,6 +166,27 @@ const stringForm = {
     }
   }
 }
+const redirectForm = {
+  name:'edit.redirect',
+  url:'redirect?path?redirect',
+  component:RedirectFormComponent,
+  data:{
+    meta:{
+      title:'Redirectable QR code generator',
+      description:'Redirectable qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
+    }
+  },
+  params:{
+    path:{
+      dynamic:true,
+      inherit: true
+    },
+    redirect:{
+      dynamic:true,
+      inherit: true
+    }
+  }
+}
 const smsForm = {
   name:'edit.sms',
   url:'sms?number?message',
@@ -224,4 +246,4 @@ const wifiForm = {
 //   component:BusinessCardFormComponent
 // }
 
-export const APP_STATES = [appState, loginState, forgotPassState, callbackState, registerState, editState, codesListState, homeState, urlForm, stringForm, smsForm, wifiForm]
+export const APP_STATES = [appState, loginState, forgotPassState, callbackState, registerState, editState, codesListState, homeState, urlForm, redirectForm, stringForm, smsForm, wifiForm]
