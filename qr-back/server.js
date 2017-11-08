@@ -11,21 +11,13 @@ admin.initializeApp({
 
 const db = admin.database();
 
-router.route('/rapi/:uid/:code')
+router.route('/rapi/:rid/')
   .get(function(req, res){
-    let userCodes = db.ref(`/codes/${req.params.uid}/`);
-    userCodes.on("value",(snapshot)=>{
-      let codes = snapshot.val();
-      for (var code in codes) {
-        let codeInstance = codes[code];
-        console.log(codeInstance)
-        if (codeInstance.model && codeInstance.model.type === 'redirect') {
-          console.log(codeInstance)
-          codeInstance.model.path === req.params.code;
-          res.redirect(codeInstance.model.redirect);
-        }
-      }
-    })
+    let userCodes = db.ref(`/redirects/${req.params.rid}/`);
+    userCodes.on("value", (snapshot) => {
+      let redirect = snapshot.val();
+      res.redirect(redirect.redirect);
+    });
   });
 
 app.use('', router);
