@@ -20,6 +20,18 @@ router.route('/rapi/:rid/')
     });
   });
 
+router.route('/testrapi/:rid/')
+  .get(function(req, res){
+    let userCodes = db.ref(`/redirects/${req.params.rid}/`);
+    userCodes.on("value", (snapshot) => {
+      let redirect = snapshot.val();
+      if(req.params.uid === redirect.uid && req.params.codeid === redirect.codeid){
+        res.sendStatus(200).json({avalible:true});
+      }
+      res.sendStatus(200).json({avalible:false});
+    });
+  });
+
 app.use('', router);
 
 app.listen(3000);
