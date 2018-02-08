@@ -1,23 +1,23 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, AbstractControl, Validators }            from '@angular/forms';
+import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import { StateService } from '@uirouter/angular';
 
-import { ParamsService, ModelUpdateService } from '../_services/index'
+import { ParamsService, ModelUpdateService } from '../_services/index';
 
 import { Code } from '../_global/code';
 import { ErrorMessage } from '../_global/definitions';
 import { patternWarningWalidator } from '../_global/directives';
 
 @Component({
-  selector: 'sms-form',
+  selector: 'app-sms-form',
   templateUrl: './sms-form.component.html'
 })
 export class SmsFormComponent {
-  code:Code;
+  code: Code;
   numberRegexp = /[0-9]/;
   statrtsWidthPlusRegexp = /^\+/;
 
-  form : FormGroup;
+  form: FormGroup;
 
   messageErrors: ErrorMessage[] = [];
   messageWarns: ErrorMessage[] = [];

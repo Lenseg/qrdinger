@@ -1,32 +1,32 @@
 export class ErrorMessage {
-  type:string;
-  message:string;
+  type: string;
+  message: string;
 };
 
 export const codeTypes = [
   {
-    name :'wifi',
-    private:false
+    name: 'wifi',
+    private: false
   },
   {
-    name :'url',
-    private:false
+    name: 'url',
+    private: false
   },
   {
-    name :'string',
-    private:false
+    name: 'string',
+    private: false
   },
   {
-    name :'sms',
-    private:false
+    name: 'sms',
+    private: false
   },
   {
-    name :'buisnessCard',
-    private:false
+    name: 'buisnessCard',
+    private: false
   },
   {
-    name :'redirect',
-    private:true
+    name: 'redirect',
+    private: true
   }
 ];
 export const codeTypesRepresentations = {

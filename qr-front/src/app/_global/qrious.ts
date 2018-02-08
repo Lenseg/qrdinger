@@ -11,7 +11,7 @@ const ServiceManager = require('qrious-core/src/service/ServiceManager');
 const Utilities = require('qrious-core/src/util/Utilities');
 const ElementService = require('qrious-core/src/service/element/ElementService');
 
-let optionManager = new OptionManager([
+const optionManager = new OptionManager([
   new Option('background', true, 'white'),
   new Option('backgroundAlpha', true, 1, Utilities.abs),
   new Option('element'),
@@ -24,12 +24,12 @@ let optionManager = new OptionManager([
   new Option('value', true, ''),
   new Option('hasSvg', false, false)
 ]);
-let serviceManager = new ServiceManager();
-let SvgRenderer = Renderer.extend({
-  context:null,
+const serviceManager = new ServiceManager();
+const SvgRenderer = Renderer.extend({
+  context: null,
   draw: function(frame) {
-    let i, j,
-    qrious = this.qrious,
+    let i, j;
+    const qrious = this.qrious,
     moduleSize = this.getModuleSize(frame),
     offset = this.getOffset(frame);
 
@@ -47,9 +47,9 @@ let SvgRenderer = Renderer.extend({
     }
   },
   reset: function() {
-    var qrious = this.qrious;
-    this.context = C2S(qrious.size,qrious.size);
-    var size = qrious.size;
+    const qrious = this.qrious;
+    this.context = C2S(qrious.size, qrious.size);
+    const size = qrious.size;
 
     this.context.lineWidth = 1;
     this.context.clearRect(0, 0, size, size);
@@ -58,18 +58,18 @@ let SvgRenderer = Renderer.extend({
     this.context.fillRect(0, 0, size, size);
   },
   resize: function() {
-    var element = this.element;
+    const element = this.element;
     element.width = element.height = this.qrious.size;
   }
 });
 const QRious = Nevis.extend(function(options) {
   optionManager.init(options, this, this.update.bind(this));
 
-  var element = optionManager.get('element', this);
-  var elementService = serviceManager.getService('element');
-  var canvas = element && elementService.isCanvas(element) ? element : elementService.createCanvas();
-  var image = element && elementService.isImage(element) ? element : elementService.createImage();
-  var svgCanvas = elementService.createCanvas();
+  const element = optionManager.get('element', this);
+  const elementService = serviceManager.getService('element');
+  const canvas = element && elementService.isCanvas(element) ? element : elementService.createCanvas();
+  const image = element && elementService.isImage(element) ? element : elementService.createImage();
+  const svgCanvas = elementService.createCanvas();
   this._canvasRenderer = new CanvasRenderer(this, canvas, true);
   this._imageRenderer = new ImageRenderer(this, image, image === element);
   this._svgRenderer = new SvgRenderer(this, svgCanvas, optionManager.get('hasSvg', this));
@@ -88,7 +88,7 @@ const QRious = Nevis.extend(function(options) {
     return this.canvas.toDataURL(mime || this.mime);
   },
   update: function() {
-    var frame = new Frame({
+    const frame = new Frame({
       level: this.level,
       value: this.value
     });
