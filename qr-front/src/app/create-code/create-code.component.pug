@@ -11,12 +11,12 @@
         li(*ngFor="let type of codeTypes", role="menuitem")
           button.dropdown-item( [disabled]="type.private && !(authService.userObservable | async)?.uid", (click)="selectForm(type.name)") {{typesMap[type.name]}}
     ui-view      
-    code-options([code]="code")
+    app-code-options([code]="code")
   .col-xs-12.col-sm-6.col-md-4
-    display-code([code]="code")
+    app-display-code([code]="code")
     .form-group
       button.btn.btn-success(*ngIf="(authService.userObservable | async)?.uid", (click)="saveCode()") Save code
         app-callback.pull-right( [hidden]="!saving")
-      export-code([code]="code")
+      app-export-code([code]="code")
     .form-group([ngClass]="{'has-error':errorMessage && errorMessage.type==='error'}")
       span.help-block(*ngIf="errorMessage") {{errorMessage.message}}

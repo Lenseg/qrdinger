@@ -2,4 +2,4 @@
   div.loader-page([hidden]="codes")
     app-callback
   div.col-sm-6.col-md-4.col-lg-4.mb-10(*ngFor="let code of codes")
-    code-list-item([code]="code")
+    app-code-list-item([code]="code")
