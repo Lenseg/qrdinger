@@ -4,14 +4,14 @@ import { CodesService } from '../_services/index';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
-  selector:'codes-list',
-  templateUrl:'./codes-list.component.html'
+  selector: 'app-codes-list',
+  templateUrl: './codes-list.component.html'
 })
 
-export class CodesListComponent implements OnInit{
+export class CodesListComponent implements OnInit {
   codes: Code[];
-  error:any;
-  constructor(private codesService:CodesService){
+  error: any;
+  constructor(private codesService: CodesService) {
   }
   ngOnInit() { this.getCodes(); }
 
@@ -20,11 +20,11 @@ export class CodesListComponent implements OnInit{
            .subscribe(
              codes => {
                 this.codes = [];
-                codes.forEach((code)=>{
-                  let codeObj = new Code(code);
+                codes.forEach((code) => {
+                  const codeObj = new Code(code);
                   codeObj.id = code.$key;
                   this.codes.push(codeObj);
-                })
+                });
              },
              error =>  this.error = error);
   }

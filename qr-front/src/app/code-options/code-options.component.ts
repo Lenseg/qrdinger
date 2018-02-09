@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StateService } from '@uirouter/angular';
 
@@ -9,35 +9,37 @@ import { codeTypesRepresentations } from '../_global/definitions';
 
 import { isHexColor } from '../_global/directives';
 @Component({
-  selector: 'code-options',
+  selector: 'app-code-options',
   templateUrl: './code-options.component.html'
 })
-export class CodeOptionsComponent {
-  @Input() code : Code;
-  form : FormGroup;
-  level : string | number;
-  constructor(private fb: FormBuilder, private paramsService:ParamsService, private stateService:StateService){
+export class CodeOptionsComponent implements OnChanges {
+  @Input() code: Code;
+  form: FormGroup;
+  level: string | number;
+  constructor(private fb: FormBuilder, private paramsService: ParamsService, private stateService: StateService) {
 
   }
-  ngOnChanges(){
+  ngOnChanges() {
     this.createForm();
     this.bindChangeEvents();
   }
-  createForm(){
-    var formValues:CodeOptionsForm = {
+  createForm() {
+    const formValues: CodeOptionsForm = {
       level : 1,
       foreground : '#000000',
       background : '#ffffff'
     };
-    for(let option in formValues){
-      if(option === 'level'){
-        formValues.level = this.parseLevel(this.code.options.level)
-      } else {
-        formValues[option] = this.code.options[option] || formValues[option];
+    for (const option in formValues) {
+      if (formValues.hasOwnProperty(option)) {
+        if (option === 'level') {
+          formValues.level = this.parseLevel(this.code.options.level);
+        } else {
+          formValues[option] = this.code.options[option] || formValues[option];
+        }
       }
     }
     this.form = this.fb.group(formValues);
-    this.updateCode(this.form.value)
+    this.updateCode(this.form.value);
   }
   // ngDoCheck() {
   //   if(this.code){
@@ -67,16 +69,16 @@ export class CodeOptionsComponent {
   //     }
   //   }
   // }
-  bindChangeEvents(){
+  bindChangeEvents() {
     this.paramsService.bindFormParamsUpdate(this.form);
-    this.form.valueChanges.subscribe(()=>{
+    this.form.valueChanges.subscribe(() => {
       this.updateCode(this.form.value);
-    })
+    });
   }
-  parseLevel(level){
-    let parseResult
-    if(typeof level === 'string'){
-      switch(level.toLowerCase()){
+  parseLevel(level) {
+    let parseResult;
+    if (typeof level === 'string') {
+      switch (level.toLowerCase()) {
         case 'l' :
           parseResult = 1;
           break;
@@ -90,8 +92,8 @@ export class CodeOptionsComponent {
           parseResult = 4;
           break;
       }
-    } else if (typeof level === 'number'){
-      switch(level){
+    } else if (typeof level === 'number') {
+      switch (level) {
         case 1 :
           parseResult = 'L';
           break;
@@ -106,16 +108,16 @@ export class CodeOptionsComponent {
           break;
       }
     }
-    return parseResult
+    return parseResult;
   }
-  updateCode(value : CodeOptionsForm){
-    var options : any = Object.assign({},value);
+  updateCode(value: CodeOptionsForm) {
+    const options: any = Object.assign({}, value);
     options.level = this.parseLevel(options.level);
-    Object.assign(this.code.options, options)
+    Object.assign(this.code.options, options);
   }
 }
-class CodeOptionsForm{
-  level:number;
-  background:string;
-  foreground:string;
+interface CodeOptionsForm {
+  level: number;
+  background: string;
+  foreground: string;
 }

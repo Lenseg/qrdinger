@@ -4,15 +4,45 @@ import { StateService } from '@uirouter/angular';
 import { ErrorMessage } from '../_global/definitions';
 
 import { AuthService } from '../_services/index';
+
+const errors = {
+  password: {
+    required : {
+      type: 'err',
+      message: 'Password required'
+    }
+  },
+  passwordConfirm: {
+    required : {
+      type: 'err',
+      message: 'Confirm password'
+    },
+    match: {
+      type: 'err',
+      message: 'Passwords doesn\'t match'
+    }
+  },
+  email : {
+    required : {
+      type: 'err',
+      message: 'Email required'
+    },
+    pattern : {
+      type: 'err',
+      message: 'Invalid email'
+    }
+  }
+};
+
 @Component({
-  selector:'reqister',
-  templateUrl:'./register.component.html'
+  selector: 'app-reqister',
+  templateUrl: './register.component.html'
 })
-export class RegisterComponent{
+export class RegisterComponent {
   emailRegexp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
 
-  form : FormGroup;
+  form: FormGroup;
 
   passwordErrors: ErrorMessage[] = [];
   passwordWarns: ErrorMessage[] = [];
@@ -20,86 +50,62 @@ export class RegisterComponent{
   emailWarns: ErrorMessage[] = [];
   passwordConfirmErrors: ErrorMessage[] = [];
   passwordConfirmWarns: ErrorMessage[] = [];
-  constructor(private fb:FormBuilder, private authService:AuthService){
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.createForm();
     this.bindUpdateEvents();
   }
-  createForm():void{
+  createForm(): void {
     this.form = this.fb.group({
-      email: ['',[
+      email: ['', [
         Validators.required,
         Validators.pattern(this.emailRegexp)
       ]],
-      password: ['',Validators.required],
-      passwordConfirm: ['',Validators.required]
-    },{
-      validator: this.isPasswordsAreSame('password','passwordConfirm')
+      password: ['', Validators.required],
+      passwordConfirm: ['', Validators.required]
+    }, {
+      validator: this.isPasswordsAreSame('password', 'passwordConfirm')
     });
   }
-  bindUpdateEvents():void{
-    this.form.valueChanges.subscribe((value:string) => {
-      for(let controlName in errors){
-        const control = this.form.get(controlName);
-        this[controlName+'Errors'] = [];
-        this[controlName+'Warns'] = [];
-        if (control && control.dirty && !control.valid) {
-          for (const key in control.errors) {
-            const errMessage = errors[controlName][key];
-            if(errMessage.type === 'err'){
-              this[controlName+'Errors'].push(errMessage)
-            } else {
-              this[controlName+'Warns'].push(errMessage)
+  bindUpdateEvents(): void {
+    this.form.valueChanges.subscribe((value: string) => {
+      for (const controlName in errors) {
+        if (errors.hasOwnProperty(controlName)) {
+          const control = this.form.get(controlName);
+          this[controlName + 'Errors'] = [];
+          this[controlName + 'Warns'] = [];
+          if (control && control.dirty && !control.valid) {
+            for (const key in control.errors) {
+              if (control.errors.hasOwnProperty(key)) {
+                const errMessage = errors[controlName][key];
+                if (errMessage.type === 'err') {
+                  this[controlName + 'Errors'].push(errMessage);
+                } else {
+                  this[controlName + 'Warns'].push(errMessage);
+                }
+              }
             }
           }
         }
       }
     });
   }
-  register(){
+  register() {
     this.authService.registerUser(this.form.value.email, this.form.value.password);
   }
-  isPasswordsAreSame(passControlName:string,passConfirmControlName:string){
+  isPasswordsAreSame(passControlName: string, passConfirmControlName: string) {
     return(group: FormGroup) => {
-      let passControl = group.get(passControlName);
-      let passConfirmControl = group.get(passConfirmControlName);
-      if(passConfirmControl.value !== passControl.value){
-        let newErrors = Object.assign(passConfirmControl.errors || {}, {match:true});
-        passConfirmControl.setErrors(newErrors)
+      const passControl = group.get(passControlName);
+      const passConfirmControl = group.get(passConfirmControlName);
+      if (passConfirmControl.value !== passControl.value) {
+        const newErrors = Object.assign(passConfirmControl.errors || {}, {match: true});
+        passConfirmControl.setErrors(newErrors);
       } else {
-        if(passConfirmControl.errors && passConfirmControl.errors.match){
-          let newErrors = Object.assign(passConfirmControl.errors || {}, {});
+        if (passConfirmControl.errors && passConfirmControl.errors.match) {
+          const newErrors = Object.assign(passConfirmControl.errors || {}, {});
           delete newErrors.match;
           passConfirmControl.setErrors(newErrors);
         }
       }
-    }
-  }
-}
-const errors = {
-  password:{
-    required : {
-      type:'err',
-      message:'Password required'
-    }
-  },
-  passwordConfirm:{
-    required : {
-      type:'err',
-      message:'Confirm password'
-    },
-    match:{
-      type:'err',
-      message:'Passwords doesn\'t match'
-    }
-  },
-  email : {
-    required : {
-      type:'err',
-      message:'Email required'
-    },
-    pattern : {
-      type:'err',
-      message:'Invalid email'
-    }
+    };
   }
 }

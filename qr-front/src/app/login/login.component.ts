@@ -15,32 +15,32 @@ export class LoginComponent {
   @Input() returnTo: TargetState;
   authenticating: boolean;
   errorMessage: ErrorMessage;
-  form : FormGroup;
+  form: FormGroup;
 
-  constructor(private fb:FormBuilder, private $state: StateService, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private $state: StateService, private authService: AuthService) {
    this.createForm();
   }
-  createForm():void{
+  createForm(): void {
     this.form = this.fb.group({
-      email: ['',[
+      email: ['', [
         Validators.required,
         Validators.pattern(this.emailRegexp)
       ]],
-      password: ['',Validators.required],
+      password: ['', Validators.required],
     });
   }
   login() {
     this.authenticating = true;
-    this.authService.loginWithEmail(this.form.value.email, this.form.value.password).catch((error)=>{
+    this.authService.loginWithEmail(this.form.value.email, this.form.value.password).catch((error) => {
       this.authenticating = false;
       this.errorMessage = {
-        type:'error',
-        message:error.message
-      }
-    })
+        type: 'error',
+        message: error.message
+      };
+    });
   }
 }
-class credentials {
-  username:string | null;
-  password:string | null;
+interface Credentials {
+  username: string | null;
+  password: string | null;
 }

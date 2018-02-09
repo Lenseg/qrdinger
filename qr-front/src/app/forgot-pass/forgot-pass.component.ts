@@ -10,14 +10,14 @@ import { ErrorMessage } from '../_global/definitions';
 export class ForgotPassComponent {
   emailRegexp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
   errorMessage: ErrorMessage;
-  form:FormGroup;
-  loading:boolean;
-  constructor(private fb:FormBuilder, private authService: AuthService) {
+  form: FormGroup;
+  loading: boolean;
+  constructor(private fb: FormBuilder, private authService: AuthService) {
    this.createForm();
   }
-  createForm():void{
+  createForm(): void {
     this.form = this.fb.group({
-      email: ['',[
+      email: ['', [
         Validators.required,
         Validators.pattern(this.emailRegexp)
       ]]
@@ -25,18 +25,18 @@ export class ForgotPassComponent {
   }
   resetPass() {
     this.loading = true;
-    this.authService.resetPass(this.form.value.email).then(()=> {
+    this.authService.resetPass(this.form.value.email).then(() => {
       this.loading = false;
       this.errorMessage = {
-        type:'success',
+        type: 'success',
         message: 'Reset email has been sent.'
-      }
-    }).catch((error:any) => {
+      };
+    }).catch((error: any) => {
       this.loading = false;
       this.errorMessage = {
-        type:'error',
+        type: 'error',
         message: error.message
-      }
+      };
     });
   }
 }

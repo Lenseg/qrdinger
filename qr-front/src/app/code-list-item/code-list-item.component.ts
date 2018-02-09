@@ -3,16 +3,16 @@ import { Code } from '../_global/code';
 import { CodesService } from '../_services/index';
 
 @Component({
-  selector:'code-list-item',
-  templateUrl:'./code-list-item.component.html'
+  selector: 'app-code-list-item',
+  templateUrl: './code-list-item.component.html'
 })
 
 export class CodesListItemComponent {
-  @Input('code') code : Code;
+  @Input('code') code: Code;
 
-  constructor(private codesService:CodesService){}
+  constructor(private codesService: CodesService) {}
 
-  delete(){
-    this.codesService.removeCode(this.code.id)
+  delete() {
+    this.codesService.removeCode(this.code.id);
   }
 }

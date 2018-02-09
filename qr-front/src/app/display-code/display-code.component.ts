@@ -1,51 +1,54 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, HostListener, OnChanges, OnInit, DoCheck } from '@angular/core';
 import { QRious } from '../_global/qrious';
 import { Code } from '../_global/code';
 
 @Component({
-  selector: 'display-code',
-  templateUrl: './display-code.component.html',
-  host:{
-    '(window:resize)':'onResize()'
-  }
+  selector: 'app-display-code',
+  templateUrl: './display-code.component.html'
 })
 
-export class DisplayCodeComponent {
+export class DisplayCodeComponent implements OnChanges, OnInit, DoCheck {
 
-  private codeInstance : any = {};
-  @Input('code') code : Code;
-  @ViewChild('canvas') canvas:ElementRef;
-  @ViewChild('canvasContainer') canvasContainer:ElementRef;
+  private codeInstance: any = {};
+  @Input('code') code: Code;
+  @ViewChild('canvas') canvas: ElementRef;
+  @ViewChild('canvasContainer') canvasContainer: ElementRef;
   constructor () {
 
   }
-  ngOnChanges(){
+  ngOnChanges () {
     this.updateCode();
   }
-  ngOnInit(){
+  ngOnInit () {
     this.updateSize();
     this.createCode();
   }
   ngDoCheck() {
     this.updateCode();
   }
-  onResize(){
+  onResize() {
     this.updateSize();
   }
   createCode(): void {
-      this.codeInstance = new QRious({
-        size:this.canvasContainer.nativeElement.offsetWidth,
-        element:this.canvas.nativeElement
-      });
-      console.log(this.codeInstance)
+    this.codeInstance = new QRious({
+      size: this.canvasContainer.nativeElement.offsetWidth,
+      element: this.canvas.nativeElement
+    });
   }
   updateSize(): void {
     this.codeInstance.size = this.canvasContainer.nativeElement.offsetWidth;
   }
-  updateCode() : void {
+  updateCode(): void {
     this.codeInstance.value = this.code.value;
-    for(var option in this.code.options){
+    for (const option in this.code.options) {
+      if (this.code.options.hasOwnProperty(option)) {
         this.codeInstance[option] = this.code.options[option];
+      }
     }
   }
+
+  @HostListener('window:resize', ['$event'])
+  windowOnResize(event) {
+    this.onResize();
+  };
 }

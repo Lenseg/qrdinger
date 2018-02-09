@@ -7,14 +7,14 @@ export class ExportCodeService {
   constructor() {
 
   }
-  saveSVG(qrious, name){
-    let svgData = qrious.swgCtx.getSerializedSvg();
-    this.saveBlob(svgData, "image/svg+xml;charset=utf-8", name);
+  saveSVG(qrious, name) {
+    const svgData = qrious.swgCtx.getSerializedSvg();
+    this.saveBlob(svgData, 'image/svg+xml;charset=utf-8', name);
   }
-  saveImage(qrious,type,name){
+  saveImage(qrious, type, name) {
     let streamType,
     base64;
-    if( type ==='jpeg'){
+    if ( type === 'jpeg') {
         base64 = qrious.toDataURL('image/jpeg');
         streamType = 'image/jpeg';
     } else {
@@ -22,22 +22,22 @@ export class ExportCodeService {
       streamType = 'image/png';
     }
     base64 = base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, '');
-    let byteCharacters = atob(base64),
+    const byteCharacters = atob(base64),
     byteNumbers = new Array(byteCharacters.length);
-    for (var i = 0; i < byteCharacters.length; i++) {
+    for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
-    let byteArray = new Uint8Array(byteNumbers);
-    this.saveBlob(byteArray,streamType,name)
+    const byteArray = new Uint8Array(byteNumbers);
+    this.saveBlob(byteArray, streamType, name);
   }
-  saveBlob(data,streamType,name){
-    let blob = new Blob([data], {type:streamType}),
-    url = URL.createObjectURL(blob),
-    fileName = name || 'code';
-    if(~window.navigator.userAgent.indexOf("MSIE ")){
-      navigator.msSaveBlob(blob,fileName)
+  saveBlob(data, streamType, name) {
+    const blob = new Blob([data], {type: streamType});
+    let url = URL.createObjectURL(blob);
+    const fileName = name || 'code';
+    if (~window.navigator.userAgent.indexOf('MSIE ')) {
+      navigator.msSaveBlob(blob, fileName);
     } else {
-      let a = document.createElement("a");
+      const a = document.createElement('a');
       url = URL.createObjectURL(blob);
       a.href = url;
       a.download = fileName;
@@ -45,18 +45,20 @@ export class ExportCodeService {
       URL.revokeObjectURL(url);
     }
   }
-  export(code:Code, type:string){
-    let elem = document.createElement('canvas'),
+  export(code: Code, type: string) {
+    const elem = document.createElement('canvas'),
     qrious = new QRious({
-      size:500,
-      element:elem,
-      hasSvg:type === 'svg'
+      size: 500,
+      element: elem,
+      hasSvg: type === 'svg'
     });
     qrious.value = code.value;
-    for(var option in code.options){
-      qrious[option] = code.options[option];
+    for (const option in code.options) {
+      if (code.options.hasOwnProperty(option)) {
+        qrious[option] = code.options[option];
+      }
     }
-    if(type === 'svg'){
+    if (type === 'svg') {
       this.saveSVG(qrious, name);
     } else {
       this.saveImage(qrious, type, name);

@@ -1,4 +1,4 @@
-import { Component, Input, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Inject, ViewChild, ElementRef, OnChanges } from '@angular/core';
 
 import { StateService, UIRouterGlobals } from '@uirouter/angular';
 
@@ -15,7 +15,7 @@ import { ErrorMessage } from '../_global/definitions';
   selector: 'app-create-code',
   templateUrl: './create-code.component.html'
 })
-export class CreateCodeComponent {
+export class CreateCodeComponent implements OnChanges {
   public code: Code;
   public codeId: string;
   private stateName: string;
