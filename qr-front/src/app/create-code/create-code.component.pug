@@ -10,7 +10,7 @@
       ul.dropdown-menu( *dropdownMenu role="menu" )
         li(*ngFor="let type of codeTypes", role="menuitem")
           button.dropdown-item( [disabled]="type.private && !(authService.userObservable | async)?.uid", (click)="selectForm(type.name)") {{typesMap[type.name]}}
-    ui-view      
+    ui-view     
     app-code-options([code]="code")
   .col-xs-12.col-sm-6.col-md-4
     app-display-code([code]="code")

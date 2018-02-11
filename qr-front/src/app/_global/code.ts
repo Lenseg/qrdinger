@@ -46,7 +46,7 @@ export class Code {
   set model(model){
     if (this._model && this._model.type === model.type) {
       for (const prop in model) {
-        if (model.hasOwnPoperty(prop)) {
+        if (model.hasOwnProperty(prop)) {
           this._model[prop] = model[prop];
         }
       }

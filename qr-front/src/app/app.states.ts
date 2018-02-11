@@ -1,6 +1,10 @@
 import {Transition} from '@uirouter/angular';
 
 import { CodesService } from './_services/index';
+import { Code } from './_global/code';
+import 'rxjs/add/operator/toPromise';
+
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -112,6 +116,18 @@ const editState = {
       description: 'Basic qr-code generator and exporter. Various qr-code types and stylig supported. Raster and vector code exporting.'
     }
   },
+  resolve: [
+    {
+      token: 'code',
+      // policy: { when: 'EAGER' },
+      deps: [Transition, CodesService],
+      resolveFn: (trs: Transition, codesService: CodesService) => {
+        const promice = codesService.getCode(trs.params().codeId).map(e => new Code(e)).toPromise();
+        console.log(promice);
+        return promice;
+      }
+    }
+  ],
   component: CreateCodeComponent,
   params: {
     codeId: {

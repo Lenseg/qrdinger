@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { StateService } from '@uirouter/angular';
 import { ErrorMessage } from '../_global/definitions';
@@ -28,6 +28,7 @@ const errors = {
   templateUrl: './wifi-form.component.html'
 })
 export class WifiFormComponent {
+  @Input('code') code;
   form: FormGroup;
   typeCache: string;
 

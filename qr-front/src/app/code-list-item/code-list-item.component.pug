@@ -3,7 +3,7 @@
     app-display-code( [code]="code" )
   .col-xs-6
     h4.text-overflow.mt-5
-      a( uiSref="edit",  [uiParams]="{ codeId: code.id }") {{code.name}}
+      a( uiSref="{{'edit.'+ code.type}}",  [uiParams]="{ codeId: code.id }") {{code.name}}
   .col-xs-2
     p.code-type.pull-right(*ngIf="code.type") {{code.type}}
   .col-xs-8

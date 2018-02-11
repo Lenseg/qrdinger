@@ -1,4 +1,4 @@
-import { Component, Input, Inject, ViewChild, ElementRef, OnChanges } from '@angular/core';
+import { Component, Input, Inject, ViewChild, ElementRef, OnChanges, OnInit } from '@angular/core';
 
 import { StateService, UIRouterGlobals } from '@uirouter/angular';
 
@@ -15,8 +15,8 @@ import { ErrorMessage } from '../_global/definitions';
   selector: 'app-create-code',
   templateUrl: './create-code.component.html'
 })
-export class CreateCodeComponent implements OnChanges {
-  public code: Code;
+export class CreateCodeComponent implements OnChanges, OnInit {
+  @Input('code') code: Code;
   public codeId: string;
   private stateName: string;
   public activeType: string;
@@ -28,22 +28,22 @@ export class CreateCodeComponent implements OnChanges {
   constructor (public codesService: CodesService, public modelUpdateService: ModelUpdateService,
     private paramsService: ParamsService, public authService: AuthService,  public stateService: StateService,
      public uiRouterGlobals: UIRouterGlobals) {
+  }
+
+  ngOnInit() {
     this.codeId = this.stateService.params['codeId'];
-    this.code = new Code();
-    if (this.codeId !== 'new') {
-      this.codesService.getCode(this.codeId).subscribe(code =>
-        this.code = new Code(code));
-    }
-    const currentFormType = uiRouterGlobals.current.name.replace('edit.', '');
-    this.activeType = this.typesMap[currentFormType] || null;
     this.modelUpdateService.modelUdpaveEvent.subscribe((data: any) => {
       this.code.model = data;
     });
+    this.setRoute();
     this.setOptionsFromParams();
   }
 
   ngOnChanges() {
     this.setOptionsFromParams();
+    this.setRoute();
+  }
+  setRoute() {
     if (this.code.type && this.code.type !== this.stateName) {
       this.activeType = this.typesMap[this.code.type];
       this.stateName = this.code.type;
